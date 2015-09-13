@@ -36,6 +36,7 @@
 		9D78C52C1BA5A48000B00BC2 /* SpendyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpendyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D78C5311BA5A48000B00BC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D78C5321BA5A48000B00BC2 /* SpendyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendyTests.swift; sourceTree = "<group>"; };
+		9D78C53D1BA5A5FC00B00BC2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +60,7 @@
 		9D78C50E1BA5A47F00B00BC2 = {
 			isa = PBXGroup;
 			children = (
+				9D78C53D1BA5A5FC00B00BC2 /* README.md */,
 				9D78C5191BA5A47F00B00BC2 /* Spendy */,
 				9D78C52F1BA5A48000B00BC2 /* SpendyTests */,
 				9D78C5181BA5A47F00B00BC2 /* Products */,
@@ -409,6 +411,7 @@
 				9D78C5381BA5A48000B00BC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9D78C5391BA5A48000B00BC2 /* Build configuration list for PBXNativeTarget "SpendyTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +420,7 @@
 				9D78C53B1BA5A48000B00BC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
