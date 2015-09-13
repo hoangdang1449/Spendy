@@ -13,6 +13,7 @@
 		9D78C5241BA5A47F00B00BC2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D78C5231BA5A47F00B00BC2 /* Images.xcassets */; };
 		9D78C5271BA5A47F00B00BC2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D78C5251BA5A47F00B00BC2 /* LaunchScreen.xib */; };
 		9D78C5331BA5A48000B00BC2 /* SpendyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D78C5321BA5A48000B00BC2 /* SpendyTests.swift */; };
+		A77E0D207AB770857E146536 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CFE2D5C782640C353708467 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +27,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		336AA2D8B3532AD262FC53AA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		3CFE2D5C782640C353708467 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DE97D10C3A0C6C161C8B7C1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9D78C5171BA5A47F00B00BC2 /* Spendy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spendy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D78C51B1BA5A47F00B00BC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D78C51C1BA5A47F00B00BC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A77E0D207AB770857E146536 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +62,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E5A4CE6364CE7730E7A6D65 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3CFE2D5C782640C353708467 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9D78C50E1BA5A47F00B00BC2 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +77,8 @@
 				9D78C5191BA5A47F00B00BC2 /* Spendy */,
 				9D78C52F1BA5A48000B00BC2 /* SpendyTests */,
 				9D78C5181BA5A47F00B00BC2 /* Products */,
+				F3D0B671BD77741EE28235E3 /* Pods */,
+				7E5A4CE6364CE7730E7A6D65 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +129,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F3D0B671BD77741EE28235E3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6DE97D10C3A0C6C161C8B7C1 /* Pods.debug.xcconfig */,
+				336AA2D8B3532AD262FC53AA /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -121,9 +145,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D78C5361BA5A48000B00BC2 /* Build configuration list for PBXNativeTarget "Spendy" */;
 			buildPhases = (
+				ED2CDF3B1DAC899558D36025 /* Check Pods Manifest.lock */,
 				9D78C5131BA5A47F00B00BC2 /* Sources */,
 				9D78C5141BA5A47F00B00BC2 /* Frameworks */,
 				9D78C5151BA5A47F00B00BC2 /* Resources */,
+				80BF7CC90F9F4EC6B161D61D /* Embed Pods Frameworks */,
+				AA90D0E082CA78032CB37F45 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,6 +235,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		80BF7CC90F9F4EC6B161D61D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA90D0E082CA78032CB37F45 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED2CDF3B1DAC899558D36025 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9D78C5131BA5A47F00B00BC2 /* Sources */ = {
@@ -340,6 +415,7 @@
 		};
 		9D78C5371BA5A48000B00BC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DE97D10C3A0C6C161C8B7C1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Spendy/Info.plist;
@@ -350,6 +426,7 @@
 		};
 		9D78C5381BA5A48000B00BC2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 336AA2D8B3532AD262FC53AA /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Spendy/Info.plist;
