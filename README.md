@@ -33,5 +33,7 @@ http://invis.io/HY4710BAB
 
 ## Set up
 
+Nothing yet, but when the app is ready:
+
 Pods are checked in to source control, so just open `Spendy.xcworkspace` and run in Xcode.
 Tested Xcode version: 6.4
