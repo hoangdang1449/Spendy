@@ -17,7 +17,6 @@ class CustomSegmentedControl: UISegmentedControl {
         super.touchesBegan( touches , withEvent: event )
     }
     
-    // This was the key to make it work as expected
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesEnded( touches , withEvent: event )
         

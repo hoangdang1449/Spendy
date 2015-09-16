@@ -26,6 +26,7 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var commonTracsations = [String]() // transaction object
     var selectedIndexPath: NSIndexPath?
+    var oldSelectedSegmentIndex: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,7 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("QuickCell", forIndexPath: indexPath) as! QuickCell
         
         cell.categoryLabel.text = commonTracsations[indexPath.row]
@@ -80,7 +82,11 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func amountSegmentChanged(sender: UISegmentedControl) {
+        
         println("touch")
+        
+        var segment = sender as! CustomSegmentedControl
+        oldSelectedSegmentIndex = segment.oldValue
         
         if sender.selectedSegmentIndex == 3 {
             var selectedCell = sender.superview?.superview as! QuickCell
@@ -101,6 +107,7 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: Button
     
     func addBarButton() {
+        
         addButton = UIButton()
         customizeBarButton(addButton!, imageName: "Tick", isLeft: false)
         addButton!.addTarget(self, action: "onAddButton:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -159,15 +166,27 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
         amountText.text = ""
         
         // TODO: set selected segment depending on object's value
-        
+        var cell = tableView.cellForRowAtIndexPath(selectedIndexPath!) as! QuickCell
+        cell.amoutSegment.selectedSegmentIndex = oldSelectedSegmentIndex!
         closePopup()
     }
     
     @IBAction func onDonePopup(sender: UIButton) {
+        
         if let selectedIndexPath = selectedIndexPath {
             var cell = tableView.cellForRowAtIndexPath(selectedIndexPath) as! QuickCell
-            cell.amoutSegment.setTitle(amountText.text, forSegmentAtIndex: 3)
-            amountText.text = ""
+            if !amountText.text.isEmpty {
+                cell.amoutSegment.setTitle(amountText.text, forSegmentAtIndex: 3)
+                amountText.text = ""
+                oldSelectedSegmentIndex = 3
+            } else {
+                if cell.amoutSegment.titleForSegmentAtIndex(3) == "Other" {
+                    // TODO: set selected segment depending on object's value
+                    cell.amoutSegment.selectedSegmentIndex = oldSelectedSegmentIndex!
+                } else {
+                    oldSelectedSegmentIndex = 3
+                }
+            }
         }
         
         closePopup()
