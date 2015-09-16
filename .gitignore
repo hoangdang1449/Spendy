@@ -31,3 +31,6 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
+
+# We store app secret keys in this plist. Do not check this file in because the source code is public
+Spendy/Config.plist

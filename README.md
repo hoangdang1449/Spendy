@@ -33,6 +33,9 @@ http://invis.io/HY4710BAB
 
 ## Set up
 
+We need to load some API keys from the `Spendy/Config.plist` file.
+Please request this file from us directly or copy `Spendy/Config.plist.sample` to `Spendy/Config.plist` and fill out your own values.
+
 Nothing yet, but when the app is ready:
 
 Pods are checked in to source control, so just open `Spendy.xcworkspace` and run in Xcode.
