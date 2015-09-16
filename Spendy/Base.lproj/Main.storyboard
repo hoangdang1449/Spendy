@@ -419,7 +419,7 @@
         <!--Settings-->
         <scene sceneID="Xwq-Bn-LSA">
             <objects>
-                <viewController id="VF6-6p-W9J" sceneMemberID="viewController">
+                <viewController id="VF6-6p-W9J" customClass="SettingsViewController" customModule="Spendy" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iQD-uH-5fa"/>
                         <viewControllerLayoutGuide type="bottom" id="FmE-DU-2Fb"/>
@@ -475,10 +475,10 @@
             </objects>
             <point key="canvasLocation" x="245" y="-40"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Root Tab Bar Controller-->
         <scene sceneID="yeq-Qy-ugT">
             <objects>
-                <tabBarController id="BsO-hW-yMh" sceneMemberID="viewController">
+                <tabBarController id="BsO-hW-yMh" customClass="RootTabBarController" customModule="Spendy" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="ml0-6b-0AB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>

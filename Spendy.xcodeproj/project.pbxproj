@@ -26,6 +26,8 @@
 		9DB8A8611BA9E70C000F03A1 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8A8601BA9E70C000F03A1 /* SelectCategoryViewController.swift */; };
 		9DB8A8631BA9EAC0000F03A1 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8A8621BA9EAC0000F03A1 /* CategoryCell.swift */; };
 		9DB8A8681BA9FAA6000F03A1 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DB8A8671BA9FAA6000F03A1 /* Settings.storyboard */; };
+		9DB8A86A1BA9FF64000F03A1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8A8691BA9FF64000F03A1 /* SettingsViewController.swift */; };
+		9DB8A86C1BAA064E000F03A1 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8A86B1BAA064E000F03A1 /* RootTabBarController.swift */; };
 		A77E0D207AB770857E146536 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CFE2D5C782640C353708467 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -67,6 +69,8 @@
 		9DB8A8601BA9E70C000F03A1 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
 		9DB8A8621BA9EAC0000F03A1 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		9DB8A8671BA9FAA6000F03A1 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		9DB8A8691BA9FF64000F03A1 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		9DB8A86B1BAA064E000F03A1 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 				18F39CC41BA964450099B714 /* QuickViewController.swift */,
 				18F39CCC1BA9C8330099B714 /* AddViewController.swift */,
 				9DB8A8601BA9E70C000F03A1 /* SelectCategoryViewController.swift */,
+				9DB8A8691BA9FF64000F03A1 /* SettingsViewController.swift */,
+				9DB8A86B1BAA064E000F03A1 /* RootTabBarController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -174,10 +180,10 @@
 				18F39CC01BA962A50099B714 /* View Controllers */,
 				9D78C51C1BA5A47F00B00BC2 /* AppDelegate.swift */,
 				9D78C5201BA5A47F00B00BC2 /* Main.storyboard */,
+				9DB8A8671BA9FAA6000F03A1 /* Settings.storyboard */,
 				9D78C5231BA5A47F00B00BC2 /* Images.xcassets */,
 				9D78C5251BA5A47F00B00BC2 /* LaunchScreen.xib */,
 				9D78C51A1BA5A47F00B00BC2 /* Supporting Files */,
-				9DB8A8671BA9FAA6000F03A1 /* Settings.storyboard */,
 			);
 			path = Spendy;
 			sourceTree = "<group>";
@@ -380,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DB8A8631BA9EAC0000F03A1 /* CategoryCell.swift in Sources */,
+				9DB8A86C1BAA064E000F03A1 /* RootTabBarController.swift in Sources */,
 				18F39CC51BA964450099B714 /* QuickViewController.swift in Sources */,
 				18F39CD91BA9D2F80099B714 /* DateCell.swift in Sources */,
 				18F39CCF1BA9CB200099B714 /* Helper.swift in Sources */,
@@ -388,6 +395,7 @@
 				18F39CCD1BA9C8330099B714 /* AddViewController.swift in Sources */,
 				9DB8A8611BA9E70C000F03A1 /* SelectCategoryViewController.swift in Sources */,
 				18F39CC31BA962D10099B714 /* HomeViewController.swift in Sources */,
+				9DB8A86A1BA9FF64000F03A1 /* SettingsViewController.swift in Sources */,
 				18F39CCB1BA9A8280099B714 /* CustomSegmentedControl.swift in Sources */,
 				18F39CD31BA9D2AE0099B714 /* NoteCell.swift in Sources */,
 				18F39CC71BA966190099B714 /* QuickCell.swift in Sources */,
