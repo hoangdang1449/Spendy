@@ -8,9 +8,10 @@
 
 import UIKit
 
-class PayeeCell: UITableViewCell {
+class NoteCell: UITableViewCell {
     
-    @IBOutlet weak var payeeText: UITextField!
+    @IBOutlet weak var noteText: UITextField!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
