@@ -73,10 +73,7 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         
         
-        // Set full width for the separator
-        cell.layoutMargins = UIEdgeInsetsZero
-        cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsetsZero
+        Helper.sharedInstance.setSeparatorFullWidth(cell)
         
         return cell
     }
@@ -102,6 +99,10 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
         var indexPath = tableView.indexPathForCell(selectedCell)
         commonTracsations.removeAtIndex(indexPath!.row)
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+        
+        if commonTracsations.count == 0 {
+            // TODO: same as onCancelButton
+        }
     }
     
     // MARK: Button
@@ -109,11 +110,11 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     func addBarButton() {
         
         addButton = UIButton()
-        customizeBarButton(addButton!, imageName: "Tick", isLeft: false)
+        Helper.sharedInstance.customizeBarButton(self, button: addButton!, imageName: "Tick", isLeft: false)
         addButton!.addTarget(self, action: "onAddButton:", forControlEvents: UIControlEvents.TouchUpInside)
         
         cancelButton = UIButton()
-        customizeBarButton(cancelButton!, imageName: "Cancel", isLeft: true)
+        Helper.sharedInstance.customizeBarButton(self, button: cancelButton!, imageName: "Cancel", isLeft: true)
         cancelButton!.addTarget(self, action: "onCancelButton:", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
@@ -125,24 +126,24 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
         println("on Cancel")
     }
     
-    func customizeBarButton(button: UIButton, imageName: String, isLeft: Bool) {
-        
-        var avatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
-        avatar.image = UIImage(named: imageName)
-        
-        button.setImage(avatar.image, forState: .Normal)
-        button.frame = CGRectMake(0, 0, 22, 22)
-        
-        var item: UIBarButtonItem = UIBarButtonItem()
-        item.customView = button
-//        item.customView?.layer.cornerRadius = 11
-//        item.customView?.layer.masksToBounds = true
-        if isLeft {
-            self.navigationItem.leftBarButtonItem = item
-        } else {
-            self.navigationItem.rightBarButtonItem = item
-        }
-    }
+//    func customizeBarButton(button: UIButton, imageName: String, isLeft: Bool) {
+//        
+//        var avatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
+//        avatar.image = UIImage(named: imageName)
+//        
+//        button.setImage(avatar.image, forState: .Normal)
+//        button.frame = CGRectMake(0, 0, 22, 22)
+//        
+//        var item: UIBarButtonItem = UIBarButtonItem()
+//        item.customView = button
+////        item.customView?.layer.cornerRadius = 11
+////        item.customView?.layer.masksToBounds = true
+//        if isLeft {
+//            self.navigationItem.leftBarButtonItem = item
+//        } else {
+//            self.navigationItem.rightBarButtonItem = item
+//        }
+//    }
     
     // MARK: Popup
     
