@@ -256,7 +256,7 @@
                                             <outlet property="typeSegment" destination="Q2Z-dB-aYH" id="cTo-cX-YOW"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SelectCategoryCell" id="zeY-p5-4rr" customClass="SelectCategoryCell" customModule="Spendy" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SelectAccountOrCategoryCell" id="zeY-p5-4rr" customClass="SelectAccountOrCategoryCell" customModule="Spendy" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zeY-p5-4rr" id="kbs-Ci-VsZ">
@@ -357,7 +357,7 @@
         <!--Select Category-->
         <scene sceneID="AQd-SU-UpW">
             <objects>
-                <viewController id="dQ7-uH-ZY8" customClass="SelectCategoryViewController" customModule="Spendy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dQ7-uH-ZY8" customClass="SelectAccountOrCategoryViewController" customModule="Spendy" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l6P-JO-CZG"/>
                         <viewControllerLayoutGuide type="bottom" id="LvK-xQ-7nW"/>
