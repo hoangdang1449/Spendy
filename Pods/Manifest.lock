@@ -23,14 +23,17 @@ PODS:
   - Bolts/Tasks (1.2.2)
   - Parse (1.8.3):
     - Bolts/Tasks (>= 1.2.2)
+  - SCLAlertView (0.4.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - Parse
+  - SCLAlertView
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
   Parse: 4b251ac63b76d12b334a32579cc3b174446f0c39
+  SCLAlertView: 9e60641edd9efcfc6d58227558eb7b03678dbcf3
 
 COCOAPODS: 0.38.2
