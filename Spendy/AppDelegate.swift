@@ -34,9 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // ****************************************************************************
         // Uncomment this line if you want to enable Crash Reporting
         // ParseCrashReporting.enable()
-        //
-        // Uncomment and fill in with your Parse credentials:
-//        Parse.setApplicationId(config["parse_application_id"] as! String, clientKey: config["parse_client_key"] as! String)
 
         if let config = config {
             let applicationId = config["parse_application_id"] as? String
@@ -46,7 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             println("Please set up Parse keys in Config.plist file")
         }
 
-
         //
         // If you are using Facebook, uncomment and add your FacebookAppID to your bundle's plist as
         // described here: https://developers.facebook.com/docs/getting-started/facebook-sdk-for-ios/
@@ -54,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // PFFacebookUtils.initializeFacebook()
         // ****************************************************************************
 
+        // allows anonymousm users
         PFUser.enableAutomaticUser()
 
         let defaultACL = PFACL();
