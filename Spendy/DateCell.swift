@@ -12,9 +12,13 @@ class DateCell: UITableViewCell {
     
     @IBOutlet weak var dateLabel: UILabel!
 
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+//        datePicker.alpha = 0
+        datePicker.backgroundColor = UIColor.whiteColor()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -22,5 +26,14 @@ class DateCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    @IBAction func onDatePicker(sender: AnyObject) {
+        
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "E, MMM dd, yyyy"
+        var strDate = dateFormatter.stringFromDate(datePicker.date)
+        dateLabel.text = strDate
+    }
+    
 
 }
