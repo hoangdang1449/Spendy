@@ -1,5 +1,5 @@
 //
-//  SelectCategoryCell.swift
+//  SelectAccountOrCategoryCell.swift
 //  Spendy
 //
 //  Created by Dave Vo on 9/16/15.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class SelectCategoryCell: UITableViewCell {
+class SelectAccountOrCategoryCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var typeLabel: UILabel!
+    var itemClass: String!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,5 +24,4 @@ class SelectCategoryCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

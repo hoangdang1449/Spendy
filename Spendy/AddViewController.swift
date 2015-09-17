@@ -136,18 +136,20 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier("SelectCategoryCell", forIndexPath: indexPath) as! SelectCategoryCell
-                
+                let cell = tableView.dequeueReusableCellWithIdentifier("SelectAccountOrCategoryCell", forIndexPath: indexPath) as! SelectAccountOrCategoryCell
+
+                cell.itemClass = "Category"
                 cell.titleLabel.text = "Category"
-                cell.typeLabel.text = "Other"
+                cell.typeLabel.text = "Other" // TODO: replace with default category
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
                 return cell
             case 1:
-                let cell = tableView.dequeueReusableCellWithIdentifier("SelectCategoryCell", forIndexPath: indexPath) as! SelectCategoryCell
-                
+                let cell = tableView.dequeueReusableCellWithIdentifier("SelectAccountOrCategoryCell", forIndexPath: indexPath) as! SelectAccountOrCategoryCell
+
+                cell.itemClass = "Account"
                 cell.titleLabel.text = "Account"
-                cell.typeLabel.text = "Cash"
+                cell.typeLabel.text = "Cash" // TODO: replace with default account
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
                 return cell
@@ -193,8 +195,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
     func typeSegmentChanged(sender: UISegmentedControl) {
         
-        var fromCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! SelectCategoryCell
-        var toCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! SelectCategoryCell
+        var fromCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! SelectAccountOrCategoryCell
+        var toCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! SelectAccountOrCategoryCell
         
         if sender.selectedSegmentIndex == 2 {
             
@@ -221,5 +223,15 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         var cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1)) as! DateCell
         
         cell.dateLabel.text = strDate
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let toController = segue.destinationViewController as! UIViewController
+        if toController is SelectAccountOrCategoryViewController {
+            let vc = toController as! SelectAccountOrCategoryViewController
+
+            let cell = sender as! SelectAccountOrCategoryCell
+            vc.itemClass = cell.itemClass
+        }
     }
 }
