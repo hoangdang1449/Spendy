@@ -243,6 +243,28 @@ public class SCLAlertView: UIViewController {
         inputs.append(txt)
         return txt
     }
+    
+    // ADD
+    
+    public func addAmoutField(title:String?=nil)->UITextField {
+        // Update view height
+        kWindowHeight += kTextFieldHeight
+        // Add text field
+        let txt = UITextField()
+        txt.keyboardType = UIKeyboardType.DecimalPad
+        txt.borderStyle = UITextBorderStyle.RoundedRect
+        txt.font = UIFont(name:kDefaultFont, size: 14)
+        txt.autocapitalizationType = UITextAutocapitalizationType.Words
+        txt.clearButtonMode = UITextFieldViewMode.WhileEditing
+        txt.layer.masksToBounds = true
+        txt.layer.borderWidth = 1.0
+        if title != nil {
+            txt.placeholder = title!
+        }
+        contentView.addSubview(txt)
+        inputs.append(txt)
+        return txt
+    }
 
     public func addButton(title:String, action:()->Void)->SCLButton {
         let btn = addButton(title)
