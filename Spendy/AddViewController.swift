@@ -61,6 +61,11 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func onAddButton(sender: UIButton!) {
+        let transaction = Transaction(note: "first note", amount: 123, category: "Meals", account: "Cash", date: NSDate())
+        Transaction.findAll { (transactions, error) -> () in
+            transaction.save()
+            println("After save: \(transactions)")
+        }
         println("on Add")
     }
     
