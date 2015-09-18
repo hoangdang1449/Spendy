@@ -169,12 +169,14 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
                 let fromAcc = selectedDragCell?.nameLabel.text ?? ""
                 let toAcc = previousCell?.nameLabel.text ?? ""
                 
-                let alert = SCLAlertView()
-                let txt = alert.addAmoutField(title: "Enter the amount")
-                alert.addButton("Transfer") {
-                    println("Amount value: \(txt.text)")
+                if !fromAcc.isEmpty && !toAcc.isEmpty {
+                    let alert = SCLAlertView()
+                    let txt = alert.addAmoutField(title: "Enter the amount")
+                    alert.addButton("Transfer") {
+                        println("Amount value: \(txt.text)")
+                    }
+                    alert.showEdit("Transfer", subTitle: "Transfer from \(fromAcc) account to \(toAcc) account", closeButtonTitle: "Cancel", colorStyle: 0x55AEED, colorTextButton: 0xFFFFFF)
                 }
-                alert.showEdit("Transfer", subTitle: "Transfer from \(fromAcc) account to \(toAcc) account", closeButtonTitle: "Cancel", colorStyle: 0x55AEED, colorTextButton: 0xFFFFFF)
             }
         }
         
