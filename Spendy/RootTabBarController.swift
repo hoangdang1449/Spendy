@@ -34,6 +34,11 @@ class RootTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
+        if item.title == "Add" {
+            tabBar.hidden = true
+        }
+    }
 
     /*
     // MARK: - Navigation
