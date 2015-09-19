@@ -31,6 +31,10 @@ class Account: PFObject {
         let user = PFUser.currentUser()!
         
         let localQuery = PFQuery(className: "Account")
+
+        if user.objectId == nil {
+            user.save()
+        }
         localQuery.whereKey("userId", equalTo: user.objectId!)
         localQuery.fromLocalDatastore().findObjectsInBackgroundWithBlock { (accounts: [AnyObject]?, error: NSError?) -> Void in
             if error != nil {
