@@ -5,3 +5,4 @@ use_frameworks!
 pod 'AFNetworking', '~> 2.5'
 pod 'Parse'
 pod 'SCLAlertView'
+pod 'SevenSwitch'

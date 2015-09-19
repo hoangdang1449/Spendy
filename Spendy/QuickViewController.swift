@@ -120,10 +120,12 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func onAddButton(sender: UIButton!) {
         println("on Add")
+        // TODO: transfer to default account's detail
     }
     
     func onCancelButton(sender: UIButton!) {
         println("on Cancel")
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: Popup

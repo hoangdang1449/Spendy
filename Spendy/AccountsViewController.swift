@@ -17,10 +17,16 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var accounts = [String]() // Account object
     
+    var isPreparedDelete = false
+    var justTurnOffDelete = false
+    var selectedDeleteCell: AccountCell?
+    
     var moneyIcon: UIImageView?
     var initialIconCenter: CGPoint?
     var selectedDragCell: AccountCell?
     var previousCell: AccountCell?
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +81,12 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         cell.nameLabel.text = accounts[indexPath.row]
         
-        var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleRightSwipe:"))
+        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        leftSwipe.direction = .Left
+        leftSwipe.delegate = self
+        cell.addGestureRecognizer(leftSwipe)
+        
+        var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         rightSwipe.direction = .Right
         rightSwipe.delegate = self
         cell.addGestureRecognizer(rightSwipe)
@@ -94,12 +105,79 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         return true
     }
     
-    func handleRightSwipe(sender:UISwipeGestureRecognizer) {
+    func handleSwipe(sender:UISwipeGestureRecognizer) {
         
-        var selectedCell = sender.view as! AccountCell
-        var indexPath = tableView.indexPathForCell(selectedCell)
+        if sender.direction == .Left {
+            println("left")
+            var selectedCell = sender.view as! AccountCell
+            var indexPath = tableView.indexPathForCell(selectedCell)
+            
+            if !isPreparedDelete {
+                if selectedCell.frame.origin.x == 0 {
+                    isPreparedDelete = true
+                    selectedDeleteCell = selectedCell
+                    
+                    var deleteLabel = UILabel(frame: CGRect(x: UIScreen.mainScreen().bounds.width, y: 0, width: 70, height: 55))
+                    deleteLabel.text = "Delete"
+                    deleteLabel.textColor = UIColor.whiteColor()
+                    deleteLabel.backgroundColor = UIColor.redColor()
+                    deleteLabel.textAlignment = NSTextAlignment.Center
+                    deleteLabel.font = UIFont.systemFontOfSize(14)
+                    
+                    selectedCell.contentView.addSubview(deleteLabel)
+                    
+                    deleteLabel.userInteractionEnabled = true
+                    var tapDelete = UITapGestureRecognizer(target: self, action: Selector("tapDelete:"))
+                    tapDelete.numberOfTapsRequired = 1
+                    tapDelete.delaysTouchesBegan = true
+                    tapDelete.cancelsTouchesInView = true
+                    tapDelete.delegate = self
+                    deleteLabel.addGestureRecognizer(tapDelete)
+                    
+//                    selectedCell.contentView.addSubview(deleteLabel)
+                    
+//                    var deleteButton = UIButton(frame: CGRect(x: UIScreen.mainScreen().bounds.width, y: 0, width: 70, height: 55))
+//                    deleteButton.setTitle("Delete", forState: .Normal)
+//                    deleteButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+//                    deleteButton.backgroundColor = UIColor.redColor()
+//                    deleteButton.titleLabel?.textAlignment = .Center
+//                    deleteButton.titleLabel?.font = UIFont.systemFontOfSize(14)
+//                    
+//                    println("add target button")
+////                    deleteButton.addTarget(self, action: Selector("tapDelete:"), forControlEvents: UIControlEvents.TouchUpInside)
+//                    deleteButton.addTarget(self, action: "tapDeleteaa:", forControlEvents: UIControlEvents.TouchUpInside)
+//                    selectedCell.contentView.addSubview(deleteButton)
+                    
+                    UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 2, options: nil, animations: { () -> Void in
+                        selectedCell.center = CGPoint(x: selectedCell.center.x - 70, y: selectedCell.center.y)
+                        }, completion: { (bool) -> Void in
+                            println("animated: \(bool)")
+                    })
+                } else {
+                    turnOffDelete(selectedCell)
+                }
+            } else {
+                turnOffDelete(selectedDeleteCell!)
+            }
+        } else {
+            println("right")
+            if isPreparedDelete {
+                turnOffDelete(selectedDeleteCell!)
+            }
+        }
+    }
+    
+    func turnOffDelete(cell: AccountCell) {
+        self.isPreparedDelete = false
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            cell.center = CGPoint(x: cell.center.x + 70, y: cell.center.y)
+        })
+    }
+    
+    func tapDelete(sender: UITapGestureRecognizer) {
         
-        
+        println("tap delete")
+        var indexPath = tableView.indexPathForCell(selectedDeleteCell!)
         let alertView = SCLAlertView()
         alertView.addButton("Delete", action: { () -> Void in
             self.accounts.removeAtIndex(indexPath!.row)
@@ -107,22 +185,28 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
             // TODO: Delete this account and its transactions
         })
         
-//        alertView.showWarning("Warning", subTitle: "Deleting Saving will cause to also delete its transactions.")
         alertView.showWarning("Warning", subTitle: "Deleting Saving will cause to also delete its transactions.", closeButtonTitle: "Cancel", colorStyle: 0x55AEED, colorTextButton: 0xFFFFFF)
     }
     
     func handlePanGesture(sender: UIPanGestureRecognizer) {
-        
-        selectedDragCell = sender.view as! AccountCell
-        var indexPath = tableView.indexPathForCell(selectedDragCell!)
-        
-        selectedDragCell?.backgroundColor = UIColor(netHex: 0xCAE1FF)
-        
-        
+        println("pan")
         var translation = sender.translationInView(tableView)
         var state = sender.state
-        if state == UIGestureRecognizerState.Began {
-            
+        
+        if isPreparedDelete {
+            if state == UIGestureRecognizerState.Began {
+                turnOffDelete(selectedDeleteCell!)
+                justTurnOffDelete = true
+                return
+            }
+        }
+        
+        selectedDragCell = sender.view as? AccountCell
+        var indexPath = tableView.indexPathForCell(selectedDragCell!)
+        
+        if state == UIGestureRecognizerState.Began && !isPreparedDelete {
+            println("began")
+            selectedDragCell?.backgroundColor = UIColor(netHex: 0xCAE1FF)
             moneyIcon = UIImageView(image: UIImage(named: "MoneyBag"))
             moneyIcon!.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
             moneyIcon!.userInteractionEnabled = true
@@ -133,29 +217,33 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
             initialIconCenter = moneyIcon?.center
         }
         
-        if state == UIGestureRecognizerState.Changed {
+        if state == UIGestureRecognizerState.Changed && !isPreparedDelete {
+            println("change")
             
-            moneyIcon!.center.x = initialIconCenter!.x + translation.x
-            moneyIcon!.center.y = initialIconCenter!.y + translation.y
-            
-            // Highlight the destination cell
-            var cell = getContainAccountCell(moneyIcon!.center)
-            if cell != selectedDragCell {
-                if cell != previousCell {
-                    previousCell?.backgroundColor = UIColor.clearColor()
-                    if let cell = cell {
-                        cell.backgroundColor = UIColor(netHex: 0x739AC5)
+            // if just turn off delete in .Began, do nothing
+            if !justTurnOffDelete {
+                if let moneyIcon = moneyIcon {
+                    moneyIcon.center.x = initialIconCenter!.x + translation.x
+                    moneyIcon.center.y = initialIconCenter!.y + translation.y
+                }
+                
+                // Highlight the destination cell
+                var cell = getContainAccountCell(moneyIcon!.center)
+                if cell != selectedDragCell {
+                    if cell != previousCell {
+                        previousCell?.backgroundColor = UIColor.clearColor()
+                        if let cell = cell {
+                            cell.backgroundColor = UIColor(netHex: 0x739AC5)
+                        }
+                        previousCell = cell
                     }
-                    
+                } else {
+                    if previousCell != selectedDragCell {
+                        previousCell?.backgroundColor = UIColor.clearColor()
+                    }
                     previousCell = cell
                 }
-            } else {
-                if previousCell != selectedDragCell {
-                    previousCell?.backgroundColor = UIColor.clearColor()
-                }
-                previousCell = cell
             }
-            
         }
         
         if state == UIGestureRecognizerState.Ended {
@@ -164,22 +252,26 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
             selectedDragCell?.backgroundColor = UIColor.clearColor()
             previousCell?.backgroundColor = UIColor.clearColor()
             
-            if previousCell != selectedDragCell {
-                
-                let fromAcc = selectedDragCell?.nameLabel.text ?? ""
-                let toAcc = previousCell?.nameLabel.text ?? ""
-                
-                if !fromAcc.isEmpty && !toAcc.isEmpty {
-                    let alert = SCLAlertView()
-                    let txt = alert.addAmoutField(title: "Enter the amount")
-                    alert.addButton("Transfer") {
-                        println("Amount value: \(txt.text)")
+            // if just turn off delete in .Began, do nothing
+            if !justTurnOffDelete {
+                if previousCell != selectedDragCell && !isPreparedDelete {
+                    
+                    let fromAcc = selectedDragCell?.nameLabel.text ?? ""
+                    let toAcc = previousCell?.nameLabel.text ?? ""
+                    
+                    if !fromAcc.isEmpty && !toAcc.isEmpty {
+                        let alert = SCLAlertView()
+                        let txt = alert.addAmoutField(title: "Enter the amount")
+                        alert.addButton("Transfer") {
+                            println("Amount value: \(txt.text)")
+                        }
+                        alert.showEdit("Transfer", subTitle: "Transfer from \(fromAcc) account to \(toAcc) account", closeButtonTitle: "Cancel", colorStyle: 0x55AEED, colorTextButton: 0xFFFFFF)
                     }
-                    alert.showEdit("Transfer", subTitle: "Transfer from \(fromAcc) account to \(toAcc) account", closeButtonTitle: "Cancel", colorStyle: 0x55AEED, colorTextButton: 0xFFFFFF)
                 }
+            } else {
+                justTurnOffDelete = false
             }
         }
-        
     }
     
     func getContainAccountCell(point: CGPoint) -> AccountCell? {
@@ -199,6 +291,20 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         return nil
     }
     
+    // MARK: Transfer between 2 views
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let navigationController = segue.destinationViewController as! UINavigationController
+        
+        if navigationController.topViewController is AccountDetailViewController {
+            let accDetailViewController = navigationController.topViewController as! AccountDetailViewController
+            
+            var indexPath: AnyObject!
+            indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+            
+            accDetailViewController.seletedAccount = accounts[indexPath.row]
+        }
+    }
 
 }
