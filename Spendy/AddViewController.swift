@@ -24,6 +24,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var accountCell: SelectAccountOrCategoryCell?
     var dateCell: DateCell?
     var photoCell: PhotoCell?
+    
+    var selectedTransaction: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +40,10 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         isCollaped = true
         
         addBarButton()
+        
+        if let selectedTransaction = selectedTransaction {
+            navigationItem.title = "Edit Transaction"
+        }
 
     }
 
@@ -62,10 +68,12 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func onAddButton(sender: UIButton!) {
         println("on Add")
+        // TODO: transfer to selected aacount's detail
     }
     
     func onCancelButton(sender: UIButton!) {
         println("on Cancel")
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     // MARK: Table View
@@ -127,6 +135,10 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteCell
+                
+                if let selectedTransaction = selectedTransaction {
+                    cell.noteText.text = selectedTransaction
+                }
                 
                 var tapCell = UITapGestureRecognizer(target: self, action: "tapNoteCell:")
                 cell.addGestureRecognizer(tapCell)

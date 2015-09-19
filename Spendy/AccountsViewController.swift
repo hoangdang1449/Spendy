@@ -291,6 +291,20 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         return nil
     }
     
+    // MARK: Transfer between 2 views
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let navigationController = segue.destinationViewController as! UINavigationController
+        
+        if navigationController.topViewController is AccountDetailViewController {
+            let accDetailViewController = navigationController.topViewController as! AccountDetailViewController
+            
+            var indexPath: AnyObject!
+            indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+            
+            accDetailViewController.seletedAccount = accounts[indexPath.row]
+        }
+    }
 
 }

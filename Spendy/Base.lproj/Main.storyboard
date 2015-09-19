@@ -8,7 +8,7 @@
         <!--Quick Add-->
         <scene sceneID="xIk-Fu-f3d">
             <objects>
-                <viewController id="FZf-dF-VZb" customClass="QuickViewController" customModule="Spendy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuickVC" id="FZf-dF-VZb" customClass="QuickViewController" customModule="Spendy" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="htw-fV-fOd"/>
                         <viewControllerLayoutGuide type="bottom" id="ITb-Bs-YSq"/>
@@ -42,6 +42,7 @@
                                                         <segment title="150"/>
                                                         <segment title="Other"/>
                                                     </segments>
+                                                    <color key="tintColor" red="0.33333333333333331" green="0.68235294117647061" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                                                 </segmentedControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meals" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EgV-j5-4xM">
                                                     <rect key="frame" x="48" y="13" width="46" height="21"/>
@@ -184,7 +185,7 @@
         <!--Add Transaction-->
         <scene sceneID="0uG-CD-X9c">
             <objects>
-                <viewController id="hyr-9S-FBl" customClass="AddViewController" customModule="Spendy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddVC" id="hyr-9S-FBl" customClass="AddViewController" customModule="Spendy" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZWh-jo-KQ9"/>
                         <viewControllerLayoutGuide type="bottom" id="CKk-AU-tkm"/>
@@ -193,7 +194,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FR6-66-9bq">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FR6-66-9bq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -519,8 +520,8 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$1234.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mw2-eJ-dqe">
-                                                    <rect key="frame" x="252" y="19" width="60" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1234.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mw2-eJ-dqe">
+                                                    <rect key="frame" x="219" y="19" width="60" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -582,9 +583,86 @@
                     <view key="view" contentMode="scaleToFill" id="2zp-qO-swF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="vEl-cw-yhc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TransactionCell" rowHeight="55" id="axw-QE-u7j" customClass="TransactionCell" customModule="Spendy" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="axw-QE-u7j" id="0K7-5R-8IP">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Cy-vx-BQv">
+                                                    <rect key="frame" x="55" y="8" width="31.5" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Meal" translatesAutoresizingMaskIntoConstraints="NO" id="F6t-n0-Z7u">
+                                                    <rect key="frame" x="8" y="8" width="39" height="39"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="39" id="2qA-1N-djK"/>
+                                                        <constraint firstAttribute="width" constant="39" id="j3F-DX-95E"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sep 18, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRd-ea-w5M">
+                                                    <rect key="frame" x="55" y="31" width="80" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$8.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h09-gK-HHZ">
+                                                    <rect key="frame" x="275" y="8" width="36.5" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1234.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dix-Am-OYf">
+                                                    <rect key="frame" x="256" y="31" width="56" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8Cy-vx-BQv" firstAttribute="top" secondItem="0K7-5R-8IP" secondAttribute="top" constant="8" id="0ud-v5-nO6"/>
+                                                <constraint firstItem="dix-Am-OYf" firstAttribute="baseline" secondItem="bRd-ea-w5M" secondAttribute="baseline" id="1RI-qd-oHa"/>
+                                                <constraint firstItem="8Cy-vx-BQv" firstAttribute="leading" secondItem="bRd-ea-w5M" secondAttribute="leading" id="4ib-ic-MlC"/>
+                                                <constraint firstItem="bRd-ea-w5M" firstAttribute="top" secondItem="8Cy-vx-BQv" secondAttribute="bottom" constant="6" id="Ggu-ws-SQn"/>
+                                                <constraint firstItem="8Cy-vx-BQv" firstAttribute="leading" secondItem="F6t-n0-Z7u" secondAttribute="trailing" constant="8" id="OjN-Nx-v1K"/>
+                                                <constraint firstItem="F6t-n0-Z7u" firstAttribute="leading" secondItem="0K7-5R-8IP" secondAttribute="leading" constant="8" id="Sb9-HE-wzo"/>
+                                                <constraint firstItem="8Cy-vx-BQv" firstAttribute="baseline" secondItem="h09-gK-HHZ" secondAttribute="baseline" id="WU0-Nm-hKj"/>
+                                                <constraint firstItem="dix-Am-OYf" firstAttribute="trailing" secondItem="h09-gK-HHZ" secondAttribute="trailing" constant="0.5" id="bqk-lz-rgu"/>
+                                                <constraint firstItem="8Cy-vx-BQv" firstAttribute="top" secondItem="F6t-n0-Z7u" secondAttribute="top" id="kYv-MU-ZLa"/>
+                                                <constraint firstAttribute="trailing" secondItem="h09-gK-HHZ" secondAttribute="trailing" constant="8" id="xKN-kR-qDM"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="amountLabel" destination="h09-gK-HHZ" id="v6q-tJ-nMg"/>
+                                            <outlet property="balanceLabel" destination="dix-Am-OYf" id="TTP-AT-I51"/>
+                                            <outlet property="dateLabel" destination="bRd-ea-w5M" id="yxl-qc-uop"/>
+                                            <outlet property="iconView" destination="F6t-n0-Z7u" id="txa-Cv-2Sd"/>
+                                            <outlet property="noteLabel" destination="8Cy-vx-BQv" id="XRw-74-9s0"/>
+                                            <segue destination="VYT-47-MUC" kind="modal" id="nyf-fc-Ysj"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GXj-an-6w6" firstAttribute="top" secondItem="vEl-cw-yhc" secondAttribute="bottom" id="Qjg-IW-4YH"/>
+                            <constraint firstItem="vEl-cw-yhc" firstAttribute="top" secondItem="2zp-qO-swF" secondAttribute="top" id="c2T-er-aYz"/>
+                            <constraint firstItem="vEl-cw-yhc" firstAttribute="leading" secondItem="2zp-qO-swF" secondAttribute="leading" id="hSe-bc-EW1"/>
+                            <constraint firstAttribute="trailing" secondItem="vEl-cw-yhc" secondAttribute="trailing" id="kwu-D9-7oJ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Cash" id="Zhh-Le-tdZ"/>
+                    <connections>
+                        <outlet property="tableView" destination="vEl-cw-yhc" id="zjV-Ug-aLH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1gi-Ji-5ET" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -720,4 +798,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="nyf-fc-Ysj"/>
+    </inferredMetricsTieBreakers>
 </document>

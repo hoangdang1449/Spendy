@@ -11,6 +11,7 @@
 		18499E1F1BAB23FB0066E6E5 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18499E1E1BAB23FB0066E6E5 /* AccountsViewController.swift */; };
 		1866C4D51BAC221C000200D2 /* AccountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866C4D41BAC221C000200D2 /* AccountDetailViewController.swift */; };
 		18AA6A4D1BAA7575003210FD /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA6A4C1BAA7575003210FD /* PhotoCell.swift */; };
+		18AB69A91BACF6DB0061029F /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB69A81BACF6DB0061029F /* TransactionCell.swift */; };
 		18F39CC31BA962D10099B714 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC21BA962D10099B714 /* HomeViewController.swift */; };
 		18F39CC51BA964450099B714 /* QuickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC41BA964450099B714 /* QuickViewController.swift */; };
 		18F39CC71BA966190099B714 /* QuickCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC61BA966190099B714 /* QuickCell.swift */; };
@@ -50,6 +51,7 @@
 		18499E1E1BAB23FB0066E6E5 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		1866C4D41BAC221C000200D2 /* AccountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailViewController.swift; sourceTree = "<group>"; };
 		18AA6A4C1BAA7575003210FD /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		18AB69A81BACF6DB0061029F /* TransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		18F39CC21BA962D10099B714 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		18F39CC41BA964450099B714 /* QuickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickViewController.swift; sourceTree = "<group>"; };
 		18F39CC61BA966190099B714 /* QuickCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickCell.swift; sourceTree = "<group>"; };
@@ -108,9 +110,18 @@
 			name = "Accounts View";
 			sourceTree = "<group>";
 		};
+		18AB69A71BACF6B10061029F /* Account Detail View */ = {
+			isa = PBXGroup;
+			children = (
+				18AB69A81BACF6DB0061029F /* TransactionCell.swift */,
+			);
+			name = "Account Detail View";
+			sourceTree = "<group>";
+		};
 		18F39CBF1BA9629B0099B714 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				18AB69A71BACF6B10061029F /* Account Detail View */,
 				18499E1B1BAB23550066E6E5 /* Accounts View */,
 				9DB8A8641BA9EAEC000F03A1 /* Select Category */,
 				18F39CD11BA9D2930099B714 /* Add View */,
@@ -423,6 +434,7 @@
 				18F39CD31BA9D2AE0099B714 /* NoteCell.swift in Sources */,
 				18F39CC71BA966190099B714 /* QuickCell.swift in Sources */,
 				18499E1F1BAB23FB0066E6E5 /* AccountsViewController.swift in Sources */,
+				18AB69A91BACF6DB0061029F /* TransactionCell.swift in Sources */,
 				18F39CD71BA9D2E70099B714 /* SelectAccountOrCategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
