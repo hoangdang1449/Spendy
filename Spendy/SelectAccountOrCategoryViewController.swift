@@ -52,14 +52,15 @@ class SelectAccountOrCategoryViewController: UIViewController {
     }
 
     func loadCategories() {
-        var query = PFQuery(className: "Category")
+        var query = Category.query()!
+
         query.findObjectsInBackgroundWithBlock { (categories: [AnyObject]?, error: NSError?) -> Void in
             if let error = error {
                 println("Error loading categories: \(error)")
             } else {
                 println("categories: \(categories)")
 
-                self.items = categories as! [PFObject]?
+                self.items = categories as! [Category]?
 
                 self.tableView.reloadData()
             }
@@ -67,15 +68,19 @@ class SelectAccountOrCategoryViewController: UIViewController {
     }
 
     func loadAccounts() {
-        // TODO
-        println("Will load accounts from user's preference later")
-        var account_1 = PFObject(className: "Account")
-        account_1.setObject("Cash", forKey: "name")
-        var account_2 = PFObject(className: "Account")
-        account_2.setObject("Savings", forKey: "name")
+        var query = Account.query()!
 
-        self.items = [account_1, account_2]
-        self.tableView.reloadData()
+        query.findObjectsInBackgroundWithBlock { (accounts: [AnyObject]?, error: NSError?) -> Void in
+            if let error = error {
+                println("Error loading accounts: \(error)")
+            } else {
+                println("accounts: \(accounts)")
+
+                self.items = accounts as! [Account]?
+                // TODO: set up default account here
+                self.tableView.reloadData()
+            }
+        }
     }
 }
 

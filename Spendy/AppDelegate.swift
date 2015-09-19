@@ -85,6 +85,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application.registerForRemoteNotificationTypes(types)
         }
 
+        setupDefaultData()
+
         return true
     }
 
@@ -140,4 +142,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
     //     return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, session:PFFacebookUtils.session())
     // }
+
+    func setupDefaultData() {
+        // set up our query for a User object
+        let userQuery = PFUser.query();
+
+        // configure any constraints on your query...
+        // for example, you may want users who are also playing with or against you
+
+        // tell the query to fetch all of the Weapon objects along with the user
+        // get the "many" at the same time that you're getting the "one"
+        userQuery?.includeKey("accounts");
+        userQuery?.whereKey("email", equalTo: PFUser.currentUser()!.email)
+
+        // execute the query
+        userQuery?.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+            println("objects: \(objects)")
+            // objects contains all of the User objects, and their associated Weapon objects, too
+        }
+
+    }
 }

@@ -71,6 +71,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     
     func onCancelButton(sender: UIButton!) {
         println("on Cancel")
+        
     }
 
     // MARK: Table View
