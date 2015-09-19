@@ -500,7 +500,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="55" id="jRq-Yx-US3" customClass="AccountCell" customModule="Spendy" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AccountCell" rowHeight="55" id="jRq-Yx-US3" customClass="AccountCell" customModule="Spendy" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jRq-Yx-US3" id="bJu-xa-ZXB">
@@ -519,7 +519,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1234.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mw2-eJ-dqe">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="$1234.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mw2-eJ-dqe">
                                                     <rect key="frame" x="252" y="19" width="60" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -548,6 +548,7 @@
                                             <outlet property="iconView" destination="QAD-ed-FLr" id="YMt-yL-S1t"/>
                                             <outlet property="nameLabel" destination="dHj-fF-tYz" id="n3y-wm-9Jk"/>
                                             <outlet property="typeLabel" destination="m1B-Dt-VGx" id="NXw-7C-Dqt"/>
+                                            <segue destination="hE1-9j-bc3" kind="modal" id="YMt-k6-EIU"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -569,6 +570,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ofa-0V-zTE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="253" y="750"/>
+        </scene>
+        <!--Cash-->
+        <scene sceneID="EFt-91-9fN">
+            <objects>
+                <viewController id="U9P-O2-ygB" customClass="AccountDetailViewController" customModule="Spendy" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QvV-FL-rfc"/>
+                        <viewControllerLayoutGuide type="bottom" id="GXj-an-6w6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2zp-qO-swF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Cash" id="Zhh-Le-tdZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1gi-Ji-5ET" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="742" y="1471"/>
         </scene>
         <!--Home-->
         <scene sceneID="a6i-ec-Am4">
@@ -666,6 +686,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lar-Cx-ME8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-151" y="750"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jII-wN-y0X">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hE1-9j-bc3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xVx-Pg-euM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="U9P-O2-ygB" kind="relationship" relationship="rootViewController" id="RPg-kI-5JA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iGD-U2-M2T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="253" y="1471"/>
         </scene>
     </scenes>
     <resources>
