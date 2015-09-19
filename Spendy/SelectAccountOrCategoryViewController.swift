@@ -52,19 +52,8 @@ class SelectAccountOrCategoryViewController: UIViewController {
     }
 
     func loadCategories() {
-        var query = Category.query()!
-
-        query.findObjectsInBackgroundWithBlock { (categories: [AnyObject]?, error: NSError?) -> Void in
-            if let error = error {
-                println("Error loading categories: \(error)")
-            } else {
-                println("categories: \(categories)")
-
-                self.items = categories as! [Category]?
-
-                self.tableView.reloadData()
-            }
-        }
+        self.items = Category.all()! as [Category]?
+        self.tableView.reloadData()
     }
 
     func loadAccounts() {

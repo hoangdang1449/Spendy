@@ -144,6 +144,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // }
 
     func setupDefaultData() {
+        // Load all categories from local
+        Category.loadAll()
 
+        // If categories are empty from local, load from server
+
+        // Load user's accounts
+        // If accounts are empty,load from server
+        // If accounts are still empty, create new ones, save to server
+
+        // TODO: load other settings
     }
 }
