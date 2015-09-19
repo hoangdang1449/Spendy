@@ -15,7 +15,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var addAccountButton: UIButton?
     
-    var accounts = [String]() // Account object
+    var accounts: [Account]?
     
     var isPreparedDelete = false
     var justTurnOffDelete = false
@@ -34,8 +34,8 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        
-        accounts = ["Default Account", "Debit", "Saving"]
+
+        accounts = Account.all()
         tableView.reloadData()
         
         if (tableView.contentSize.height <= tableView.frame.size.height) {
@@ -73,13 +73,13 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accounts.count
+        return accounts?.count ?? 0
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as! AccountCell
         
-        cell.nameLabel.text = accounts[indexPath.row]
+        cell.nameLabel.text = accounts![indexPath.row].name
         
         var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         leftSwipe.direction = .Left
@@ -180,7 +180,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         var indexPath = tableView.indexPathForCell(selectedDeleteCell!)
         let alertView = SCLAlertView()
         alertView.addButton("Delete", action: { () -> Void in
-            self.accounts.removeAtIndex(indexPath!.row)
+            self.accounts?.removeAtIndex(indexPath!.row)
             self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
             // TODO: Delete this account and its transactions
         })
@@ -277,7 +277,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     func getContainAccountCell(point: CGPoint) -> AccountCell? {
         var indexPathSet = [NSIndexPath]()
         
-        for index in 0..<accounts.count {
+        for index in 0..<accounts!.count {
             indexPathSet.append(NSIndexPath(forRow: index, inSection: 0))
         }
         
@@ -303,7 +303,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
             var indexPath: AnyObject!
             indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
             
-            accDetailViewController.seletedAccount = accounts[indexPath.row]
+            accDetailViewController.selectedAccount = accounts![indexPath.row]
         }
     }
 

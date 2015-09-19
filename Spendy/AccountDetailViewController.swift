@@ -18,7 +18,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     var transactions = [[String]]()
     
-    var seletedAccount: String!
+    var selectedAccount: Account!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +36,8 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         downSwipe.delegate = self
         tableView.addGestureRecognizer(downSwipe)
         
-        if let seletedAccount = seletedAccount {
-            navigationItem.title = seletedAccount
+        if let selectedAccount = selectedAccount {
+            navigationItem.title = selectedAccount.name
         }
     }
 
