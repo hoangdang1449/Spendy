@@ -204,8 +204,8 @@ import QuartzCore
     /*
     *   Initialization
     */
-    override public init() {
-        super.init(frame: CGRectMake(0, 0, 50, 30))
+    convenience init() {
+        self.init(frame: CGRectMake(0, 0, 50, 30))
         
         self.setup()
     }
