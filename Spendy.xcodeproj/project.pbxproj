@@ -22,6 +22,9 @@
 		18F39CD51BA9D2C00099B714 /* AmountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CD41BA9D2C00099B714 /* AmountCell.swift */; };
 		18F39CD71BA9D2E70099B714 /* SelectAccountOrCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CD61BA9D2E70099B714 /* SelectAccountOrCategoryCell.swift */; };
 		18F39CD91BA9D2F80099B714 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CD81BA9D2F80099B714 /* DateCell.swift */; };
+		9D3EA5FA1BAB3BBD00EF4B47 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EA5F91BAB3BBD00EF4B47 /* Transaction.swift */; };
+		9D3EA5FC1BABFB1300EF4B47 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EA5FB1BABFB1300EF4B47 /* Account.swift */; };
+		9D3EA6001BABFF0B00EF4B47 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EA5FF1BABFF0B00EF4B47 /* Category.swift */; };
 		9D78C51D1BA5A47F00B00BC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D78C51C1BA5A47F00B00BC2 /* AppDelegate.swift */; };
 		9D78C5221BA5A47F00B00BC2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D78C5201BA5A47F00B00BC2 /* Main.storyboard */; };
 		9D78C5241BA5A47F00B00BC2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D78C5231BA5A47F00B00BC2 /* Images.xcassets */; };
@@ -65,6 +68,9 @@
 		336AA2D8B3532AD262FC53AA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3CFE2D5C782640C353708467 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DE97D10C3A0C6C161C8B7C1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		9D3EA5F91BAB3BBD00EF4B47 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		9D3EA5FB1BABFB1300EF4B47 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		9D3EA5FF1BABFF0B00EF4B47 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		9D78C5171BA5A47F00B00BC2 /* Spendy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spendy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D78C51B1BA5A47F00B00BC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D78C51C1BA5A47F00B00BC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +155,9 @@
 			isa = PBXGroup;
 			children = (
 				18F39CCE1BA9CB200099B714 /* Helper.swift */,
+				9D3EA5F91BAB3BBD00EF4B47 /* Transaction.swift */,
+				9D3EA5FB1BABFB1300EF4B47 /* Account.swift */,
+				9D3EA5FF1BABFF0B00EF4B47 /* Category.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -421,6 +430,7 @@
 				9DB8A86C1BAA064E000F03A1 /* RootTabBarController.swift in Sources */,
 				18F39CC51BA964450099B714 /* QuickViewController.swift in Sources */,
 				18AA6A4D1BAA7575003210FD /* PhotoCell.swift in Sources */,
+				9D3EA5FC1BABFB1300EF4B47 /* Account.swift in Sources */,
 				1866C4D51BAC221C000200D2 /* AccountDetailViewController.swift in Sources */,
 				18F39CD91BA9D2F80099B714 /* DateCell.swift in Sources */,
 				18F39CCF1BA9CB200099B714 /* Helper.swift in Sources */,
@@ -428,6 +438,7 @@
 				18F39CD51BA9D2C00099B714 /* AmountCell.swift in Sources */,
 				18F39CCD1BA9C8330099B714 /* AddViewController.swift in Sources */,
 				18F39CC31BA962D10099B714 /* HomeViewController.swift in Sources */,
+				9D3EA5FA1BAB3BBD00EF4B47 /* Transaction.swift in Sources */,
 				18499E1D1BAB237D0066E6E5 /* AccountCell.swift in Sources */,
 				9DB8A86A1BA9FF64000F03A1 /* SettingsViewController.swift in Sources */,
 				18F39CCB1BA9A8280099B714 /* CustomSegmentedControl.swift in Sources */,
@@ -436,6 +447,7 @@
 				18499E1F1BAB23FB0066E6E5 /* AccountsViewController.swift in Sources */,
 				18AB69A91BACF6DB0061029F /* TransactionCell.swift in Sources */,
 				18F39CD71BA9D2E70099B714 /* SelectAccountOrCategoryCell.swift in Sources */,
+				9D3EA6001BABFF0B00EF4B47 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

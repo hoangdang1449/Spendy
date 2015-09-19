@@ -45,37 +45,12 @@ class SelectAccountOrCategoryViewController: UIViewController {
 
     func loadItems() {
         if itemClass == "Category" {
-            loadCategories()
+            items = Category.all() as [Category]?
+            tableView.reloadData()
         } else if itemClass == "Account" {
-            loadAccounts()
+            items = Account.all() as [Account]?
+            tableView.reloadData()
         }
-    }
-
-    func loadCategories() {
-        var query = PFQuery(className: "Category")
-        query.findObjectsInBackgroundWithBlock { (categories: [AnyObject]?, error: NSError?) -> Void in
-            if let error = error {
-                println("Error loading categories: \(error)")
-            } else {
-                println("categories: \(categories)")
-
-                self.items = categories as! [PFObject]?
-
-                self.tableView.reloadData()
-            }
-        }
-    }
-
-    func loadAccounts() {
-        // TODO
-        println("Will load accounts from user's preference later")
-        var account_1 = PFObject(className: "Account")
-        account_1.setObject("Cash", forKey: "name")
-        var account_2 = PFObject(className: "Account")
-        account_2.setObject("Savings", forKey: "name")
-
-        self.items = [account_1, account_2]
-        self.tableView.reloadData()
     }
 }
 
