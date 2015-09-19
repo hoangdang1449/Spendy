@@ -81,9 +81,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
         } else {
-            let types = UIRemoteNotificationType.Badge | UIRemoteNotificationType.Alert | UIRemoteNotificationType.Sound
-            application.registerForRemoteNotificationTypes(types)
+            let types = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
         }
+
+        setupDefaultData()
 
         return true
     }
@@ -140,4 +142,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
     //     return FBAppCall.handleOpenURL(url, sourceApplication:sourceApplication, session:PFFacebookUtils.session())
     // }
+
+    func setupDefaultData() {
+        // Load all categories from local
+        // If categories are empty from local, load from server
+        Category.loadAll()
+
+        // Load user's accounts
+        // If accounts are empty,load from server
+        // If accounts are still empty, create new ones, save to server
+        Account.loadAll()
+        
+
+        // TODO: load other settings
+    }
 }

@@ -29,8 +29,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.tabBarController?.tabBar.hidden = true
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -67,13 +65,28 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func onAddButton(sender: UIButton!) {
+        let transaction = Transaction(note: "first note", amount: 123, category: "Meals", account: "Cash", date: NSDate())
+        Transaction.findAll { (transactions, error) -> () in
+            transaction.save()
+            println("After save: \(transactions)")
+        }
         println("on Add")
         // TODO: transfer to selected aacount's detail
     }
     
     func onCancelButton(sender: UIButton!) {
         println("on Cancel")
-        dismissViewControllerAnimated(true, completion: nil)
+        if presentingViewController != nil {
+            dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            // unhide the tabBar because we hid it for the Add tab
+            self.tabBarController?.tabBar.hidden = false
+            let rootVC = parentViewController?.parentViewController as? RootTabBarController
+            if let rootVC = rootVC {
+                rootVC.selectedIndex = 0
+
+            }
+        }
     }
 
     // MARK: Table View
