@@ -71,4 +71,11 @@ extension SelectAccountOrCategoryViewController: UITableViewDataSource, UITableV
         cell.nameLabel.text = item?.objectForKey("name") as! String?
         return cell
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var selectedCategory = tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
+        
+        // TODO: pass Category or Item to previous view
+    }
+    
 }

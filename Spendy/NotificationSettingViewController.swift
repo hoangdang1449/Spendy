@@ -33,10 +33,15 @@ class NotificationSettingViewController: UIViewController, UITableViewDataSource
         
         addBarButton()
         
-        var downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleDownSwipe:"))
+        var downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         downSwipe.direction = .Down
         downSwipe.delegate = self
         tableView.addGestureRecognizer(downSwipe)
+        
+        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        leftSwipe.direction = .Left
+        leftSwipe.delegate = self
+        tableView.addGestureRecognizer(leftSwipe)
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,12 +106,25 @@ class NotificationSettingViewController: UIViewController, UITableViewDataSource
         return true
     }
     
-    func handleDownSwipe(sender: UISwipeGestureRecognizer) {
-        
-        if sender.direction == .Down {
+    func handleSwipe(sender: UISwipeGestureRecognizer) {
+        switch sender.direction {
+        case UISwipeGestureRecognizerDirection.Down:
             var vc = self.storyboard?.instantiateViewControllerWithIdentifier("AddReminderVC") as! AddReminderViewController
-            var nc = UINavigationController(rootViewController: vc)
-            self.presentViewController(nc, animated: true, completion: nil)
+            navigationController?.pushViewController(vc, animated: true)
+            break
+            
+        case UISwipeGestureRecognizerDirection.Left:
+            var selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: tableView) as! ReminderCell
+            var indexPath = tableView.indexPathForCell(selectedCell)
+            
+            if let indexPath = indexPath {
+                remiders.removeAtIndex(indexPath.row)
+                tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+            break
+            
+        default:
+            break
         }
     }
     
@@ -122,10 +140,10 @@ class NotificationSettingViewController: UIViewController, UITableViewDataSource
     // MARK: Transfer between 2 views
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let navigationController = segue.destinationViewController as! UINavigationController
+        let vc = segue.destinationViewController as! UIViewController
         
-        if navigationController.topViewController is AddReminderViewController {
-            let addViewController = navigationController.topViewController as! AddReminderViewController
+        if vc is AddReminderViewController {
+            let addViewController = vc as! AddReminderViewController
             
             var indexPath: AnyObject!
             indexPath = tableView.indexPathForCell(sender as! UITableViewCell)

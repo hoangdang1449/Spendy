@@ -201,7 +201,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func handlePanGesture(sender: UIPanGestureRecognizer) {
-        println("pan")
+//        println("pan")
         var translation = sender.translationInView(tableView)
         var state = sender.state
         
@@ -263,6 +263,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         if state == UIGestureRecognizerState.Ended {
+            println("end")
             
             moneyIcon?.removeFromSuperview()
             selectedDragCell?.backgroundColor = UIColor.clearColor()

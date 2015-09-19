@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1806E9061BADE11C008047A6 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1806E9051BADE11C008047A6 /* DatePickerDialog.swift */; };
 		18499E1D1BAB237D0066E6E5 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18499E1C1BAB237D0066E6E5 /* AccountCell.swift */; };
 		18499E1F1BAB23FB0066E6E5 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18499E1E1BAB23FB0066E6E5 /* AccountsViewController.swift */; };
 		1866C4D51BAC221C000200D2 /* AccountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866C4D41BAC221C000200D2 /* AccountDetailViewController.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1806E9051BADE11C008047A6 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		18499E1C1BAB237D0066E6E5 /* AccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		18499E1E1BAB23FB0066E6E5 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		1866C4D41BAC221C000200D2 /* AccountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		1884A4DD1BAD6E7C00D24257 /* Add Reminder View */ = {
 			isa = PBXGroup;
 			children = (
+				1806E9051BADE11C008047A6 /* DatePickerDialog.swift */,
 				1884A4DE1BAD6E9A00D24257 /* CategoryReminderCell.swift */,
 				1884A4E01BAD6EAA00D24257 /* TimeCell.swift */,
 			);
@@ -464,6 +467,7 @@
 				18AA6A4D1BAA7575003210FD /* PhotoCell.swift in Sources */,
 				9D3EA5FC1BABFB1300EF4B47 /* Account.swift in Sources */,
 				1866C4D51BAC221C000200D2 /* AccountDetailViewController.swift in Sources */,
+				1806E9061BADE11C008047A6 /* DatePickerDialog.swift in Sources */,
 				18F39CD91BA9D2F80099B714 /* DateCell.swift in Sources */,
 				18F39CCF1BA9CB200099B714 /* Helper.swift in Sources */,
 				1884A4DF1BAD6E9A00D24257 /* CategoryReminderCell.swift in Sources */,
