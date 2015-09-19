@@ -9,14 +9,13 @@
 import Foundation
 import Parse
 
-var _all: [Category]?
+var _allCategories: [Category]?
 
 class Category: PFObject {
-    dynamic var name:String?
+    @NSManaged var name:String!
 
     init(name: String) {
         super.init()
-
         self.name = name
     }
 
@@ -36,9 +35,9 @@ class Category: PFObject {
                 println("Error loading categories from Local: \(error)")
             } else {
                 println("[local] categories: \(categories)")
-                _all = categories as! [Category]?
+                _allCategories = categories as! [Category]?
 
-                if _all == nil || _all!.isEmpty {
+                if _allCategories == nil || _allCategories!.isEmpty {
                     // load from remote
                     let remoteQuery = PFQuery(className: "Category")
                     remoteQuery.findObjectsInBackgroundWithBlock { (categories: [AnyObject]?, error: NSError?) -> Void in
@@ -46,18 +45,17 @@ class Category: PFObject {
                             println("Error loading categories from Server: \(error)")
                         } else {
                             println("[server] categories: \(categories)")
-                            _all = categories as! [Category]?
-                            PFObject.pinAllInBackground(_all)
+                            _allCategories = categories as! [Category]?
+                            PFObject.pinAllInBackground(_allCategories)
                         }
                     }
                 }
             }
         }
-
     }
 
     static func all() -> [Category]? {
-        return _all;
+        return _allCategories;
     }
 }
 

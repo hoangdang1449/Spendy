@@ -45,30 +45,11 @@ class SelectAccountOrCategoryViewController: UIViewController {
 
     func loadItems() {
         if itemClass == "Category" {
-            loadCategories()
+            items = Category.all() as [Category]?
+            tableView.reloadData()
         } else if itemClass == "Account" {
-            loadAccounts()
-        }
-    }
-
-    func loadCategories() {
-        self.items = Category.all()! as [Category]?
-        self.tableView.reloadData()
-    }
-
-    func loadAccounts() {
-        var query = Account.query()!
-
-        query.findObjectsInBackgroundWithBlock { (accounts: [AnyObject]?, error: NSError?) -> Void in
-            if let error = error {
-                println("Error loading accounts: \(error)")
-            } else {
-                println("accounts: \(accounts)")
-
-                self.items = accounts as! [Account]?
-                // TODO: set up default account here
-                self.tableView.reloadData()
-            }
+            items = Account.all() as [Account]?
+            tableView.reloadData()
         }
     }
 }
