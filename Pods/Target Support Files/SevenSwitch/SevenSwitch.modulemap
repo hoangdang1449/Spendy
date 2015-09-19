@@ -1,0 +1,6 @@
+framework module SevenSwitch {
+  umbrella header "SevenSwitch-umbrella.h"
+
+  export *
+  module * { export * }
+}
