@@ -15,8 +15,8 @@ import Parse
 //
 // Inherit from NSObject so that we can use #setValue and #valueForKey
 class HTObject: NSObject {
-    let _object = PFObject(className: HTObject.parseClassName())
-    
+    var _object: PFObject?
+
     subscript(key: String) -> AnyObject? {
         get {
             return valueForKey(key)
@@ -30,17 +30,18 @@ class HTObject: NSObject {
     func setProperty(key: String, value: AnyObject?) {
         setValue(value, forKey: key)
         if value != nil {
-            _object.setObject(value!, forKey: key)
+            _object!.setObject(value!, forKey: key)
         }
     }
     
     // Should be called after we make any changes
     func save() {
-        _object.pinInBackground()
-        _object.saveEventually()
+        println("pining and saving: \(self) \(toString())")
+        _object!.pinInBackground()
+        _object!.saveInBackground()
     }
     
-    class func parseClassName() -> String {
-        return "PleaseSetClassName"
+    func toString() -> String! {
+        return "\(_object)"
     }
 }

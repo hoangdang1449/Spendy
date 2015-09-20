@@ -26,9 +26,8 @@ Schema:
 // This makes it less buggy when working with Transaction from outside in
 // (as long as we test Transaction carefully)
 class Transaction: HTObject {
-    override class func parseClassName() -> String {
-        return "Transaction"
-    }
+    // TODO: make this work so we can set _object from inside HTObject
+//    override class var parseClassName: String! { get { return "Transaction" } }
 
     var kind: String?
     var note: String?
@@ -41,6 +40,9 @@ class Transaction: HTObject {
     // TODO: change kind to enum .Expense, .Income, .Transfer
     init(kind: String?, note: String?, amount: Double?, category: Category?, account: Account?, date: NSDate?) {
         super.init()
+        
+        // TODO: abstract to HTObject
+        self._object = PFObject(className: "Transaction")
         
         self["kind"] = kind
         self["note"] = note
