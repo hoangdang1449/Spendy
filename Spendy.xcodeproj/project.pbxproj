@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1806E9061BADE11C008047A6 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1806E9051BADE11C008047A6 /* DatePickerDialog.swift */; };
 		18499E1D1BAB237D0066E6E5 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18499E1C1BAB237D0066E6E5 /* AccountCell.swift */; };
 		18499E1F1BAB23FB0066E6E5 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18499E1E1BAB23FB0066E6E5 /* AccountsViewController.swift */; };
 		1866C4D51BAC221C000200D2 /* AccountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866C4D41BAC221C000200D2 /* AccountDetailViewController.swift */; };
+		1884A4DC1BAD62EB00D24257 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884A4DB1BAD62EB00D24257 /* AddReminderViewController.swift */; };
+		1884A4DF1BAD6E9A00D24257 /* CategoryReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884A4DE1BAD6E9A00D24257 /* CategoryReminderCell.swift */; };
+		1884A4E11BAD6EAA00D24257 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884A4E01BAD6EAA00D24257 /* TimeCell.swift */; };
 		18AA6A4D1BAA7575003210FD /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA6A4C1BAA7575003210FD /* PhotoCell.swift */; };
 		18AB69A91BACF6DB0061029F /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB69A81BACF6DB0061029F /* TransactionCell.swift */; };
+		18AB69AB1BAD48C70061029F /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB69AA1BAD48C70061029F /* NotificationSettingViewController.swift */; };
+		18AB69AE1BAD4C6F0061029F /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB69AD1BAD4C6F0061029F /* ReminderCell.swift */; };
 		18F39CC31BA962D10099B714 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC21BA962D10099B714 /* HomeViewController.swift */; };
 		18F39CC51BA964450099B714 /* QuickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC41BA964450099B714 /* QuickViewController.swift */; };
 		18F39CC71BA966190099B714 /* QuickCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC61BA966190099B714 /* QuickCell.swift */; };
@@ -50,11 +56,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1806E9051BADE11C008047A6 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		18499E1C1BAB237D0066E6E5 /* AccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		18499E1E1BAB23FB0066E6E5 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		1866C4D41BAC221C000200D2 /* AccountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailViewController.swift; sourceTree = "<group>"; };
+		1884A4DB1BAD62EB00D24257 /* AddReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
+		1884A4DE1BAD6E9A00D24257 /* CategoryReminderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryReminderCell.swift; sourceTree = "<group>"; };
+		1884A4E01BAD6EAA00D24257 /* TimeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		18AA6A4C1BAA7575003210FD /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		18AB69A81BACF6DB0061029F /* TransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		18AB69AA1BAD48C70061029F /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
+		18AB69AD1BAD4C6F0061029F /* ReminderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
 		18F39CC21BA962D10099B714 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		18F39CC41BA964450099B714 /* QuickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickViewController.swift; sourceTree = "<group>"; };
 		18F39CC61BA966190099B714 /* QuickCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickCell.swift; sourceTree = "<group>"; };
@@ -116,6 +128,16 @@
 			name = "Accounts View";
 			sourceTree = "<group>";
 		};
+		1884A4DD1BAD6E7C00D24257 /* Add Reminder View */ = {
+			isa = PBXGroup;
+			children = (
+				1806E9051BADE11C008047A6 /* DatePickerDialog.swift */,
+				1884A4DE1BAD6E9A00D24257 /* CategoryReminderCell.swift */,
+				1884A4E01BAD6EAA00D24257 /* TimeCell.swift */,
+			);
+			name = "Add Reminder View";
+			sourceTree = "<group>";
+		};
 		18AB69A71BACF6B10061029F /* Account Detail View */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,9 +146,19 @@
 			name = "Account Detail View";
 			sourceTree = "<group>";
 		};
+		18AB69AC1BAD4B7B0061029F /* Notification Setting View */ = {
+			isa = PBXGroup;
+			children = (
+				18AB69AD1BAD4C6F0061029F /* ReminderCell.swift */,
+			);
+			name = "Notification Setting View";
+			sourceTree = "<group>";
+		};
 		18F39CBF1BA9629B0099B714 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1884A4DD1BAD6E7C00D24257 /* Add Reminder View */,
+				18AB69AC1BAD4B7B0061029F /* Notification Setting View */,
 				18AB69A71BACF6B10061029F /* Account Detail View */,
 				18499E1B1BAB23550066E6E5 /* Accounts View */,
 				9DB8A8641BA9EAEC000F03A1 /* Select Category */,
@@ -147,6 +179,8 @@
 				9DB8A86B1BAA064E000F03A1 /* RootTabBarController.swift */,
 				18499E1E1BAB23FB0066E6E5 /* AccountsViewController.swift */,
 				1866C4D41BAC221C000200D2 /* AccountDetailViewController.swift */,
+				18AB69AA1BAD48C70061029F /* NotificationSettingViewController.swift */,
+				1884A4DB1BAD62EB00D24257 /* AddReminderViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -425,6 +459,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18AB69AB1BAD48C70061029F /* NotificationSettingViewController.swift in Sources */,
 				9DB8A8631BA9EAC0000F03A1 /* CategoryCell.swift in Sources */,
 				9DB8A86E1BAA43B4000F03A1 /* SelectAccountOrCategoryViewController.swift in Sources */,
 				9DB8A86C1BAA064E000F03A1 /* RootTabBarController.swift in Sources */,
@@ -432,10 +467,14 @@
 				18AA6A4D1BAA7575003210FD /* PhotoCell.swift in Sources */,
 				9D3EA5FC1BABFB1300EF4B47 /* Account.swift in Sources */,
 				1866C4D51BAC221C000200D2 /* AccountDetailViewController.swift in Sources */,
+				1806E9061BADE11C008047A6 /* DatePickerDialog.swift in Sources */,
 				18F39CD91BA9D2F80099B714 /* DateCell.swift in Sources */,
 				18F39CCF1BA9CB200099B714 /* Helper.swift in Sources */,
+				1884A4DF1BAD6E9A00D24257 /* CategoryReminderCell.swift in Sources */,
 				9D78C51D1BA5A47F00B00BC2 /* AppDelegate.swift in Sources */,
 				18F39CD51BA9D2C00099B714 /* AmountCell.swift in Sources */,
+				1884A4DC1BAD62EB00D24257 /* AddReminderViewController.swift in Sources */,
+				1884A4E11BAD6EAA00D24257 /* TimeCell.swift in Sources */,
 				18F39CCD1BA9C8330099B714 /* AddViewController.swift in Sources */,
 				18F39CC31BA962D10099B714 /* HomeViewController.swift in Sources */,
 				9D3EA5FA1BAB3BBD00EF4B47 /* Transaction.swift in Sources */,
@@ -444,6 +483,7 @@
 				18F39CCB1BA9A8280099B714 /* CustomSegmentedControl.swift in Sources */,
 				18F39CD31BA9D2AE0099B714 /* NoteCell.swift in Sources */,
 				18F39CC71BA966190099B714 /* QuickCell.swift in Sources */,
+				18AB69AE1BAD4C6F0061029F /* ReminderCell.swift in Sources */,
 				18499E1F1BAB23FB0066E6E5 /* AccountsViewController.swift in Sources */,
 				18AB69A91BACF6DB0061029F /* TransactionCell.swift in Sources */,
 				18F39CD71BA9D2E70099B714 /* SelectAccountOrCategoryCell.swift in Sources */,
