@@ -312,17 +312,25 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         println("prepareForSegue to AccountDetailView!")
-        
-        let navigationController = segue.destinationViewController as! UINavigationController
-        
-        if navigationController.topViewController is AccountDetailViewController {
-            let accDetailViewController = navigationController.topViewController as! AccountDetailViewController
-            
-            var indexPath: AnyObject!
-            indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
-            
-            accDetailViewController.selectedAccount = accounts![indexPath.row]
-        }
+
+        // Old code which was for presenting a navigation from a table view cell
+        // This was very slow
+//        let navigationController = segue.destinationViewController as! UINavigationController
+//        
+//        if navigationController.topViewController is AccountDetailViewController {
+//            let accDetailViewController = navigationController.topViewController as! AccountDetailViewController
+//            
+//            var indexPath: AnyObject!
+//            indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+//            
+//            accDetailViewController.selectedAccount = accounts![indexPath.row]
+//        }
+
+        // It is more natural to just push from tableview cell directly to the detail view
+        // It is still possible to add navigation control to the view
+        let accountDetailVC = segue.destinationViewController as! AccountDetailViewController
+        var indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
+        accountDetailVC.selectedAccount = accounts![indexPath.row]
     }
 
 }

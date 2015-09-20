@@ -67,7 +67,8 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func onCancelButton(sender: UIButton!) {
-        dismissViewControllerAnimated(true, completion: nil)
+//        dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
     }
 
     // MARK: Table view
