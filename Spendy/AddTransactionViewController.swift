@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AddTransactionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -25,7 +25,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var dateCell: DateCell?
     var photoCell: PhotoCell?
     
-    var selectedTransaction: String!
+    var selectedTransaction: Transaction!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,11 +65,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func onAddButton(sender: UIButton!) {
-        let transaction = Transaction(note: "first note", amount: 123, category: "Meals", account: "Cash", date: NSDate())
-        Transaction.findAll { (transactions, error) -> () in
-            transaction.save()
-            println("After save: \(transactions)")
-        }
+        selectedTransaction.save()
         println("on Add")
         // TODO: transfer to selected aacount's detail
     }
@@ -150,7 +146,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteCell
                 
                 if let selectedTransaction = selectedTransaction {
-                    cell.noteText.text = selectedTransaction
+                    cell.noteText.text = selectedTransaction.note
                 }
                 
                 var tapCell = UITapGestureRecognizer(target: self, action: "tapNoteCell:")
