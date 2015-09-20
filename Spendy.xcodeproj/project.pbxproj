@@ -43,6 +43,7 @@
 		9DB8A86C1BAA064E000F03A1 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8A86B1BAA064E000F03A1 /* RootTabBarController.swift */; };
 		9DB8A86E1BAA43B4000F03A1 /* SelectAccountOrCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8A86D1BAA43B4000F03A1 /* SelectAccountOrCategoryViewController.swift */; };
 		A77E0D207AB770857E146536 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CFE2D5C782640C353708467 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E29F203B1BAEAF150076AEFB /* HTObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F203A1BAEAF150076AEFB /* HTObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		9DB8A8691BA9FF64000F03A1 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9DB8A86B1BAA064E000F03A1 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		9DB8A86D1BAA43B4000F03A1 /* SelectAccountOrCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAccountOrCategoryViewController.swift; sourceTree = "<group>"; };
+		E29F203A1BAEAF150076AEFB /* HTObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +194,7 @@
 				9D3EA5F91BAB3BBD00EF4B47 /* Transaction.swift */,
 				9D3EA5FB1BABFB1300EF4B47 /* Account.swift */,
 				9D3EA5FF1BABFF0B00EF4B47 /* Category.swift */,
+				E29F203A1BAEAF150076AEFB /* HTObject.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				18F39CCB1BA9A8280099B714 /* CustomSegmentedControl.swift in Sources */,
 				18F39CD31BA9D2AE0099B714 /* NoteCell.swift in Sources */,
 				18F39CC71BA966190099B714 /* QuickCell.swift in Sources */,
+				E29F203B1BAEAF150076AEFB /* HTObject.swift in Sources */,
 				18AB69AE1BAD4C6F0061029F /* ReminderCell.swift in Sources */,
 				18499E1F1BAB23FB0066E6E5 /* AccountsViewController.swift in Sources */,
 				18AB69A91BACF6DB0061029F /* TransactionCell.swift in Sources */,

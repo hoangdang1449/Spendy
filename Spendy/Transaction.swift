@@ -9,26 +9,44 @@
 import Foundation
 import Parse
 
-class Transaction {
-    var note: String?
-    var amount: Double?
-    var category: String? // TODO: change to Category
-    var account: String?  // TODO: change to Account
-    var date: NSDate?
+/* 
+Schema:
+- kind (income | expense | transfer)
+- user_id
+- from_account
+- to_account (when type is ‘transfer’)
+- note
+- amount
+- category_id
+- date
+*/
 
-    var _object: PFObject!
-
-    init(note: String?, amount: Double?, category: String?, account: String?, date: NSDate?) {
-
-        _object = PFObject(className: "Transaction")
-        _object.setObject(note!, forKey: "note")
-        _object.setObject(amount!, forKey: "amount")
-        _object.setObject(category!, forKey: "category")
-        _object.setObject(date!, forKey: "date")
+// Note: I'm testing a different approach here compared to Account & Category
+// which is not to inherit from PFObject and keep all Parse related communications private
+// This makes it less buggy when working with Transaction from outside in
+// (as long as we test Transaction carefully)
+class Transaction: HTObject {
+    override class func parseClassName() -> String {
+        return "Transaction"
     }
 
-    func save() {
-        _object.pinInBackground()
+    var kind: String?
+    var note: String?
+    var amount: Double?
+    var categoryId: String?
+    var fromAccountId: String?
+    var toAccountId: String?
+    var date: NSDate?
+    
+    // TODO: change kind to enum .Expense, .Income, .Transfer
+    init(kind: String?, note: String?, amount: Double?, category: Category?, account: Account?, date: NSDate?) {
+        super.init()
+        
+        self["kind"] = kind
+        self["note"] = note
+        self["categoryId"] = category?.objectId
+        self["fromAccountId"] = account?.objectId
+        self["date"] = date
     }
 
     static var transactions: [PFObject]?
