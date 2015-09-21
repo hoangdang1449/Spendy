@@ -71,12 +71,16 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     
     func onAddButton(sender: UIButton!) {
         // TODO: change to save
-//        Transaction.add(selectedTransaction!)
+        if selectedTransaction!.isNew() {
+            Transaction.add(selectedTransaction!)
+        }
 
         println("on Add")
         // TODO: transfer to selected aacount's detail
         if presentingViewController != nil {
             dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            navigationController?.popViewControllerAnimated(true)
         }
     }
 
@@ -387,14 +391,12 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 }
 
 extension AddTransactionViewController: SelectAccountOrCategoryDelegate {
-    func selectAccountOrCategoryViewController(selectAccountOrCategoryController: SelectAccountOrCategoryViewController, didSelectCell item: AnyObject) {
+    func selectAccountOrCategoryViewController(selectAccountOrCategoryController: SelectAccountOrCategoryViewController, selectedItem item: AnyObject) {
         if item is Account {
             selectedTransaction?.setAccount(item as! Account)
-            Transaction.add(selectedTransaction!)
             tableView.reloadData()
         } else if item is Category {
             selectedTransaction?.setCategory(item as! Category)
-            Transaction.add(selectedTransaction!)
             tableView.reloadData()
         } else {
             println("Error: item is \(item)")

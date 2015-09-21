@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 protocol SelectAccountOrCategoryDelegate {
-    func selectAccountOrCategoryViewController(selectAccountOrCategoryController: SelectAccountOrCategoryViewController, didSelectCell item: AnyObject)
+    func selectAccountOrCategoryViewController(selectAccountOrCategoryController: SelectAccountOrCategoryViewController, selectedItem item: AnyObject)
 }
 
 class SelectAccountOrCategoryViewController: UIViewController {
@@ -78,9 +78,9 @@ extension SelectAccountOrCategoryViewController: UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var selectedCategory = tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
-        
-        // TODO: pass Category or Item to previous view
+        var cell = tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
+        navigationController?.popViewControllerAnimated(true)
+        delegate?.selectAccountOrCategoryViewController(self, selectedItem: items![indexPath.row])
     }
 
 }

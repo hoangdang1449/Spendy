@@ -58,6 +58,10 @@ class Transaction: HTObject {
         self["date"] = date
     }
 
+    func isNew() -> Bool {
+        return _object?.objectId != nil
+    }
+
     func setAccount(account: Account) {
         self["fromAccountId"] = account.objectId
     }
@@ -70,11 +74,11 @@ class Transaction: HTObject {
 
     // TODO: refactor logic to Account and Category
     func account() -> Account? {
-        return Account.findById(fromAccountId!)
+        return fromAccountId == nil ? nil : Account.findById(fromAccountId!)
     }
 
     func category() -> Category? {
-        return Category.findById(categoryId!)
+        return categoryId == nil ? nil : Category.findById(categoryId!)
     }
 
     // MARK: - date formatter

@@ -37,7 +37,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         Transaction.loadAll()
 
         // create a few sample transactions
-        sampleTransactions = Transaction.listGroupedByMonth(Transaction.all()!)
+        reloadTransactions()
 
         tableView.dataSource = self
         tableView.delegate = self
@@ -53,7 +53,17 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         if let selectedAccount = selectedAccount {
             navigationItem.title = selectedAccount.name
         }
+    }
 
+    func reloadTransactions() {
+        sampleTransactions = Transaction.listGroupedByMonth(Transaction.all()!)
+    }
+
+    // reload data after we navigate back from pushed cell
+    override func viewWillAppear(animated: Bool) {
+        println("viewWillAppear")
+        reloadTransactions()
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
