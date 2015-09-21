@@ -77,6 +77,13 @@ class Account: PFObject {
     static func all() -> [Account]? {
         return _allAccounts;
     }
+
+    class func findById(objectId: String) -> Account? {
+        let record = _allAccounts?.filter({ (el) -> Bool in
+            el.objectId == objectId
+        }).first
+        return record
+    }
 }
 
 extension Account: PFSubclassing {

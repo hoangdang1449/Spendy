@@ -34,13 +34,13 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        
-        tableView.reloadData()
+
         isCollaped = true
         
         addBarButton()
-        
-        if let selectedTransaction = selectedTransaction {
+
+        println("AddTransactionView-->selectedTransaction: \(selectedTransaction)")
+        if selectedTransaction != nil {
             navigationItem.title = "Edit Transaction"
             isEditMode = true
         } else {
@@ -48,6 +48,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             isEditMode = false
         }
 
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,7 +71,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     
     func onAddButton(sender: UIButton!) {
         // TODO: change to save
-        Transaction.add(selectedTransaction!)
+//        Transaction.add(selectedTransaction!)
 
         println("on Add")
         // TODO: transfer to selected aacount's detail
@@ -168,8 +169,8 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteCell
 
-                if let selectedTransaction = selectedTransaction {
-                    cell.noteText.text = selectedTransaction.note
+                if selectedTransaction != nil {
+                    cell.noteText.text = selectedTransaction!.note
                 }
                 
                 var tapCell = UITapGestureRecognizer(target: self, action: "tapNoteCell:")
@@ -208,10 +209,16 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("SelectAccountOrCategoryCell", forIndexPath: indexPath) as! SelectAccountOrCategoryCell
-                
+
                 cell.itemClass = "Category"
                 cell.titleLabel.text = "Category"
-                cell.typeLabel.text = "Other" // TODO: replace with default category
+                println("selectedTransaction: \(selectedTransaction)")
+
+                // this got rendered too soon!
+
+                let category = selectedTransaction?.category()
+                println("category: \(category)")
+                cell.typeLabel.text = selectedTransaction!.category()?.name // TODO: replace with default category
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
                 if categoryCell == nil {
@@ -224,7 +231,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
                 
                 cell.itemClass = "Account"
                 cell.titleLabel.text = "Account"
-                cell.typeLabel.text = "Cash" // TODO: replace with default account
+                cell.typeLabel.text = selectedTransaction!.account()?.name // TODO: replace with default account
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
                 if accountCell == nil {
@@ -372,8 +379,25 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 
             let cell = sender as! SelectAccountOrCategoryCell
             vc.itemClass = cell.itemClass
+            vc.delegate = self
+
+            // TODO: delegate
         }
     }
-    
-    
+}
+
+extension AddTransactionViewController: SelectAccountOrCategoryDelegate {
+    func selectAccountOrCategoryViewController(selectAccountOrCategoryController: SelectAccountOrCategoryViewController, didSelectCell item: AnyObject) {
+        if item is Account {
+            selectedTransaction?.setAccount(item as! Account)
+            Transaction.add(selectedTransaction!)
+            tableView.reloadData()
+        } else if item is Category {
+            selectedTransaction?.setCategory(item as! Category)
+            Transaction.add(selectedTransaction!)
+            tableView.reloadData()
+        } else {
+            println("Error: item is \(item)")
+        }
+    }
 }

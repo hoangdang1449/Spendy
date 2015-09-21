@@ -20,7 +20,6 @@ class TransactionCell: UITableViewCell {
         didSet {
             noteLabel.text = transaction.note
             // TODO: use system currency
-            println("amount before cast: \(transaction.amount)")
             if let amount = transaction.amount {
                 amountLabel.text = transaction.formattedAmount()
             }

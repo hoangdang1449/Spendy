@@ -153,8 +153,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If accounts are still empty, create new ones, save to server
         Account.loadAll()
 
-        Transaction.loadAll()
-
         // TODO: load other settings
     }
 }

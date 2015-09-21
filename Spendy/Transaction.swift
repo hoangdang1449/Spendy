@@ -56,10 +56,26 @@ class Transaction: HTObject {
         self["categoryId"] = category?.objectId
         self["fromAccountId"] = account?.objectId
         self["date"] = date
-
-        println("done \(self)")
     }
 
+    func setAccount(account: Account) {
+        self["fromAccountId"] = account.objectId
+    }
+
+    func setCategory(category: Category) {
+        self["categoryId"] = category.objectId
+    }
+
+    // MARK: - relations
+
+    // TODO: refactor logic to Account and Category
+    func account() -> Account? {
+        return Account.findById(fromAccountId!)
+    }
+
+    func category() -> Category? {
+        return Category.findById(categoryId!)
+    }
 
     // MARK: - date formatter
     static var dateFormatter = NSDateFormatter()
@@ -166,11 +182,18 @@ class Transaction: HTObject {
                 Transaction(kind: Transaction.expenseKind, note: "Note 4", amount: 2.23, category: defaultCategory, account: defaultAccount, date: dateFormatter.dateFromString("2015-09-02")),
                 Transaction(kind: Transaction.expenseKind, note: "Note 5", amount: 2.23, category: defaultCategory, account: defaultAccount, date: dateFormatter.dateFromString("2015-09-03"))
             ]
-        println("post sort: \(_allTransactions!))")
+//        println("post sort: \(_allTransactions!))")
     }
 
     class func add(element: Transaction) {
         element.save()
         _allTransactions!.append(element)
+    }
+}
+
+extension Transaction: Printable {
+    override var description: String {
+        let base = super.description
+        return "categoryId: \(categoryId), fromAccountId: \(fromAccountId), toAccountId: \(toAccountId), base: \(base)"
     }
 }

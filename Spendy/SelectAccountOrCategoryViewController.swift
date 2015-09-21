@@ -9,9 +9,14 @@
 import UIKit
 import Parse
 
+protocol SelectAccountOrCategoryDelegate {
+    func selectAccountOrCategoryViewController(selectAccountOrCategoryController: SelectAccountOrCategoryViewController, didSelectCell item: AnyObject)
+}
+
 class SelectAccountOrCategoryViewController: UIViewController {
     // Account or Category
     var itemClass: String!
+    var delegate: SelectAccountOrCategoryDelegate?
 
     @IBOutlet weak var tableView: UITableView!
     var items: [PFObject]?
@@ -77,5 +82,5 @@ extension SelectAccountOrCategoryViewController: UITableViewDataSource, UITableV
         
         // TODO: pass Category or Item to previous view
     }
-    
+
 }

@@ -40,8 +40,11 @@ class HTObject: NSObject {
         _object!.pinInBackground()
         _object!.saveInBackground()
     }
-    
-    func toString() -> String! {
-        return "\(_object)"
+
+}
+
+extension HTObject: Printable {
+    override var description: String {
+        return _object != nil ? "object: \(_object!)" : "object is nil"
     }
 }

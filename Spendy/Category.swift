@@ -23,11 +23,11 @@ class Category: PFObject {
         super.init()
     }
 
-    static func loadAllWithQuery(#local: Bool) {
+    class func loadAllWithQuery(#local: Bool) {
         let query = PFQuery(className: "Category")
     }
 
-    static func loadAll() {
+    class func loadAll() {
         // load from local first
         let localQuery = PFQuery(className: "Category")
         localQuery.fromLocalDatastore().findObjectsInBackgroundWithBlock { (categories: [AnyObject]?, error: NSError?) -> Void in
@@ -54,8 +54,15 @@ class Category: PFObject {
         }
     }
 
-    static func all() -> [Category]? {
+    class func all() -> [Category]? {
         return _allCategories;
+    }
+
+    class func findById(objectId: String) -> Category? {
+        let record = _allCategories?.filter({ (el) -> Bool in
+            el.objectId == objectId
+        }).first
+        return record
     }
 }
 

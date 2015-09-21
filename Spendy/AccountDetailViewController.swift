@@ -33,6 +33,9 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         let dateFormatter = Transaction.dateFormatter
         dateFormatter.dateFormat = "YYYY-MM-dd"
 
+        // TODO: this is temporary. need to wait for Category and Account to load first
+        Transaction.loadAll()
+
         // create a few sample transactions
         sampleTransactions = Transaction.listGroupedByMonth(Transaction.all()!)
 
@@ -212,11 +215,9 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
             
             var indexPath: AnyObject!
             indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
-            
-            addTransactionViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
-        }
-        
-        
-    }
 
+            addTransactionViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
+            println("pass selectedTransaction to AddTransactionView: \(addTransactionViewController.selectedTransaction))")
+        }
+    }
 }
