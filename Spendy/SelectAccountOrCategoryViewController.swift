@@ -74,6 +74,9 @@ extension SelectAccountOrCategoryViewController: UITableViewDataSource, UITableV
         let item = items?[indexPath.row] as PFObject?
 
         cell.nameLabel.text = item?.objectForKey("name") as! String?
+        if let icon = item?.objectForKey("icon") as? String {
+            cell.iconImageView.image = UIImage(named: icon)
+        }
         return cell
     }
     

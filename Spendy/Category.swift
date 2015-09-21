@@ -13,6 +13,7 @@ var _allCategories: [Category]?
 
 class Category: PFObject {
     @NSManaged var name:String!
+    @NSManaged var icon:String!
 
     init(name: String) {
         super.init()
@@ -34,8 +35,9 @@ class Category: PFObject {
             if let error = error {
                 println("Error loading categories from Local: \(error)")
             } else {
-                println("[local] categories: \(categories)")
+                println("\n[local] categories: \(categories)")
                 _allCategories = categories as! [Category]?
+                PFObject.unpinAllInBackground(_allCategories)
 
                 if _allCategories == nil || _allCategories!.isEmpty {
                     // load from remote

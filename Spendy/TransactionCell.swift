@@ -29,6 +29,11 @@ class TransactionCell: UITableViewCell {
             dateLabel.text = transaction.dateOnly()
             // TODO: retrieve balance amount
             balanceLabel.text = "$Balance"
+
+            if let icon = transaction.category()?.icon {
+                iconView.image = UIImage(named: icon)
+            }
+
         }
     }
 
