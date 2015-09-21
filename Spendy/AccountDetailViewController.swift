@@ -34,7 +34,6 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         dateFormatter.dateFormat = "YYYY-MM-dd"
 
         // create a few sample transactions
-        //        sampleTransactions = [["September, 2015", "September 2"], ["August, 2015", "August 2", "August 3"]]
         sampleTransactions = Transaction.listGroupedByMonth(Transaction.all()!)
 
         tableView.dataSource = self
