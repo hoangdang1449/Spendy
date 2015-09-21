@@ -26,7 +26,6 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     var photoCell: PhotoCell?
     
     var selectedTransaction: Transaction?
-    var isEditMode = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +38,13 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         
         addBarButton()
 
-        println("AddTransactionView-->selectedTransaction: \(selectedTransaction)")
         if selectedTransaction != nil {
             navigationItem.title = "Edit Transaction"
-            isEditMode = true
         } else {
-            selectedTransaction = Transaction(kind: Transaction.expenseKind, note: "hello", amount: 0, category: nil, account: nil, date: NSDate())
-            isEditMode = false
+            selectedTransaction = Transaction(kind: Transaction.expenseKind,
+                note: "I paid for something", amount: 0,
+                category: Category.defaultCategory(), account: Account.defaultAccount(),
+                date: NSDate())
         }
 
         tableView.reloadData()
@@ -73,11 +72,9 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         // TODO: change to save
         println("[onAddButton] transaction: \(selectedTransaction!)")
         if selectedTransaction!.isNew() {
-            println("added transaction: \(selectedTransaction!)")
+            println("added transaction")
             Transaction.add(selectedTransaction!)
         }
-
-        println("on Add")
         // TODO: transfer to selected aacount's detail
         if presentingViewController != nil {
             dismissViewControllerAnimated(true, completion: nil)
@@ -87,32 +84,20 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     }
 
     func onCancelButton(sender: UIButton!) {
-        println("on Cancel")
+        println("onCancelButton")
         
-        if isEditMode {
-            navigationController?.popViewControllerAnimated(true)
-        } else {
+        if selectedTransaction!.isNew() {
+            // exit modal
             dismissViewControllerAnimated(true, completion: nil)
-            
+
             // unhide the tabBar because we hid it for the Add tab
             self.tabBarController?.tabBar.hidden = false
             let rootVC = parentViewController?.parentViewController as? RootTabBarController
-            if let rootVC = rootVC {
-                rootVC.selectedIndex = 0
-            }
+            rootVC?.selectedIndex = 0
+        } else {
+            // exit push
+            navigationController?.popViewControllerAnimated(true)
         }
-        
-        
-//        if presentingViewController != nil {
-//            dismissViewControllerAnimated(true, completion: nil)
-//        } else {
-//            // unhide the tabBar because we hid it for the Add tab
-//            self.tabBarController?.tabBar.hidden = false
-//            let rootVC = parentViewController?.parentViewController as? RootTabBarController
-//            if let rootVC = rootVC {
-//                rootVC.selectedIndex = 0
-//            }
-//        }
     }
 
     // MARK: Table View
@@ -175,9 +160,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteCell
 
-                if selectedTransaction != nil {
-                    cell.noteText.text = selectedTransaction!.note
-                }
+                cell.noteText.text = selectedTransaction?.note
                 
                 var tapCell = UITapGestureRecognizer(target: self, action: "tapNoteCell:")
                 cell.addGestureRecognizer(tapCell)
@@ -223,10 +206,10 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
                 // this got rendered too soon!
 
                 let category = selectedTransaction?.category()
-                println("category: \(category)")
-                cell.typeLabel.text = selectedTransaction!.category()?.name // TODO: replace with default category
+                cell.typeLabel.text = category!.name // TODO: replace with default category
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
+
                 if categoryCell == nil {
                     categoryCell = cell
                 }
@@ -237,7 +220,9 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
                 
                 cell.itemClass = "Account"
                 cell.titleLabel.text = "Account"
-                cell.typeLabel.text = selectedTransaction!.account()?.name // TODO: replace with default account
+
+                let account = selectedTransaction?.account()
+                cell.typeLabel.text = account!.name
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
                 if accountCell == nil {

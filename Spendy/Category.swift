@@ -61,6 +61,10 @@ class Category: HTObject {
         }
     }
 
+    class func defaultCategory() -> Category? {
+        return _allCategories?.first
+    }
+
     class func all() -> [Category]? {
         return _allCategories;
     }

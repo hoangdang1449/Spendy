@@ -84,7 +84,11 @@ class Account: HTObject {
         }
     }
 
-    static func all() -> [Account]? {
+    class func defaultAccount() -> Account? {
+        return _allAccounts?.first
+    }
+
+    class func all() -> [Account]? {
         return _allAccounts;
     }
 
