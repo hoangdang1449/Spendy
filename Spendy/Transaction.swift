@@ -21,6 +21,8 @@ Schema:
 - date
 */
 
+var _allTransactions: [Transaction]?
+
 // Note: I'm testing a different approach here compared to Account & Category
 // which is not to inherit from PFObject and keep all Parse related communications private
 // This makes it less buggy when working with Transaction from outside in
@@ -58,24 +60,10 @@ class Transaction: HTObject {
         println("done \(self)")
     }
 
-    static var transactions: [PFObject]?
 
-    static func findAll(completion: (transactions: [PFObject]?, error: NSError?) -> ()) {
-        let query = PFQuery(className: "Transaction")
-        query.fromLocalDatastore()
-        query.findObjectsInBackgroundWithBlock { (results: [AnyObject]?, error: NSError?) -> Void in
-            if error != nil {
-                println("Error loading transactions")
-                completion(transactions: nil, error: error)
-            } else {
-                self.transactions = results as! [PFObject]?
-                completion(transactions: self.transactions, error: error)
-            }
-        }
-    }
 
     // MARK: - date formatter
-
+    static var dateFormatter = NSDateFormatter()
     func dateToString(dateStyle: NSDateFormatterStyle? = nil, dateFormat: String? = nil) -> String? {
         if let date = date {
             if dateStyle != nil {
@@ -106,5 +94,74 @@ class Transaction: HTObject {
         return dateToString(dateFormat: "MMMM YYYY")
     }
 
-    static var dateFormatter = NSDateFormatter()
+    // MARK: - unused
+    static var transactions: [PFObject]?
+    static func findAll(completion: (transactions: [PFObject]?, error: NSError?) -> ()) {
+        let query = PFQuery(className: "Transaction")
+        query.fromLocalDatastore()
+        query.findObjectsInBackgroundWithBlock { (results: [AnyObject]?, error: NSError?) -> Void in
+            if error != nil {
+                println("Error loading transactions")
+                completion(transactions: nil, error: error)
+            } else {
+                self.transactions = results as! [PFObject]?
+                completion(transactions: self.transactions, error: error)
+            }
+        }
+    }
+
+    // MARK: - Utilities
+    class func all() -> [Transaction]? {
+        return _allTransactions
+    }
+
+    class func dictGroupedByMonth(trans: [Transaction]) -> [String: [Transaction]] {
+        var dict = [String:[Transaction]]()
+        for el in trans {
+            let key = el.monthHeader() ?? "Unknown"
+            dict[key] = (dict[key] ?? []) + [el]
+        }
+        return dict
+    }
+
+    class func listGroupedByMonth(trans: [Transaction]) -> [[Transaction]] {
+        let grouped = dictGroupedByMonth(trans)
+        var list: [[Transaction]] = []
+        for (key, el) in grouped {
+            var g:[Transaction] = grouped[key]!
+            // sort values in each bucket, newest first
+            g.sort({ $1.date! < $0.date! })
+            list.append(g)
+        }
+
+        // sort by month
+        list.sort({ $1[0].date! < $0[0].date! })
+
+        return list
+    }
+
+    class func loadAll() {
+        println("\n\nloading fake data for Transactions")
+        let defaultCategory = Category.all()?.first
+        let defaultAccount = Account.all()?.first
+
+        // Initialize with fake transactions
+        let dateFormatter = Transaction.dateFormatter
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        // TODO: load from and save to servers
+        _allTransactions =
+            [
+                Transaction(kind: Transaction.expenseKind, note: "Note 1", amount: 3.23, category: defaultCategory, account: defaultAccount, date: dateFormatter.dateFromString("2015-08-01")),
+                Transaction(kind: Transaction.expenseKind, note: "Note 2", amount: 4.23, category: defaultCategory, account: defaultAccount, date: dateFormatter.dateFromString("2015-08-02")),
+                Transaction(kind: Transaction.expenseKind, note: "Note 3", amount: 1.23, category: defaultCategory, account: defaultAccount, date: dateFormatter.dateFromString("2015-09-01")),
+                Transaction(kind: Transaction.expenseKind, note: "Note 4", amount: 2.23, category: defaultCategory, account: defaultAccount, date: dateFormatter.dateFromString("2015-09-02")),
+                Transaction(kind: Transaction.expenseKind, note: "Note 5", amount: 2.23, category: defaultCategory, account: defaultAccount, date: dateFormatter.dateFromString("2015-09-03"))
+            ]
+        println("post sort: \(_allTransactions!))")
+    }
+
+    class func add(element: Transaction) {
+        _allTransactions!.append(element)
+    }
 }

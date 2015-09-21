@@ -35,17 +35,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
 
         // create a few sample transactions
         //        sampleTransactions = [["September, 2015", "September 2"], ["August, 2015", "August 2", "August 3"]]
-        sampleTransactions = [
-            [
-                Transaction(kind: Transaction.expenseKind, note: "Note 1", amount: 1.23, category: selectedCategory, account: selectedAccount, date: dateFormatter.dateFromString("2015-09-1")),
-                Transaction(kind: Transaction.expenseKind, note: "Note 2", amount: 2.23, category: selectedCategory, account: selectedAccount, date: dateFormatter.dateFromString("2015-09-2"))
-                Transaction(kind: Transaction.expenseKind, note: "Note 2", amount: 2.23, category: selectedCategory, account: selectedAccount, date: dateFormatter.dateFromString("2015-09-2"))
-            ],
-            [
-                Transaction(kind: Transaction.expenseKind, note: "Note 3", amount: 3.23, category: selectedCategory, account: selectedAccount, date: dateFormatter.dateFromString("2015-08-1")),
-                Transaction(kind: Transaction.expenseKind, note: "Note 4", amount: 4.23, category: selectedCategory, account: selectedAccount, date: dateFormatter.dateFromString("2015-08-2"))
-            ]
-        ]
+        sampleTransactions = Transaction.listGroupedByMonth(Transaction.all()!)
 
         tableView.dataSource = self
         tableView.delegate = self
