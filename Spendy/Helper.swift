@@ -54,6 +54,28 @@ class Helper: NSObject {
         }
     }
     
+    func getCurrentWeek() -> (NSDate?, NSDate?) {
+        
+        var beginningOfWeek: NSDate?
+        var endOfWeek: NSDate?
+        
+        let cal = NSCalendar.currentCalendar()
+        
+        let components = NSDateComponents()
+        components.weekOfYear = 0
+        
+        if let date = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(0)) {
+            var weekDuration = NSTimeInterval()
+            if cal.rangeOfUnit(.CalendarUnitWeekOfYear, startDate: &beginningOfWeek, interval: &weekDuration, forDate: date) {
+                endOfWeek = beginningOfWeek?.dateByAddingTimeInterval(weekDuration)
+            }
+            
+            beginningOfWeek = cal.dateByAddingUnit(NSCalendarUnit.DayCalendarUnit, value: 1, toDate: beginningOfWeek!, options: NSCalendarOptions(0))
+            
+        }
+        
+        return (beginningOfWeek!, endOfWeek!)
+    }
 }
 
 extension String {
