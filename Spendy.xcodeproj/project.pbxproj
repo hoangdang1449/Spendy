@@ -22,7 +22,7 @@
 		18F39CC51BA964450099B714 /* QuickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC41BA964450099B714 /* QuickViewController.swift */; };
 		18F39CC71BA966190099B714 /* QuickCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC61BA966190099B714 /* QuickCell.swift */; };
 		18F39CCB1BA9A8280099B714 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CCA1BA9A8280099B714 /* CustomSegmentedControl.swift */; };
-		18F39CCD1BA9C8330099B714 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CCC1BA9C8330099B714 /* AddViewController.swift */; };
+		18F39CCD1BA9C8330099B714 /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CCC1BA9C8330099B714 /* AddTransactionViewController.swift */; };
 		18F39CCF1BA9CB200099B714 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CCE1BA9CB200099B714 /* Helper.swift */; };
 		18F39CD31BA9D2AE0099B714 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CD21BA9D2AE0099B714 /* NoteCell.swift */; };
 		18F39CD51BA9D2C00099B714 /* AmountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CD41BA9D2C00099B714 /* AmountCell.swift */; };
@@ -42,7 +42,9 @@
 		9DB8A86A1BA9FF64000F03A1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8A8691BA9FF64000F03A1 /* SettingsViewController.swift */; };
 		9DB8A86C1BAA064E000F03A1 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8A86B1BAA064E000F03A1 /* RootTabBarController.swift */; };
 		9DB8A86E1BAA43B4000F03A1 /* SelectAccountOrCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB8A86D1BAA43B4000F03A1 /* SelectAccountOrCategoryViewController.swift */; };
+		9DFE8D9D1BAFA9E0001E6F9E /* DateUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFE8D9C1BAFA9E0001E6F9E /* DateUtilities.swift */; };
 		A77E0D207AB770857E146536 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CFE2D5C782640C353708467 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E29F203B1BAEAF150076AEFB /* HTObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F203A1BAEAF150076AEFB /* HTObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +73,7 @@
 		18F39CC41BA964450099B714 /* QuickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickViewController.swift; sourceTree = "<group>"; };
 		18F39CC61BA966190099B714 /* QuickCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickCell.swift; sourceTree = "<group>"; };
 		18F39CCA1BA9A8280099B714 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
-		18F39CCC1BA9C8330099B714 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		18F39CCC1BA9C8330099B714 /* AddTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
 		18F39CCE1BA9CB200099B714 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		18F39CD21BA9D2AE0099B714 /* NoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		18F39CD41BA9D2C00099B714 /* AmountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountCell.swift; sourceTree = "<group>"; };
@@ -99,6 +101,8 @@
 		9DB8A8691BA9FF64000F03A1 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9DB8A86B1BAA064E000F03A1 /* RootTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		9DB8A86D1BAA43B4000F03A1 /* SelectAccountOrCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAccountOrCategoryViewController.swift; sourceTree = "<group>"; };
+		9DFE8D9C1BAFA9E0001E6F9E /* DateUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtilities.swift; sourceTree = "<group>"; };
+		E29F203A1BAEAF150076AEFB /* HTObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,7 +177,7 @@
 			children = (
 				18F39CC21BA962D10099B714 /* HomeViewController.swift */,
 				18F39CC41BA964450099B714 /* QuickViewController.swift */,
-				18F39CCC1BA9C8330099B714 /* AddViewController.swift */,
+				18F39CCC1BA9C8330099B714 /* AddTransactionViewController.swift */,
 				9DB8A86D1BAA43B4000F03A1 /* SelectAccountOrCategoryViewController.swift */,
 				9DB8A8691BA9FF64000F03A1 /* SettingsViewController.swift */,
 				9DB8A86B1BAA064E000F03A1 /* RootTabBarController.swift */,
@@ -192,6 +196,8 @@
 				9D3EA5F91BAB3BBD00EF4B47 /* Transaction.swift */,
 				9D3EA5FB1BABFB1300EF4B47 /* Account.swift */,
 				9D3EA5FF1BABFF0B00EF4B47 /* Category.swift */,
+				E29F203A1BAEAF150076AEFB /* HTObject.swift */,
+				9DFE8D9C1BAFA9E0001E6F9E /* DateUtilities.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -475,14 +481,16 @@
 				18F39CD51BA9D2C00099B714 /* AmountCell.swift in Sources */,
 				1884A4DC1BAD62EB00D24257 /* AddReminderViewController.swift in Sources */,
 				1884A4E11BAD6EAA00D24257 /* TimeCell.swift in Sources */,
-				18F39CCD1BA9C8330099B714 /* AddViewController.swift in Sources */,
+				18F39CCD1BA9C8330099B714 /* AddTransactionViewController.swift in Sources */,
 				18F39CC31BA962D10099B714 /* HomeViewController.swift in Sources */,
 				9D3EA5FA1BAB3BBD00EF4B47 /* Transaction.swift in Sources */,
 				18499E1D1BAB237D0066E6E5 /* AccountCell.swift in Sources */,
+				9DFE8D9D1BAFA9E0001E6F9E /* DateUtilities.swift in Sources */,
 				9DB8A86A1BA9FF64000F03A1 /* SettingsViewController.swift in Sources */,
 				18F39CCB1BA9A8280099B714 /* CustomSegmentedControl.swift in Sources */,
 				18F39CD31BA9D2AE0099B714 /* NoteCell.swift in Sources */,
 				18F39CC71BA966190099B714 /* QuickCell.swift in Sources */,
+				E29F203B1BAEAF150076AEFB /* HTObject.swift in Sources */,
 				18AB69AE1BAD4C6F0061029F /* ReminderCell.swift in Sources */,
 				18499E1F1BAB23FB0066E6E5 /* AccountsViewController.swift in Sources */,
 				18AB69A91BACF6DB0061029F /* TransactionCell.swift in Sources */,

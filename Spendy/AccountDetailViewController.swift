@@ -16,19 +16,31 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     var addButton: UIButton?
     var cancelButton: UIButton?
     
-    var transactions = [[String]]()
+    var sampleTransactions: [[Transaction]]!
     
     var selectedAccount: Account!
+    var selectedCategory: Category!
+
+    var transaction: Transaction!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        selectedCategory = Category.all()!.first
+        transaction = Transaction(kind: Transaction.expenseKind, note: "", amount: 0, category: selectedCategory, account: selectedAccount, date: NSDate())
+
+
+        let dateFormatter = Transaction.dateFormatter
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+
+        // create a few sample transactions
+        //        sampleTransactions = [["September, 2015", "September 2"], ["August, 2015", "August 2", "August 3"]]
+        sampleTransactions = Transaction.listGroupedByMonth(Transaction.all()!)
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        
-        transactions = [["September, 2015", "September 2"], ["August, 2015", "August 2", "August 3"]]
-        
+
         addBarButton()
         
         var downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleDownSwipe:"))
@@ -39,6 +51,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         if let selectedAccount = selectedAccount {
             navigationItem.title = selectedAccount.name
         }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,23 +74,24 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     func onAddButton(sender: UIButton!) {
         println("on Add")
-        var dvc = self.storyboard?.instantiateViewControllerWithIdentifier("AddVC") as! AddViewController
+        var dvc = self.storyboard?.instantiateViewControllerWithIdentifier("AddVC") as! AddTransactionViewController
         var nc = UINavigationController(rootViewController: dvc)
         self.presentViewController(nc, animated: true, completion: nil)
     }
     
     func onCancelButton(sender: UIButton!) {
-        dismissViewControllerAnimated(true, completion: nil)
+//        dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
     }
 
     // MARK: Table view
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return transactions.count
+        return sampleTransactions.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transactions[section].count
+        return sampleTransactions[section].count
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -88,7 +102,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         monthLabel.font = UIFont.systemFontOfSize(14)
         
         
-        monthLabel.text = transactions[section][0]
+        monthLabel.text = sampleTransactions[section][0].monthHeader()
         
         // TODO: get date from transaction
 //        let date = NSDate()
@@ -113,8 +127,9 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         
         let cell = tableView.dequeueReusableCellWithIdentifier("TransactionCell", forIndexPath: indexPath) as! TransactionCell
         
-        cell.noteLabel.text = transactions[indexPath.section][indexPath.row]
-        
+//        cell.noteLabel.text = sampleTransactions[indexPath.section][indexPath.row].note
+        cell.transaction = sampleTransactions[indexPath.section][indexPath.row]
+
         var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         rightSwipe.direction = .Right
         cell.addGestureRecognizer(rightSwipe)
@@ -143,11 +158,11 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
             case UISwipeGestureRecognizerDirection.Left:
                 // Delete transaction
                 
-                transactions[indexPath.section].removeAtIndex(indexPath.row)
+                sampleTransactions[indexPath.section].removeAtIndex(indexPath.row)
                 tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Automatic)
                 
-                if transactions[indexPath.section].count == 0 {
-                    transactions.removeAtIndex(indexPath.section)
+                if sampleTransactions[indexPath.section].count == 0 {
+                    sampleTransactions.removeAtIndex(indexPath.section)
                     tableView.reloadData()
                 }
                 break
@@ -155,7 +170,8 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
             case UISwipeGestureRecognizerDirection.Right:
                 // Duplicate transaction to today
                 var newTransaction = selectedCell.noteLabel.text
-                transactions[0].insert(newTransaction!, atIndex: 0)
+                // TODO: duplicate transaction here
+//                sampleTransactions[0].insert(newTransaction!, atIndex: 0)
                 tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
                 
                 break
@@ -164,8 +180,6 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
                 break
             }
         }
-        
-        
     }
     
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
@@ -180,16 +194,32 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: Transfer between 2 views
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let navigationController = segue.destinationViewController as! UINavigationController
+//        let navigationController = segue.destinationViewController as! UINavigationController
+//        
+//        if navigationController.topViewController is AddTransactionViewController {
+//            let addViewController = navigationController.topViewController as! AddTransactionViewController
+//            
+//            var indexPath: AnyObject!
+//            indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+//            
+////            addViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
+//        }
         
-        if navigationController.topViewController is AddViewController {
-            let addViewController = navigationController.topViewController as! AddViewController
+        
+        let vc = segue.destinationViewController as! UIViewController
+        
+        if vc is AddTransactionViewController {
+            let addTransactionViewController = vc as! AddTransactionViewController
             
             var indexPath: AnyObject!
             indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
             
-            addViewController.selectedTransaction = transactions[indexPath.section][indexPath.row]
+            addTransactionViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
+            
+            
         }
+        
+        
     }
 
 }

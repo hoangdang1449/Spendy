@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AddTransactionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -25,7 +25,8 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     var dateCell: DateCell?
     var photoCell: PhotoCell?
     
-    var selectedTransaction: String!
+    var selectedTransaction: Transaction?
+    var isEditMode = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,10 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         
         if let selectedTransaction = selectedTransaction {
             navigationItem.title = "Edit Transaction"
+            isEditMode = true
+        } else {
+            selectedTransaction = Transaction(kind: Transaction.expenseKind, note: "hello", amount: 0, category: nil, account: nil, date: NSDate())
+            isEditMode = false
         }
 
     }
@@ -49,7 +54,6 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     // MARK: Button
     
@@ -65,28 +69,43 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
     }
     
     func onAddButton(sender: UIButton!) {
-        let transaction = Transaction(note: "first note", amount: 123, category: "Meals", account: "Cash", date: NSDate())
-        Transaction.findAll { (transactions, error) -> () in
-            transaction.save()
-            println("After save: \(transactions)")
-        }
+        // TODO: change to save
+        Transaction.add(selectedTransaction!)
+
         println("on Add")
         // TODO: transfer to selected aacount's detail
-    }
-    
-    func onCancelButton(sender: UIButton!) {
-        println("on Cancel")
         if presentingViewController != nil {
             dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+
+    func onCancelButton(sender: UIButton!) {
+        println("on Cancel")
+        
+        if isEditMode {
+            navigationController?.popViewControllerAnimated(true)
         } else {
+            dismissViewControllerAnimated(true, completion: nil)
+            
             // unhide the tabBar because we hid it for the Add tab
             self.tabBarController?.tabBar.hidden = false
             let rootVC = parentViewController?.parentViewController as? RootTabBarController
             if let rootVC = rootVC {
                 rootVC.selectedIndex = 0
-
             }
         }
+        
+        
+//        if presentingViewController != nil {
+//            dismissViewControllerAnimated(true, completion: nil)
+//        } else {
+//            // unhide the tabBar because we hid it for the Add tab
+//            self.tabBarController?.tabBar.hidden = false
+//            let rootVC = parentViewController?.parentViewController as? RootTabBarController
+//            if let rootVC = rootVC {
+//                rootVC.selectedIndex = 0
+//            }
+//        }
     }
 
     // MARK: Table View
@@ -150,7 +169,7 @@ class AddViewController: UIViewController, UITableViewDataSource, UITableViewDel
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteCell
                 
                 if let selectedTransaction = selectedTransaction {
-                    cell.noteText.text = selectedTransaction
+                    cell.noteText.text = selectedTransaction.note
                 }
                 
                 var tapCell = UITapGestureRecognizer(target: self, action: "tapNoteCell:")
