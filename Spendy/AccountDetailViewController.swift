@@ -214,8 +214,6 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
             indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
             
             addTransactionViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
-            
-            
         }
         
         

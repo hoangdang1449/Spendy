@@ -22,8 +22,7 @@ class TransactionCell: UITableViewCell {
             // TODO: use system currency
             println("amount before cast: \(transaction.amount)")
             if let amount = transaction.amount {
-                amountLabel.text = String(format: "$%.02f", amount.doubleValue)
-
+                amountLabel.text = transaction.formattedAmount()
             }
             dateLabel.text = transaction.dateOnly()
             // TODO: retrieve balance amount

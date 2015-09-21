@@ -61,7 +61,6 @@ class Transaction: HTObject {
     }
 
 
-
     // MARK: - date formatter
     static var dateFormatter = NSDateFormatter()
     func dateToString(dateStyle: NSDateFormatterStyle? = nil, dateFormat: String? = nil) -> String? {
@@ -107,6 +106,15 @@ class Transaction: HTObject {
                 self.transactions = results as! [PFObject]?
                 completion(transactions: self.transactions, error: error)
             }
+        }
+    }
+
+    // MARK: - view helpers
+    func formattedAmount() -> String? {
+        if amount != nil {
+            return String(format: "$%.02f", amount!.doubleValue)
+        } else {
+            return nil
         }
     }
 

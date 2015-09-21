@@ -167,7 +167,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteCell
-                
+
                 if let selectedTransaction = selectedTransaction {
                     cell.noteText.text = selectedTransaction.note
                 }
@@ -183,7 +183,9 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
                 
             case 1:
                 let cell = tableView.dequeueReusableCellWithIdentifier("AmountCell", forIndexPath: indexPath) as! AmountCell
-                
+
+                cell.amountText.text = selectedTransaction?.formattedAmount()
+
                 var tapCell = UITapGestureRecognizer(target: self, action: "tapAmoutCell:")
                 cell.addGestureRecognizer(tapCell)
                 
