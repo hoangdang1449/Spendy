@@ -16,6 +16,27 @@ import Parse
 // Inherit from NSObject so that we can use #setValue and #valueForKey
 class HTObject: NSObject {
     var _object: PFObject?
+    var _parseClassName: String!
+
+    init(parseClassName: String) {
+        super.init()
+
+        _parseClassName = parseClassName
+        _object = PFObject(className: _parseClassName)
+    }
+
+    init(object: PFObject) {
+        super.init()
+        
+        _parseClassName = object.parseClassName
+        _object = object
+    }
+
+    func getChildClassName(instance: AnyClass) -> String {
+        let name = NSStringFromClass(instance)
+        let components = name.componentsSeparatedByString(".")
+        return components.last ?? "UnknownClass"
+    }
 
     subscript(key: String) -> AnyObject? {
         get {
@@ -41,6 +62,13 @@ class HTObject: NSObject {
         _object!.saveInBackground()
     }
 
+    func isNew() -> Bool {
+        return _object?.objectId == nil
+    }
+
+    var objectId: String? {
+        return _object?.objectId
+    }
 }
 
 extension HTObject: Printable {

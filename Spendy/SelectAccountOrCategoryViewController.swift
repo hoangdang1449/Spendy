@@ -19,7 +19,7 @@ class SelectAccountOrCategoryViewController: UIViewController {
     var delegate: SelectAccountOrCategoryDelegate?
 
     @IBOutlet weak var tableView: UITableView!
-    var items: [PFObject]?
+    var items: [HTObject]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,11 +71,11 @@ extension SelectAccountOrCategoryViewController: UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
 
-        let item = items?[indexPath.row] as PFObject?
-
-        cell.nameLabel.text = item?.objectForKey("name") as! String?
-        if let icon = item?.objectForKey("icon") as? String {
-            cell.iconImageView.image = UIImage(named: icon)
+        if let item = items?[indexPath.row] {
+            cell.nameLabel.text = item["name"] as! String?
+            if let icon = item["icon"] as? String {
+                cell.iconImageView.image = UIImage(named: icon)
+            }
         }
         return cell
     }

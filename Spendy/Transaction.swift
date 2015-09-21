@@ -9,17 +9,17 @@
 import Foundation
 import Parse
 
-/* 
-Schema:
-- kind (income | expense | transfer)
-- user_id
-- from_account
-- to_account (when type is ‘transfer’)
-- note
-- amount
-- category_id
-- date
-*/
+/////////////////////////////////////////
+//Schema:
+//- kind (income | expense | transfer)
+//- user_id
+//- from_account
+//- to_account (when type is ‘transfer’)
+//- note
+//- amount
+//- category_id
+//- date
+/////////////////////////////////////////
 
 var _allTransactions: [Transaction]?
 
@@ -28,9 +28,6 @@ var _allTransactions: [Transaction]?
 // This makes it less buggy when working with Transaction from outside in
 // (as long as we test Transaction carefully)
 class Transaction: HTObject {
-    // TODO: make this work so we can set _object from inside HTObject
-//    override class var parseClassName: String! { get { return "Transaction" } }
-
     static let expenseKind: String = "expense"
     static let incomeKind: String = "income"
     static let transferKind: String = "transfer"
@@ -45,10 +42,7 @@ class Transaction: HTObject {
     
     // TODO: change kind to enum .Expense, .Income, .Transfer
     init(kind: String?, note: String?, amount: NSDecimalNumber?, category: Category?, account: Account?, date: NSDate?) {
-        super.init()
-        
-        // TODO: abstract to HTObject
-        self._object = PFObject(className: "Transaction")
+        super.init(parseClassName: "Transaction")
 
         self["kind"] = kind
         self["note"] = note
@@ -56,10 +50,6 @@ class Transaction: HTObject {
         self["categoryId"] = category?.objectId
         self["fromAccountId"] = account?.objectId
         self["date"] = date
-    }
-
-    func isNew() -> Bool {
-        return _object?.objectId != nil
     }
 
     func setAccount(account: Account) {

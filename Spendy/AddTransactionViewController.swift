@@ -71,7 +71,9 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     
     func onAddButton(sender: UIButton!) {
         // TODO: change to save
+        println("[onAddButton] transaction: \(selectedTransaction!)")
         if selectedTransaction!.isNew() {
+            println("added transaction: \(selectedTransaction!)")
             Transaction.add(selectedTransaction!)
         }
 
