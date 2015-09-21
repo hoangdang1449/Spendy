@@ -31,6 +31,7 @@
 		18F39CD51BA9D2C00099B714 /* AmountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CD41BA9D2C00099B714 /* AmountCell.swift */; };
 		18F39CD71BA9D2E70099B714 /* SelectAccountOrCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CD61BA9D2E70099B714 /* SelectAccountOrCategoryCell.swift */; };
 		18F39CD91BA9D2F80099B714 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CD81BA9D2F80099B714 /* DateCell.swift */; };
+		9D3153FC1BB0C75500F1F32B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3153FB1BB0C75500F1F32B /* DataManager.swift */; };
 		9D3EA5FA1BAB3BBD00EF4B47 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EA5F91BAB3BBD00EF4B47 /* Transaction.swift */; };
 		9D3EA5FC1BABFB1300EF4B47 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EA5FB1BABFB1300EF4B47 /* Account.swift */; };
 		9D3EA6001BABFF0B00EF4B47 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EA5FF1BABFF0B00EF4B47 /* Category.swift */; };
@@ -88,6 +89,7 @@
 		336AA2D8B3532AD262FC53AA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3CFE2D5C782640C353708467 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DE97D10C3A0C6C161C8B7C1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		9D3153FB1BB0C75500F1F32B /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		9D3EA5F91BAB3BBD00EF4B47 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		9D3EA5FB1BABFB1300EF4B47 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		9D3EA5FF1BABFF0B00EF4B47 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				9D3EA5FF1BABFF0B00EF4B47 /* Category.swift */,
 				E29F203A1BAEAF150076AEFB /* HTObject.swift */,
 				9DFE8D9C1BAFA9E0001E6F9E /* DateUtilities.swift */,
+				9D3153FB1BB0C75500F1F32B /* DataManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				E29F203B1BAEAF150076AEFB /* HTObject.swift in Sources */,
 				18AB69AE1BAD4C6F0061029F /* ReminderCell.swift in Sources */,
 				18499E1F1BAB23FB0066E6E5 /* AccountsViewController.swift in Sources */,
+				9D3153FC1BB0C75500F1F32B /* DataManager.swift in Sources */,
 				18AB69A91BACF6DB0061029F /* TransactionCell.swift in Sources */,
 				18F39CD71BA9D2E70099B714 /* SelectAccountOrCategoryCell.swift in Sources */,
 				9D3EA6001BABFF0B00EF4B47 /* Category.swift in Sources */,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wLL-9B-fXw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="wLL-9B-fXw">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rhw-fa-CYV">
-                                <rect key="frame" x="16" y="106" width="288" height="30"/>
+                                <rect key="frame" x="16" y="107" width="288" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -32,7 +32,7 @@
                                 </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="stv-y5-qy1">
-                                <rect key="frame" x="16" y="264" width="288" height="304"/>
+                                <rect key="frame" x="16" y="265" width="288" height="303"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingMenuItemCell" id="tgA-lc-Yit">
@@ -45,7 +45,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sqc-Iq-vQy">
-                                <rect key="frame" x="16" y="144" width="81" height="27"/>
+                                <rect key="frame" x="16" y="145" width="81" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Save Changes">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,7 +55,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are not logged in." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqg-ns-uDk">
-                                <rect key="frame" x="16" y="179" width="122" height="15"/>
+                                <rect key="frame" x="16" y="180" width="122" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -79,16 +79,30 @@
                                     <segue destination="DXS-df-Vyh" kind="modal" id="DPv-OA-g3j"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ipu-zX-BIg">
+                                <rect key="frame" x="16" y="203" width="62" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Reset Data">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onResetData:" destination="wLL-9B-fXw" eventType="touchUpInside" id="NM4-LB-HgM"/>
+                                    <action selector="onSaveEmail:" destination="wLL-9B-fXw" eventType="touchUpInside" id="0OD-zV-GGm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Btm-iG-idw" firstAttribute="top" secondItem="kbL-HZ-0DT" secondAttribute="bottom" id="0ar-LX-gJb"/>
                             <constraint firstItem="cqg-ns-uDk" firstAttribute="top" secondItem="Sqc-Iq-vQy" secondAttribute="bottom" constant="8" id="2P7-aA-1aL"/>
+                            <constraint firstItem="stv-y5-qy1" firstAttribute="leading" secondItem="y0U-Vf-OIr" secondAttribute="leadingMargin" id="BOa-YP-4hK"/>
                             <constraint firstItem="Sqc-Iq-vQy" firstAttribute="top" secondItem="rhw-fa-CYV" secondAttribute="bottom" constant="8" id="Fpu-Z9-T2R"/>
                             <constraint firstItem="k0f-H1-tYi" firstAttribute="top" secondItem="kbL-HZ-0DT" secondAttribute="bottom" constant="64" id="H8b-FV-G5G"/>
                             <constraint firstItem="rhw-fa-CYV" firstAttribute="top" secondItem="k0f-H1-tYi" secondAttribute="bottom" constant="2" id="I4Y-mO-B6z"/>
                             <constraint firstItem="rhw-fa-CYV" firstAttribute="leading" secondItem="y0U-Vf-OIr" secondAttribute="leadingMargin" id="Nhh-Ky-RZN"/>
                             <constraint firstItem="stv-y5-qy1" firstAttribute="top" secondItem="rhw-fa-CYV" secondAttribute="bottom" constant="128" id="P0n-hW-YP5"/>
+                            <constraint firstItem="fcn-6w-t6Y" firstAttribute="top" secondItem="stv-y5-qy1" secondAttribute="bottom" id="P1R-VY-qmc"/>
+                            <constraint firstItem="stv-y5-qy1" firstAttribute="trailing" secondItem="y0U-Vf-OIr" secondAttribute="trailingMargin" id="YjM-Mq-3FL"/>
                             <constraint firstItem="k0f-H1-tYi" firstAttribute="leading" secondItem="y0U-Vf-OIr" secondAttribute="leadingMargin" id="cLq-de-cOC"/>
                             <constraint firstItem="fcn-6w-t6Y" firstAttribute="top" secondItem="stv-y5-qy1" secondAttribute="bottom" id="dSg-7a-uJB"/>
                             <constraint firstItem="stv-y5-qy1" firstAttribute="trailing" secondItem="y0U-Vf-OIr" secondAttribute="trailingMargin" id="dzt-G7-3Gx"/>
@@ -107,6 +121,7 @@
                         <outlet property="emailTextField" destination="rhw-fa-CYV" id="ZQz-WU-8Jj"/>
                         <outlet property="logoutButton" destination="k5t-DY-2FN" id="gpl-lo-jYD"/>
                         <outlet property="menuTableView" destination="stv-y5-qy1" id="CSl-6D-Vh4"/>
+                        <outlet property="resetDataButton" destination="Ipu-zX-BIg" id="asR-Fv-iZ4"/>
                         <outlet property="saveEmailButton" destination="Sqc-Iq-vQy" id="vWf-ex-MMU"/>
                     </connections>
                 </viewController>
@@ -291,7 +306,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ren-K4-Pvz">
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ren-K4-Pvz">
                                                     <rect key="frame" x="270" y="10" width="42" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="42" id="0gs-Og-R1K"/>

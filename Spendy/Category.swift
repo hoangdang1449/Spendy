@@ -54,7 +54,7 @@ class Category: HTObject {
                     } else {
                         println("[server] categories: \(objects)")
                         _allCategories = objects?.map({ Category(object: $0 as! PFObject) })
-                        PFObject.pinAllInBackground(_allCategories)
+                        PFObject.pinAllInBackground(_allCategories, withName: "MyCategories")
                     }
                 }
             }

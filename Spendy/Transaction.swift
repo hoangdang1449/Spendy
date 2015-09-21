@@ -64,11 +64,33 @@ class Transaction: HTObject {
 
     // TODO: refactor logic to Account and Category
     func account() -> Account? {
-        return fromAccountId == nil ? nil : Account.findById(fromAccountId!)
+        if (fromAccountId != nil) {
+            return Account.findById(fromAccountId!)
+        } else {
+            // attempt to use default account
+            if let account = Account.defaultAccount() {
+                println("account missing in transaction: setting defaultAccount for it")
+                setAccount(account)
+                return account
+            } else {
+                return nil
+            }
+        }
     }
 
     func category() -> Category? {
-        return categoryId == nil ? nil : Category.findById(categoryId!)
+        if categoryId != nil {
+            return Category.findById(categoryId!)
+        } else {
+            // attempt to use default account
+            if let category = Category.defaultCategory() {
+                println("category missing in transaction: setting defaultCategory for it")
+                setCategory(category)
+                return category
+            } else {
+                return nil
+            }
+        }
     }
 
     // MARK: - date formatter

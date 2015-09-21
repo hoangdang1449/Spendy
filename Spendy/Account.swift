@@ -62,7 +62,7 @@ class Account: HTObject {
                         return
                     }
 
-                    println("[server] accounts: \(objects)")
+                    println("x[server] accounts: \(objects)")
                     _allAccounts = objects?.map({ Account(object: $0 as! PFObject) })
 
                     if _allAccounts!.isEmpty {
@@ -71,11 +71,12 @@ class Account: HTObject {
                         var defaultAccount = Account(name: "Default Account")
                         var secondAccount  = Account(name: "Second Account")
 
-                        _allAccounts?.append(defaultAccount)
-                        _allAccounts?.append(secondAccount)
+                        _allAccounts!.append(defaultAccount)
+                        _allAccounts!.append(secondAccount)
 
                         println("accounts: \(_allAccounts!)")
                         PFObject.pinAllInBackground(_allAccounts, withName: "MyAccounts")
+                        PFObject.saveAllInBackground(_allAccounts)
                     } else {
                         PFObject.pinAllInBackground(_allAccounts, withName: "MyAccounts")
                     }
