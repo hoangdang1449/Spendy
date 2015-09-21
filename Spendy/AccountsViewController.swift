@@ -45,20 +45,20 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         addBarButton()
-
-        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
-        leftSwipe.direction = .Left
-        leftSwipe.delegate = self
-        tableView.addGestureRecognizer(leftSwipe)
-
-        var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
-        rightSwipe.direction = .Right
-        rightSwipe.delegate = self
-        tableView.addGestureRecognizer(rightSwipe)
-
-        var panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
-        panGesture.delegate = self
-        tableView.addGestureRecognizer(panGesture)
+//
+//        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+//        leftSwipe.direction = .Left
+//        leftSwipe.delegate = self
+//        tableView.addGestureRecognizer(leftSwipe)
+//
+//        var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+//        rightSwipe.direction = .Right
+//        rightSwipe.delegate = self
+//        tableView.addGestureRecognizer(rightSwipe)
+//
+//        var panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
+//        panGesture.delegate = self
+//        tableView.addGestureRecognizer(panGesture)
     }
 
     override func didReceiveMemoryWarning() {
@@ -95,6 +95,20 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         cell.nameLabel.text = accounts![indexPath.row].name
         
+        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        leftSwipe.direction = .Left
+        leftSwipe.delegate = self
+        cell.addGestureRecognizer(leftSwipe)
+        
+        var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        rightSwipe.direction = .Right
+        rightSwipe.delegate = self
+        cell.addGestureRecognizer(rightSwipe)
+        
+        var panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
+        panGesture.delegate = self
+        cell.addGestureRecognizer(panGesture)
+        
         Helper.sharedInstance.setSeparatorFullWidth(cell)
         return cell
     }
@@ -105,23 +119,23 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         return true
     }
 
-    func getSwipedCell(gestureRecognizer: UIGestureRecognizer) -> UITableViewCell? {
-        var swipeLocation = gestureRecognizer.locationInView(tableView)
-        var indexPath = tableView.indexPathForRowAtPoint(swipeLocation)
-        if let indexPath = indexPath {
-            return tableView.cellForRowAtIndexPath(indexPath)!
-        } else {
-            return nil
-        }
-    }
+//    func getSwipedCell(gestureRecognizer: UIGestureRecognizer) -> UITableViewCell? {
+//        var swipeLocation = gestureRecognizer.locationInView(tableView)
+//        var indexPath = tableView.indexPathForRowAtPoint(swipeLocation)
+//        if let indexPath = indexPath {
+//            return tableView.cellForRowAtIndexPath(indexPath)!
+//        } else {
+//            return nil
+//        }
+//    }
 
     func handleSwipe(sender:UISwipeGestureRecognizer) {
         println("handleSwipe:")
         if sender.direction == .Left {
             println("left")
 
-            var selectedCell = getSwipedCell(sender) as! AccountCell
-//            var selectedCell = sender.view as! AccountCell
+//            var selectedCell = getSwipedCell(sender) as! AccountCell
+            var selectedCell = sender.view as! AccountCell
             var indexPath = tableView.indexPathForCell(selectedCell)
 
             if !isPreparedDelete {
@@ -201,7 +215,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func handlePanGesture(sender: UIPanGestureRecognizer) {
-//        println("pan")
+        println("pan")
         var translation = sender.translationInView(tableView)
         var state = sender.state
         
@@ -213,8 +227,8 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
         
-//        selectedDragCell = sender.view as? AccountCell
-        selectedDragCell = getSwipedCell(sender) as! AccountCell?
+        selectedDragCell = sender.view as? AccountCell
+//        selectedDragCell = getSwipedCell(sender) as! AccountCell?
         if selectedDragCell == nil {
             return
         }

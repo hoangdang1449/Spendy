@@ -194,16 +194,32 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: Transfer between 2 views
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let navigationController = segue.destinationViewController as! UINavigationController
+//        let navigationController = segue.destinationViewController as! UINavigationController
+//        
+//        if navigationController.topViewController is AddTransactionViewController {
+//            let addViewController = navigationController.topViewController as! AddTransactionViewController
+//            
+//            var indexPath: AnyObject!
+//            indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+//            
+////            addViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
+//        }
         
-        if navigationController.topViewController is AddTransactionViewController {
-            let addViewController = navigationController.topViewController as! AddTransactionViewController
+        
+        let vc = segue.destinationViewController as! UIViewController
+        
+        if vc is AddTransactionViewController {
+            let addTransactionViewController = vc as! AddTransactionViewController
             
             var indexPath: AnyObject!
             indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
             
-//            addViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
+            addTransactionViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
+            
+            
         }
+        
+        
     }
 
 }

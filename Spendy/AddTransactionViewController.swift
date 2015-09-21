@@ -25,7 +25,8 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     var dateCell: DateCell?
     var photoCell: PhotoCell?
     
-    var selectedTransaction: Transaction!
+    var selectedTransaction: Transaction?
+    var isEditMode = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +42,10 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         
         if let selectedTransaction = selectedTransaction {
             navigationItem.title = "Edit Transaction"
+            isEditMode = true
         } else {
             selectedTransaction = Transaction(kind: Transaction.expenseKind, note: "hello", amount: 0, category: nil, account: nil, date: NSDate())
+            isEditMode = false
         }
 
     }
@@ -51,7 +54,6 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     // MARK: Button
     
@@ -68,7 +70,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     
     func onAddButton(sender: UIButton!) {
         // TODO: change to save
-        Transaction.add(selectedTransaction)
+        Transaction.add(selectedTransaction!)
 
         println("on Add")
         // TODO: transfer to selected aacount's detail
@@ -79,9 +81,12 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 
     func onCancelButton(sender: UIButton!) {
         println("on Cancel")
-        if presentingViewController != nil {
-            dismissViewControllerAnimated(true, completion: nil)
+        
+        if isEditMode {
+            navigationController?.popViewControllerAnimated(true)
         } else {
+            dismissViewControllerAnimated(true, completion: nil)
+            
             // unhide the tabBar because we hid it for the Add tab
             self.tabBarController?.tabBar.hidden = false
             let rootVC = parentViewController?.parentViewController as? RootTabBarController
@@ -89,6 +94,18 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
                 rootVC.selectedIndex = 0
             }
         }
+        
+        
+//        if presentingViewController != nil {
+//            dismissViewControllerAnimated(true, completion: nil)
+//        } else {
+//            // unhide the tabBar because we hid it for the Add tab
+//            self.tabBarController?.tabBar.hidden = false
+//            let rootVC = parentViewController?.parentViewController as? RootTabBarController
+//            if let rootVC = rootVC {
+//                rootVC.selectedIndex = 0
+//            }
+//        }
     }
 
     // MARK: Table View
