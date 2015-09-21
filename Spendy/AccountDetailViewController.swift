@@ -16,7 +16,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     var addButton: UIButton?
     var cancelButton: UIButton?
     
-    var sampleTransactions = [[String]]()
+    var sampleTransactions: [[Transaction]]!
     
     var selectedAccount: Account!
     var selectedCategory: Category!
@@ -26,12 +26,31 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        selectedCategory = Category.all()!.first
+        transaction = Transaction(kind: Transaction.expenseKind, note: "", amount: 0, category: selectedCategory, account: selectedAccount, date: NSDate())
+
+
+        let dateFormatter = Transaction.dateFormatter
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+
+        // create a few sample transactions
+        //        sampleTransactions = [["September, 2015", "September 2"], ["August, 2015", "August 2", "August 3"]]
+        sampleTransactions = [
+            [
+                Transaction(kind: Transaction.expenseKind, note: "Note 1", amount: 1.23, category: selectedCategory, account: selectedAccount, date: dateFormatter.dateFromString("2015-09-1")),
+                Transaction(kind: Transaction.expenseKind, note: "Note 2", amount: 2.23, category: selectedCategory, account: selectedAccount, date: dateFormatter.dateFromString("2015-09-2"))
+                Transaction(kind: Transaction.expenseKind, note: "Note 2", amount: 2.23, category: selectedCategory, account: selectedAccount, date: dateFormatter.dateFromString("2015-09-2"))
+            ],
+            [
+                Transaction(kind: Transaction.expenseKind, note: "Note 3", amount: 3.23, category: selectedCategory, account: selectedAccount, date: dateFormatter.dateFromString("2015-08-1")),
+                Transaction(kind: Transaction.expenseKind, note: "Note 4", amount: 4.23, category: selectedCategory, account: selectedAccount, date: dateFormatter.dateFromString("2015-08-2"))
+            ]
+        ]
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        
-        // create a few sample transactions
-        sampleTransactions = [["September, 2015", "September 2"], ["August, 2015", "August 2", "August 3"]]
+
 
         addBarButton()
         
@@ -44,8 +63,6 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
             navigationItem.title = selectedAccount.name
         }
 
-        selectedCategory = Category.all()!.first
-        transaction = Transaction(kind: "expense", note: "", amount: 0, category: selectedCategory, account: selectedAccount, date: NSDate())
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,7 +113,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         monthLabel.font = UIFont.systemFontOfSize(14)
         
         
-        monthLabel.text = sampleTransactions[section][0]
+        monthLabel.text = sampleTransactions[section][0].monthHeader()
         
         // TODO: get date from transaction
 //        let date = NSDate()
@@ -121,8 +138,9 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         
         let cell = tableView.dequeueReusableCellWithIdentifier("TransactionCell", forIndexPath: indexPath) as! TransactionCell
         
-        cell.noteLabel.text = sampleTransactions[indexPath.section][indexPath.row]
-        
+//        cell.noteLabel.text = sampleTransactions[indexPath.section][indexPath.row].note
+        cell.transaction = sampleTransactions[indexPath.section][indexPath.row]
+
         var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         rightSwipe.direction = .Right
         cell.addGestureRecognizer(rightSwipe)
@@ -163,7 +181,8 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
             case UISwipeGestureRecognizerDirection.Right:
                 // Duplicate transaction to today
                 var newTransaction = selectedCell.noteLabel.text
-                sampleTransactions[0].insert(newTransaction!, atIndex: 0)
+                // TODO: duplicate transaction here
+//                sampleTransactions[0].insert(newTransaction!, atIndex: 0)
                 tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
                 
                 break

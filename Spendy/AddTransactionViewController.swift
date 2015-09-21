@@ -42,7 +42,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         if let selectedTransaction = selectedTransaction {
             navigationItem.title = "Edit Transaction"
         } else {
-            selectedTransaction = Transaction(kind: "expense", note: "hello", amount: 0, category: nil, account: nil, date: NSDate())
+            selectedTransaction = Transaction(kind: Transaction.expenseKind, note: "hello", amount: 0, category: nil, account: nil, date: NSDate())
         }
 
     }
