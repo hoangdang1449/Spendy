@@ -162,6 +162,7 @@ class Transaction: HTObject {
     }
 
     class func add(element: Transaction) {
+        element.save()
         _allTransactions!.append(element)
     }
 }

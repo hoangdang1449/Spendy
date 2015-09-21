@@ -41,7 +41,6 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         tableView.delegate = self
         tableView.tableFooterView = UIView()
 
-
         addBarButton()
         
         var downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleDownSwipe:"))

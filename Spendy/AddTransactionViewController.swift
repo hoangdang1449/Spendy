@@ -67,11 +67,16 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func onAddButton(sender: UIButton!) {
-        selectedTransaction.save()
+        // TODO: change to save
+        Transaction.add(selectedTransaction)
+
         println("on Add")
         // TODO: transfer to selected aacount's detail
+        if presentingViewController != nil {
+            dismissViewControllerAnimated(true, completion: nil)
+        }
     }
-    
+
     func onCancelButton(sender: UIButton!) {
         println("on Cancel")
         if presentingViewController != nil {
@@ -82,7 +87,6 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             let rootVC = parentViewController?.parentViewController as? RootTabBarController
             if let rootVC = rootVC {
                 rootVC.selectedIndex = 0
-
             }
         }
     }
