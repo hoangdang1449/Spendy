@@ -188,7 +188,7 @@
 				18AB69A71BACF6B10061029F /* Account Detail View */,
 				18499E1B1BAB23550066E6E5 /* Accounts View */,
 				9DB8A8641BA9EAEC000F03A1 /* Select Category */,
-				18F39CD11BA9D2930099B714 /* Add View */,
+				18F39CD11BA9D2930099B714 /* Add/Edit Transaction */,
 				18F39CD01BA9D2830099B714 /* Quick View */,
 			);
 			name = Views;
@@ -234,7 +234,7 @@
 			name = "Quick View";
 			sourceTree = "<group>";
 		};
-		18F39CD11BA9D2930099B714 /* Add View */ = {
+		18F39CD11BA9D2930099B714 /* Add/Edit Transaction */ = {
 			isa = PBXGroup;
 			children = (
 				18F39CD21BA9D2AE0099B714 /* NoteCell.swift */,
@@ -243,7 +243,7 @@
 				18F39CD81BA9D2F80099B714 /* DateCell.swift */,
 				18AA6A4C1BAA7575003210FD /* PhotoCell.swift */,
 			);
-			name = "Add View";
+			name = "Add/Edit Transaction";
 			sourceTree = "<group>";
 		};
 		7E5A4CE6364CE7730E7A6D65 /* Frameworks */ = {

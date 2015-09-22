@@ -28,6 +28,9 @@ var _allTransactions: [Transaction]?
 // This makes it less buggy when working with Transaction from outside in
 // (as long as we test Transaction carefully)
 class Transaction: HTObject {
+    class var kinds: [String] {
+        return [expenseKind, incomeKind, transferKind]
+    }
     static let expenseKind: String = "expense"
     static let incomeKind: String = "income"
     static let transferKind: String = "transfer"
