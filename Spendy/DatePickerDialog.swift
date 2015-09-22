@@ -32,7 +32,7 @@ class DatePickerDialog: UIView {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceOrientationDidChange:", name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -42,12 +42,12 @@ class DatePickerDialog: UIView {
     }
     
     /* Create the dialog view, and animate opening the dialog */
-    func show(#title: String, minDate: NSDate?, datePickerMode: UIDatePickerMode = .DateAndTime, callback: ((date: NSDate) -> Void)) {
+    func show(title title: String, minDate: NSDate?, datePickerMode: UIDatePickerMode = .DateAndTime, callback: ((date: NSDate) -> Void)) {
         show(title: title, doneButtonTitle: "Done", cancelButtonTitle: "Cancel", minDate: minDate, datePickerMode: datePickerMode, callback: callback)
         
     }
     
-    func show(#title: String, doneButtonTitle: String, cancelButtonTitle: String, defaultDate: NSDate = NSDate(), minDate: NSDate?, datePickerMode: UIDatePickerMode = .DateAndTime, callback: ((date: NSDate) -> Void)) {
+    func show(title title: String, doneButtonTitle: String, cancelButtonTitle: String, defaultDate: NSDate = NSDate(), minDate: NSDate?, datePickerMode: UIDatePickerMode = .DateAndTime, callback: ((date: NSDate) -> Void)) {
         self.title = title
         self.doneButtonTitle = doneButtonTitle
         self.cancelButtonTitle = cancelButtonTitle
@@ -208,7 +208,8 @@ class DatePickerDialog: UIView {
     private func addButtonsToView(container: UIView) {
         let buttonWidth = container.bounds.size.width / 2
         
-        self.cancelButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
+//        self.cancelButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
+        self.cancelButton = UIButton(type: UIButtonType.Custom)
         self.cancelButton.frame = CGRectMake(
             0,
             container.bounds.size.height - kDatePickerDialogDefaultButtonHeight,
@@ -224,7 +225,8 @@ class DatePickerDialog: UIView {
         self.cancelButton.addTarget(self, action: "buttonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         container.addSubview(self.cancelButton)
         
-        self.doneButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
+//        self.doneButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
+        self.doneButton = UIButton(type: UIButtonType.Custom)
         self.doneButton.frame = CGRectMake(
             buttonWidth,
             container.bounds.size.height - kDatePickerDialogDefaultButtonHeight,

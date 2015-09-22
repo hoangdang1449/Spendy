@@ -42,11 +42,11 @@ class SettingsViewController: UIViewController {
 
     func login() {
         PFUser.logInWithUsernameInBackground(
-            emailTextField.text, password: defaultPassword, block: { (user: PFUser?, error: NSError?) -> Void in
+            emailTextField.text!, password: defaultPassword, block: { (user: PFUser?, error: NSError?) -> Void in
                 if error != nil {
-                    println("Error logging in: \(error)")
+                    print("Error logging in: \(error)", appendNewline: true)
                 } else {
-                    println("Logged in successfully")
+                    print("Logged in successfully", appendNewline: true)
                     self.refreshViewsForUser()
                 }
         })
@@ -54,7 +54,7 @@ class SettingsViewController: UIViewController {
 
     @IBAction func onResetData(sender: AnyObject) {
         resetDataButton.enabled = false
-        DataManager.setupDefaultData(removeLocalData: true)
+        DataManager.setupDefaultData(true)
     }
 
     /*
@@ -67,7 +67,7 @@ class SettingsViewController: UIViewController {
     }
     */
     @IBAction func onSaveEmail(sender: AnyObject) {
-        if !emailTextField.text.isEmpty {
+        if !emailTextField.text!.isEmpty {
             if let user = PFUser.currentUser() {
                 if userIsAnonymous() {
                     user.email = emailTextField.text
@@ -76,11 +76,11 @@ class SettingsViewController: UIViewController {
                     // User is new
                     user.signUpInBackgroundWithBlock({ (succeeded, error: NSError?) -> Void in
                         if error != nil {
-                            println("Error signing up: \(error). User: \(user)")
-                            println("Try logging in:")
+                            print("Error signing up: \(error). User: \(user)", appendNewline: true)
+                            print("Try logging in:", appendNewline: true)
                             self.login() // temporary
                         } else {
-                            println("Signed up successfully")
+                            print("Signed up successfully", appendNewline: true)
                             self.refreshViewsForUser()
                         }
                     })
@@ -92,7 +92,7 @@ class SettingsViewController: UIViewController {
     }
 
     func disableSaveIfEmailIsEmpty() {
-        if emailTextField.text.isEmpty {
+        if emailTextField.text!.isEmpty {
             saveEmailButton.enabled = false
         } else {
             saveEmailButton.enabled = true
@@ -102,14 +102,14 @@ class SettingsViewController: UIViewController {
     func userIsAnonymous() -> Bool {
         let user = PFUser.currentUser()!
         let anonymous = PFAnonymousUtils.isLinkedWithUser(user)
-        println("anonymous: \(anonymous)")
+        print("anonymous: \(anonymous)", appendNewline: true)
         return anonymous
     }
 
     func refreshViewsForUser() {
         // because we allow anonymous login, this should never be nil
         let user = PFUser.currentUser()!
-        println("current user: \(user)")
+        print("current user: \(user)", appendNewline: true)
 
         emailTextField.text = user.email
 
@@ -130,7 +130,7 @@ class SettingsViewController: UIViewController {
 
     @IBAction func onLogout(sender: AnyObject) {
         PFUser.logOut()
-        println("Logged out. User: \(PFUser.currentUser())")
+        print("Logged out. User: \(PFUser.currentUser())", appendNewline: true)
         refreshViewsForUser()
     }
 }
@@ -145,7 +145,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        let cell = menuTableView.dequeueReusableCellWithIdentifier("SettingMenuItemCell") as! UITableViewCell
+        let cell = menuTableView.dequeueReusableCellWithIdentifier("SettingMenuItemCell") as UITableViewCell!
 
         return cell
     }

@@ -64,13 +64,13 @@ class Helper: NSObject {
         let components = NSDateComponents()
         components.weekOfYear = weekOfYear
         
-        if let date = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(0)) {
+        if let date = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0)) {
             var weekDuration = NSTimeInterval()
-            if cal.rangeOfUnit(.CalendarUnitWeekOfYear, startDate: &beginningOfWeek, interval: &weekDuration, forDate: date) {
+            if cal.rangeOfUnit(NSCalendarUnit.NSWeekOfYearCalendarUnit, startDate: &beginningOfWeek, interval: &weekDuration, forDate: date) {
                 endOfWeek = beginningOfWeek?.dateByAddingTimeInterval(weekDuration)
             }
             
-            beginningOfWeek = cal.dateByAddingUnit(NSCalendarUnit.DayCalendarUnit, value: 1, toDate: beginningOfWeek!, options: NSCalendarOptions(0))
+            beginningOfWeek = cal.dateByAddingUnit(NSCalendarUnit.NSDayCalendarUnit, value: 1, toDate: beginningOfWeek!, options: NSCalendarOptions(rawValue: 0))
             
         }
         

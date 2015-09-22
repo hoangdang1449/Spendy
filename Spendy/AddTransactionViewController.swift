@@ -84,10 +84,10 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 //        selectedTransaction!.date = dateCell?.datePicker.date ?? NSDate()
 
 
-        println("[onAddButton] transaction: \(selectedTransaction!)")
+        print("[onAddButton] transaction: \(selectedTransaction!)", appendNewline: true)
 //        if selectedTransaction!.isNew() { // currently not saving transaction yet
         if isNewTemp {
-            println("added transaction")
+            print("added transaction", appendNewline: true)
             Transaction.add(selectedTransaction!)
         }
 
@@ -101,12 +101,12 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         } else if navigationController != nil {
             navigationController?.popViewControllerAnimated(true)
         } else {
-            println("Error closing view on onAddButton: \(self)")
+            print("Error closing view on onAddButton: \(self)", appendNewline: true)
         }
     }
 
     func onCancelButton(sender: UIButton!) {
-        println("onCancelButton")
+        print("onCancelButton", appendNewline: true)
         
         if presentingViewController != nil {
             // exit modal
@@ -120,7 +120,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             // exit push
             navigationController!.popViewControllerAnimated(true)
         } else {
-            println("Error closing view on onAddButton: \(self)")
+            print("Error closing view on onAddButton: \(self)", appendNewline: true)
         }
     }
 
@@ -153,15 +153,15 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        var headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 30))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 30))
         headerView.backgroundColor = UIColor(netHex: 0xDCDCDC)
         
         if section == 0 {
-            var todayLabel = UILabel(frame: CGRect(x: 8, y: 2, width: UIScreen.mainScreen().bounds.width - 16, height: 30))
+            let todayLabel = UILabel(frame: CGRect(x: 8, y: 2, width: UIScreen.mainScreen().bounds.width - 16, height: 30))
             todayLabel.font = UIFont.systemFontOfSize(14)
             
             let today = NSDate()
-            var formatter = NSDateFormatter()
+            let formatter = NSDateFormatter()
             formatter.dateStyle = NSDateFormatterStyle.FullStyle
             todayLabel.text = formatter.stringFromDate(today)
             
@@ -186,7 +186,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 
                 cell.noteText.text = selectedTransaction?.note
                 
-                var tapCell = UITapGestureRecognizer(target: self, action: "tapNoteCell:")
+                let tapCell = UITapGestureRecognizer(target: self, action: "tapNoteCell:")
                 cell.addGestureRecognizer(tapCell)
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
@@ -200,7 +200,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 
                 cell.amountText.text = selectedTransaction?.formattedAmount()
 
-                var tapCell = UITapGestureRecognizer(target: self, action: "tapAmoutCell:")
+                let tapCell = UITapGestureRecognizer(target: self, action: "tapAmoutCell:")
                 cell.addGestureRecognizer(tapCell)
                 
                 cell.typeSegment.addTarget(self, action: "typeSegmentChanged:", forControlEvents: UIControlEvents.ValueChanged)
@@ -225,7 +225,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 
                 cell.itemClass = "Category"
                 cell.titleLabel.text = "Category"
-                println("selectedTransaction: \(selectedTransaction)")
+                print("selectedTransaction: \(selectedTransaction)", appendNewline: true)
 
                 // this got rendered too soon!
 
@@ -256,9 +256,9 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
                 
             case 2:
                 if isCollaped {
-                    let cell = tableView.dequeueReusableCellWithIdentifier("ViewMoreCell", forIndexPath: indexPath) as! UITableViewCell
+                    let cell = tableView.dequeueReusableCellWithIdentifier("ViewMoreCell", forIndexPath: indexPath)
                     
-                    var tapCell = UITapGestureRecognizer(target: self, action: "tapMoreCell:")
+                    let tapCell = UITapGestureRecognizer(target: self, action: "tapMoreCell:")
                     cell.addGestureRecognizer(tapCell)
                     
                     Helper.sharedInstance.setSeparatorFullWidth(cell)
@@ -266,7 +266,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
                 } else {
                     let cell = tableView.dequeueReusableCellWithIdentifier("DateCell", forIndexPath: indexPath) as! DateCell
                     
-                    var tapCell = UITapGestureRecognizer(target: self, action: "tapDateCell:")
+                    let tapCell = UITapGestureRecognizer(target: self, action: "tapDateCell:")
                     cell.addGestureRecognizer(tapCell)
                     
                     if isShowDatePicker {
@@ -290,7 +290,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCell
-            var tapCell = UITapGestureRecognizer(target: self, action: "tapPhotoCell:")
+            let tapCell = UITapGestureRecognizer(target: self, action: "tapPhotoCell:")
             cell.addGestureRecognizer(tapCell)
             Helper.sharedInstance.setSeparatorFullWidth(cell)
             if photoCell == nil {
@@ -342,16 +342,16 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         
         let takePhotoAction = UIAlertAction(title: "Take a Photo", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            println("Take a Photo")
+            print("Take a Photo", appendNewline: true)
         })
         let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            println("Photo from Library")
+            print("Photo from Library", appendNewline: true)
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             (alert: UIAlertAction!) -> Void in
-            println("Cancelled")
+            print("Cancelled", appendNewline: true)
         })
         
         optionMenu.addAction(takePhotoAction)
@@ -388,7 +388,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         amountCell?.amountText.resignFirstResponder()
         dateCell?.datePicker.alpha = 0
         
-        let toController = segue.destinationViewController as! UIViewController
+        let toController = segue.destinationViewController 
         if toController is SelectAccountOrCategoryViewController {
             let vc = toController as! SelectAccountOrCategoryViewController
 
@@ -410,7 +410,7 @@ extension AddTransactionViewController: SelectAccountOrCategoryDelegate {
             selectedTransaction?.setCategory(item as! Category)
             tableView.reloadData()
         } else {
-            println("Error: item is \(item)")
+            print("Error: item is \(item)", appendNewline: true)
         }
     }
 }

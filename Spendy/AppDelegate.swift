@@ -29,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Remove this line if you don't want to use Local Datastore features or want to use cachePolicy.
         Parse.enableLocalDatastore()
 
-        var config = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Config", ofType: "plist")!)
-        println("loaded config: \(config)")
+        let config = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Config", ofType: "plist")!)
+        print("loaded config: \(config)", appendNewline: true)
         // ****************************************************************************
         // Uncomment this line if you want to enable Crash Reporting
         // ParseCrashReporting.enable()
@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let clientKey = config["parse_client_key"] as? String
             Parse.setApplicationId(applicationId!, clientKey: clientKey!)
         } else {
-            println("Please set up Parse keys in Config.plist file")
+            print("Please set up Parse keys in Config.plist file", appendNewline: true)
         }
 
         //
@@ -76,16 +76,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         if application.respondsToSelector("registerUserNotificationSettings:") {
-            let userNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
-            let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+//            let userNotificationTypes = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
+            let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+            
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
         } else {
-            let types = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
-            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: types, categories: nil))
+//            let types = UIUserNotificationType.Badge | UIUserNotificationType.Alert | UIUserNotificationType.Sound
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
         }
 
-        DataManager.setupDefaultData(removeLocalData: false)
+        DataManager.setupDefaultData(false)
 
         return true
     }
@@ -101,18 +102,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         PFPush.subscribeToChannelInBackground("") { (succeeded: Bool, error: NSError?) in
             if succeeded {
-                println("ParseStarterProject successfully subscribed to push notifications on the broadcast channel.");
+                print("ParseStarterProject successfully subscribed to push notifications on the broadcast channel.", appendNewline: true);
             } else {
-                println("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.", error)
+                print("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.", error, appendNewline: true)
             }
         }
     }
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         if error.code == 3010 {
-            println("Push notifications are not supported in the iOS Simulator.")
+            print("Push notifications are not supported in the iOS Simulator.", appendNewline: true)
         } else {
-            println("application:didFailToRegisterForRemoteNotificationsWithError: %@", error)
+            print("application:didFailToRegisterForRemoteNotificationsWithError: %@", error, appendNewline: true)
         }
     }
 

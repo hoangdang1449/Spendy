@@ -57,7 +57,7 @@ class HTObject: NSObject {
     
     // Should be called after we make any changes
     func save() {
-        println("pining + saving in background (no error checking):\n\(self)")
+        print("pining + saving in background (no error checking):\n\(self)", appendNewline: true)
         _object!.pinInBackground()
         _object!.saveInBackground()
     }
@@ -71,10 +71,10 @@ class HTObject: NSObject {
     }
 
     func pinAndSaveEventuallyWithName(name: String) {
-        println("pinAndSaveEventually called on\n\(self)")
+        print("pinAndSaveEventually called on\n\(self)", appendNewline: true)
         _object!.pinInBackgroundWithName(name) { (isSuccess, error: NSError?) -> Void in
             if error != nil {
-                println("[pinInBackgroundWithName] ERROR: \(error!). For \(self._object)")
+                print("[pinInBackgroundWithName] ERROR: \(error!). For \(self._object)", appendNewline: true)
             }
         }
         _object!.saveEventually()
@@ -83,14 +83,14 @@ class HTObject: NSObject {
     class func pinAllWithName(htObjects: [HTObject], name: String) {
         PFObject.pinAllInBackground(htObjects.map({$0._object!}), withName: name) { (isSuccess, error: NSError?) -> Void in
             if error != nil {
-                println("[pinAllInBackground] ERROR: \(error!). For \(htObjects)")
+                print("[pinAllInBackground] ERROR: \(error!). For \(htObjects)", appendNewline: true)
             }
         }
     }
 }
 
-extension HTObject: Printable {
-    override var description: String {
-        return _object != nil ? "object: \(_object!)" : "object is nil"
-    }
-}
+//extension HTObject: CustomStringConvertible {
+//    override var description: String {
+//        return _object != nil ? "object: \(_object!)" : "object is nil"
+//    }
+//}

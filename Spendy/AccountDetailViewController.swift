@@ -45,7 +45,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
 
         addBarButton()
         
-        var downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleDownSwipe:"))
+        let downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleDownSwipe:"))
         downSwipe.direction = .Down
         downSwipe.delegate = self
         tableView.addGestureRecognizer(downSwipe)
@@ -61,7 +61,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
 
     // reload data after we navigate back from pushed cell
     override func viewWillAppear(animated: Bool) {
-        println("viewWillAppear")
+        print("viewWillAppear", appendNewline: true)
         reloadTransactions()
         tableView.reloadData()
     }
@@ -85,9 +85,9 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func onAddButton(sender: UIButton!) {
-        println("on Add")
-        var dvc = self.storyboard?.instantiateViewControllerWithIdentifier("AddVC") as! AddTransactionViewController
-        var nc = UINavigationController(rootViewController: dvc)
+        print("on Add", appendNewline: true)
+        let dvc = self.storyboard?.instantiateViewControllerWithIdentifier("AddVC") as! AddTransactionViewController
+        let nc = UINavigationController(rootViewController: dvc)
         self.presentViewController(nc, animated: true, completion: nil)
     }
     
@@ -107,10 +107,10 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 30))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 30))
         headerView.backgroundColor = UIColor(netHex: 0xDCDCDC)
         
-        var monthLabel = UILabel(frame: CGRect(x: 8, y: 2, width: UIScreen.mainScreen().bounds.width - 16, height: 30))
+        let monthLabel = UILabel(frame: CGRect(x: 8, y: 2, width: UIScreen.mainScreen().bounds.width - 16, height: 30))
         monthLabel.font = UIFont.systemFontOfSize(14)
         
         
@@ -142,11 +142,11 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
 //        cell.noteLabel.text = sampleTransactions[indexPath.section][indexPath.row].note
         cell.transaction = sampleTransactions[indexPath.section][indexPath.row]
 
-        var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         rightSwipe.direction = .Right
         cell.addGestureRecognizer(rightSwipe)
         
-        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         leftSwipe.direction = .Left
         cell.addGestureRecognizer(leftSwipe)
         
@@ -162,8 +162,8 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     func handleSwipe(sender: UISwipeGestureRecognizer) {
         
-        var selectedCell = sender.view as! TransactionCell
-        var indexPath = tableView.indexPathForCell(selectedCell)
+        let selectedCell = sender.view as! TransactionCell
+        let indexPath = tableView.indexPathForCell(selectedCell)
         
         if let indexPath = indexPath {
             switch sender.direction {
@@ -197,8 +197,8 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     func handleDownSwipe(sender: UISwipeGestureRecognizer) {
         
         if sender.direction == .Down {
-            var dvc = self.storyboard?.instantiateViewControllerWithIdentifier("QuickVC") as! QuickViewController
-            var nc = UINavigationController(rootViewController: dvc)
+            let dvc = self.storyboard?.instantiateViewControllerWithIdentifier("QuickVC") as! QuickViewController
+            let nc = UINavigationController(rootViewController: dvc)
             self.presentViewController(nc, animated: true, completion: nil)
         }
     }
@@ -218,7 +218,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
 //        }
         
         
-        let vc = segue.destinationViewController as! UIViewController
+        let vc = segue.destinationViewController 
         
         if vc is AddTransactionViewController {
             let addTransactionViewController = vc as! AddTransactionViewController
@@ -227,7 +227,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
             indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
 
             addTransactionViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
-            println("pass selectedTransaction to AddTransactionView: \(addTransactionViewController.selectedTransaction))")
+            print("pass selectedTransaction to AddTransactionView: \(addTransactionViewController.selectedTransaction))", appendNewline: true)
         }
     }
 }
