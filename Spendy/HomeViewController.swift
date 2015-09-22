@@ -432,7 +432,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         case UISwipeGestureRecognizerDirection.Left:
             switch viewMode {
             case ViewMode.Weekly:
-                weekOfYear -= 1
+                weekOfYear += 1
                 navigationItem.title = getWeekText(weekOfYear)
                 
                 break
@@ -450,7 +450,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         case UISwipeGestureRecognizerDirection.Right:
             switch viewMode {
             case ViewMode.Weekly:
-                weekOfYear += 1
+                weekOfYear -= 1
                 navigationItem.title = getWeekText(weekOfYear)
                 
                 break
@@ -463,6 +463,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             default:
                 break
             }
+            tableView.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, 3)), withRowAnimation: UITableViewRowAnimation.Right)
             break
         case UISwipeGestureRecognizerDirection.Down:
             var dvc = self.storyboard?.instantiateViewControllerWithIdentifier("QuickVC") as! QuickViewController
