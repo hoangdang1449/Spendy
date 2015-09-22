@@ -11,94 +11,101 @@ import Parse
 
 var _allAccounts: [Account]?
 
-class Account: PFObject {
-    @NSManaged var name: String!
-    @NSManaged var userId: String!
-
+class Account: HTObject {
+    dynamic var name: String!
+    dynamic var userId: String!
+    dynamic var icon: String! // temporary, to make Account and Category work well together
 
     init(name: String) {
-        super.init()
+        super.init(parseClassName: "Account")
 
-        self.name = name
-        self.userId = PFUser.currentUser()?.objectId!
+        self["name"] = name
+        self["userId"] = PFUser.currentUser()!.objectId!
     }
 
-    override init() {
-        super.init()
+    override init(object: PFObject) {
+        super.init(object: object)
+
+        self["name"] = object.objectForKey("name")
+        self["userId"] = object.objectForKey("userId")
     }
 
     static func loadAll() {
         let user = PFUser.currentUser()!
-        
-        let localQuery = PFQuery(className: "Account")
+        println("=====================\nUser: \(user)\n=====================")
 
+        let localQuery = PFQuery(className: "Account").fromLocalDatastore()
+
+        // TODO: move this out
         if user.objectId == nil {
             user.save()
         }
+
+
         localQuery.whereKey("userId", equalTo: user.objectId!)
-        localQuery.fromLocalDatastore().findObjectsInBackgroundWithBlock { (accounts: [AnyObject]?, error: NSError?) -> Void in
+        localQuery.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]?, error: NSError?) -> Void in
+
             if error != nil {
                 println("Error loading accounts from Local: \(error)")
                 return
             }
 
-            println("[local] accounts: \(accounts)")
-            _allAccounts = accounts as! [Account]?
+            _allAccounts = objects?.map({ Account(object: $0 as! PFObject) })
+            println("\n[local] accounts: \(objects)")
 
             if _allAccounts == nil || _allAccounts!.isEmpty {
                 // load from server
                 let remoteQuery = PFQuery(className: "Account")
                 remoteQuery.whereKey("userId", equalTo: user.objectId!)
-                remoteQuery.findObjectsInBackgroundWithBlock { (accounts: [AnyObject]?, error: NSError?) -> Void in
+                remoteQuery.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
                     if let error = error {
                         println("Error loading accounts from Server: \(error)")
                         return
                     }
 
-                    println("[server] accounts: \(accounts)")
-                    _allAccounts = accounts as! [Account]?
+                    println("\n[server] accounts: \(objects)")
+                    _allAccounts = objects?.map({ Account(object: $0 as! PFObject) })
 
                     if _allAccounts!.isEmpty {
                         println("No account found for \(user). Creating Default Account")
+
                         var defaultAccount = Account(name: "Default Account")
-                        defaultAccount.userId = user.objectId!
-                        defaultAccount.pinInBackground()
-                        defaultAccount.saveEventually()
-                        _allAccounts?.append(defaultAccount)
+                        var secondAccount  = Account(name: "Second Account")
+
+                        defaultAccount.pinAndSaveEventuallyWithName("MyAccounts")
+                        secondAccount.pinAndSaveEventuallyWithName("MyAccounts")
+                        _allAccounts!.append(defaultAccount)
+                        _allAccounts!.append(secondAccount)
+
                         println("accounts: \(_allAccounts!)")
                     } else {
-                        PFObject.pinAllInBackground(_allAccounts)
+                        Account.pinAllWithName(_allAccounts!, name: "MyAccounts")
                     }
                 }
             }
         }
     }
 
-    static func all() -> [Account]? {
+    class func defaultAccount() -> Account? {
+        return _allAccounts?.first
+    }
+
+    class func all() -> [Account]? {
         return _allAccounts;
+    }
+
+    class func findById(objectId: String) -> Account? {
+        let record = _allAccounts?.filter({ (el) -> Bool in
+            el.objectId == objectId
+        }).first
+        return record
     }
 }
 
-extension Account: PFSubclassing {
-    class func parseClassName() -> String {
-        return "Account"
-    }
-
-    override class func initialize() {
-        var onceToken: dispatch_once_t = 0
-        dispatch_once(&onceToken) {
-            self.registerSubclass()
-        }
-    }
-
-    override class func query() -> PFQuery? {
-        //1
-        let query = PFQuery(className: parseClassName())
-        //2
-        query.whereKey("userId", equalTo: PFUser.currentUser()!.objectId!)
-        //3
-        query.orderByDescending("createdAt")
-
-        return query
+extension Account: Printable {
+    override var description: String {
+        let base = super.description
+        return "userId: \(userId), name: \(name), icon: \(icon), base: \(base)"
     }
 }

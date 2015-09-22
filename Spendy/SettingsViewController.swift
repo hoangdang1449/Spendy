@@ -21,6 +21,8 @@ class SettingsViewController: UIViewController {
     // temporary
     @IBOutlet weak var accountStatusLabel: UILabel!
 
+    @IBOutlet weak var resetDataButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,6 +50,11 @@ class SettingsViewController: UIViewController {
                     self.refreshViewsForUser()
                 }
         })
+    }
+
+    @IBAction func onResetData(sender: AnyObject) {
+        resetDataButton.enabled = false
+        DataManager.setupDefaultData(removeLocalData: true)
     }
 
     /*

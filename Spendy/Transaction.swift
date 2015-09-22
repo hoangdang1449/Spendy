@@ -9,17 +9,17 @@
 import Foundation
 import Parse
 
-/* 
-Schema:
-- kind (income | expense | transfer)
-- user_id
-- from_account
-- to_account (when type is ‘transfer’)
-- note
-- amount
-- category_id
-- date
-*/
+/////////////////////////////////////////
+//Schema:
+//- kind (income | expense | transfer)
+//- user_id
+//- from_account
+//- to_account (when type is ‘transfer’)
+//- note
+//- amount
+//- category_id
+//- date
+/////////////////////////////////////////
 
 var _allTransactions: [Transaction]?
 
@@ -28,9 +28,6 @@ var _allTransactions: [Transaction]?
 // This makes it less buggy when working with Transaction from outside in
 // (as long as we test Transaction carefully)
 class Transaction: HTObject {
-    // TODO: make this work so we can set _object from inside HTObject
-//    override class var parseClassName: String! { get { return "Transaction" } }
-
     static let expenseKind: String = "expense"
     static let incomeKind: String = "income"
     static let transferKind: String = "transfer"
@@ -45,10 +42,7 @@ class Transaction: HTObject {
     
     // TODO: change kind to enum .Expense, .Income, .Transfer
     init(kind: String?, note: String?, amount: NSDecimalNumber?, category: Category?, account: Account?, date: NSDate?) {
-        super.init()
-        
-        // TODO: abstract to HTObject
-        self._object = PFObject(className: "Transaction")
+        super.init(parseClassName: "Transaction")
 
         self["kind"] = kind
         self["note"] = note
@@ -56,11 +50,48 @@ class Transaction: HTObject {
         self["categoryId"] = category?.objectId
         self["fromAccountId"] = account?.objectId
         self["date"] = date
-
-        println("done \(self)")
     }
 
+    func setAccount(account: Account) {
+        self["fromAccountId"] = account.objectId
+    }
 
+    func setCategory(category: Category) {
+        self["categoryId"] = category.objectId
+    }
+
+    // MARK: - relations
+
+    // TODO: refactor logic to Account and Category
+    func account() -> Account? {
+        if (fromAccountId != nil) {
+            return Account.findById(fromAccountId!)
+        } else {
+            // attempt to use default account
+            if let account = Account.defaultAccount() {
+                println("account missing in transaction: setting defaultAccount for it")
+                setAccount(account)
+                return account
+            } else {
+                return nil
+            }
+        }
+    }
+
+    func category() -> Category? {
+        if categoryId != nil {
+            return Category.findById(categoryId!)
+        } else {
+            // attempt to use default account
+            if let category = Category.defaultCategory() {
+                println("category missing in transaction: setting defaultCategory for it")
+                setCategory(category)
+                return category
+            } else {
+                return nil
+            }
+        }
+    }
 
     // MARK: - date formatter
     static var dateFormatter = NSDateFormatter()
@@ -107,6 +138,15 @@ class Transaction: HTObject {
                 self.transactions = results as! [PFObject]?
                 completion(transactions: self.transactions, error: error)
             }
+        }
+    }
+
+    // MARK: - view helpers
+    func formattedAmount() -> String? {
+        if amount != nil {
+            return String(format: "$%.02f", amount!.doubleValue)
+        } else {
+            return nil
         }
     }
 
@@ -158,11 +198,18 @@ class Transaction: HTObject {
                 Transaction(kind: Transaction.expenseKind, note: "Note 4", amount: 2.23, category: defaultCategory, account: defaultAccount, date: dateFormatter.dateFromString("2015-09-02")),
                 Transaction(kind: Transaction.expenseKind, note: "Note 5", amount: 2.23, category: defaultCategory, account: defaultAccount, date: dateFormatter.dateFromString("2015-09-03"))
             ]
-        println("post sort: \(_allTransactions!))")
+//        println("post sort: \(_allTransactions!))")
     }
 
     class func add(element: Transaction) {
         element.save()
         _allTransactions!.append(element)
+    }
+}
+
+extension Transaction: Printable {
+    override var description: String {
+        let base = super.description
+        return "categoryId: \(categoryId), fromAccountId: \(fromAccountId), toAccountId: \(toAccountId), base: \(base)"
     }
 }

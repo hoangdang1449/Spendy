@@ -65,6 +65,10 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    override func viewWillAppear(animated: Bool) {
+        tableView.reloadData()
+    }
     
     // MARK: Button
     

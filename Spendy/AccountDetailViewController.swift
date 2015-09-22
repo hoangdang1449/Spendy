@@ -33,9 +33,11 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         let dateFormatter = Transaction.dateFormatter
         dateFormatter.dateFormat = "YYYY-MM-dd"
 
+        // TODO: this is temporary. need to wait for Category and Account to load first
+        Transaction.loadAll()
+
         // create a few sample transactions
-        //        sampleTransactions = [["September, 2015", "September 2"], ["August, 2015", "August 2", "August 3"]]
-        sampleTransactions = Transaction.listGroupedByMonth(Transaction.all()!)
+        reloadTransactions()
 
         tableView.dataSource = self
         tableView.delegate = self
@@ -51,7 +53,17 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
         if let selectedAccount = selectedAccount {
             navigationItem.title = selectedAccount.name
         }
+    }
 
+    func reloadTransactions() {
+        sampleTransactions = Transaction.listGroupedByMonth(Transaction.all()!)
+    }
+
+    // reload data after we navigate back from pushed cell
+    override func viewWillAppear(animated: Bool) {
+        println("viewWillAppear")
+        reloadTransactions()
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -213,13 +225,9 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
             
             var indexPath: AnyObject!
             indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
-            
-            addTransactionViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
-            
-            
-        }
-        
-        
-    }
 
+            addTransactionViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
+            println("pass selectedTransaction to AddTransactionView: \(addTransactionViewController.selectedTransaction))")
+        }
+    }
 }

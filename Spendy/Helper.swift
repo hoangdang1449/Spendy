@@ -54,7 +54,7 @@ class Helper: NSObject {
         }
     }
     
-    func getCurrentWeek() -> (NSDate?, NSDate?) {
+    func getWeek(weekOfYear: Int) -> (NSDate?, NSDate?) {
         
         var beginningOfWeek: NSDate?
         var endOfWeek: NSDate?
@@ -62,7 +62,7 @@ class Helper: NSObject {
         let cal = NSCalendar.currentCalendar()
         
         let components = NSDateComponents()
-        components.weekOfYear = 0
+        components.weekOfYear = weekOfYear
         
         if let date = cal.dateByAddingComponents(components, toDate: NSDate(), options: NSCalendarOptions(0)) {
             var weekDuration = NSTimeInterval()
@@ -91,4 +91,11 @@ extension String {
     func replace(target: String, withString: String) -> String {
         return self.stringByReplacingOccurrencesOfString(target, withString: withString, options: NSStringCompareOptions.LiteralSearch, range: nil)
     }
+}
+
+enum ViewMode: Int {
+    case Weekly = 0,
+    Monthly,
+    Yearly,
+    Custom
 }
