@@ -29,6 +29,10 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if Transaction.all() == nil {
+            Transaction.loadAll()
+        }
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -75,18 +79,25 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             println("added transaction")
             Transaction.add(selectedTransaction!)
         }
-        // TODO: transfer to selected aacount's detail
+
         if presentingViewController != nil {
             dismissViewControllerAnimated(true, completion: nil)
-        } else {
+
+            // unhide the tabBar because we hid it for the Add tab
+            self.tabBarController?.tabBar.hidden = false
+            let rootVC = parentViewController?.parentViewController as? RootTabBarController
+            rootVC?.selectedIndex = 0
+        } else if navigationController != nil {
             navigationController?.popViewControllerAnimated(true)
+        } else {
+            println("Error closing view on onAddButton: \(self)")
         }
     }
 
     func onCancelButton(sender: UIButton!) {
         println("onCancelButton")
         
-        if selectedTransaction!.isNew() {
+        if presentingViewController != nil {
             // exit modal
             dismissViewControllerAnimated(true, completion: nil)
 
@@ -94,9 +105,11 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             self.tabBarController?.tabBar.hidden = false
             let rootVC = parentViewController?.parentViewController as? RootTabBarController
             rootVC?.selectedIndex = 0
-        } else {
+        } else if navigationController != nil {
             // exit push
-            navigationController?.popViewControllerAnimated(true)
+            navigationController!.popViewControllerAnimated(true)
+        } else {
+            println("Error closing view on onAddButton: \(self)")
         }
     }
 
@@ -222,7 +235,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
                 cell.titleLabel.text = "Account"
 
                 let account = selectedTransaction?.account()
-                cell.typeLabel.text = account!.name
+                cell.typeLabel.text = account?.name
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
                 if accountCell == nil {

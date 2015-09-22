@@ -19,8 +19,8 @@ class Account: HTObject {
     init(name: String) {
         super.init(parseClassName: "Account")
 
-        self.name = name
-        self.userId = PFUser.currentUser()?.objectId!
+        self["name"] = name
+        self["userId"] = PFUser.currentUser()!.objectId!
     }
 
     override init(object: PFObject) {
@@ -32,13 +32,15 @@ class Account: HTObject {
 
     static func loadAll() {
         let user = PFUser.currentUser()!
-        
+        println("=====================\nUser: \(user)\n=====================")
+
         let localQuery = PFQuery(className: "Account").fromLocalDatastore()
 
         // TODO: move this out
         if user.objectId == nil {
             user.save()
         }
+
 
         localQuery.whereKey("userId", equalTo: user.objectId!)
         localQuery.findObjectsInBackgroundWithBlock {
@@ -62,7 +64,7 @@ class Account: HTObject {
                         return
                     }
 
-                    println("x[server] accounts: \(objects)")
+                    println("\n[server] accounts: \(objects)")
                     _allAccounts = objects?.map({ Account(object: $0 as! PFObject) })
 
                     if _allAccounts!.isEmpty {
@@ -71,14 +73,14 @@ class Account: HTObject {
                         var defaultAccount = Account(name: "Default Account")
                         var secondAccount  = Account(name: "Second Account")
 
+                        defaultAccount.pinAndSaveEventuallyWithName("MyAccounts")
+                        secondAccount.pinAndSaveEventuallyWithName("MyAccounts")
                         _allAccounts!.append(defaultAccount)
                         _allAccounts!.append(secondAccount)
 
                         println("accounts: \(_allAccounts!)")
-                        PFObject.pinAllInBackground(_allAccounts, withName: "MyAccounts")
-                        PFObject.saveAllInBackground(_allAccounts)
                     } else {
-                        PFObject.pinAllInBackground(_allAccounts, withName: "MyAccounts")
+                        Account.pinAllWithName(_allAccounts!, name: "MyAccounts")
                     }
                 }
             }
@@ -98,5 +100,12 @@ class Account: HTObject {
             el.objectId == objectId
         }).first
         return record
+    }
+}
+
+extension Account: Printable {
+    override var description: String {
+        let base = super.description
+        return "userId: \(userId), name: \(name), icon: \(icon), base: \(base)"
     }
 }

@@ -31,9 +31,9 @@ class Category: HTObject {
 
     class func loadAll() {
         // load from local first
-        let localQuery = PFQuery(className: "Category").fromLocalDatastore()
+        let localQuery = PFQuery(className: "Category")
 
-        localQuery.findObjectsInBackgroundWithBlock {
+        localQuery.fromLocalDatastore().findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]?, error: NSError?) -> Void in
 
             if let error = error {
@@ -54,7 +54,12 @@ class Category: HTObject {
                     } else {
                         println("[server] categories: \(objects)")
                         _allCategories = objects?.map({ Category(object: $0 as! PFObject) })
-                        PFObject.pinAllInBackground(_allCategories, withName: "MyCategories")
+
+                        // already in background
+                        PFObject.pinAllInBackground(objects!, withName: "MyCategories", block: { (success, error: NSError?) -> Void in
+                            println("bool: \(success); error: \(error)")
+                        })
+                        // no need to save because we are not adding data
                     }
                 }
             }
@@ -74,5 +79,12 @@ class Category: HTObject {
             el.objectId == objectId
         }).first
         return record
+    }
+}
+
+extension Category: Printable {
+    override var description: String {
+        let base = super.description
+        return "name: \(name), icon: \(icon), base: \(base)"
     }
 }
