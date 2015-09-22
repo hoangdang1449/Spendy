@@ -21,6 +21,7 @@
 		18AB69A91BACF6DB0061029F /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB69A81BACF6DB0061029F /* TransactionCell.swift */; };
 		18AB69AB1BAD48C70061029F /* NotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB69AA1BAD48C70061029F /* NotificationSettingViewController.swift */; };
 		18AB69AE1BAD4C6F0061029F /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB69AD1BAD4C6F0061029F /* ReminderCell.swift */; };
+		18C74C1D1BB0C0D80056D9D5 /* ViewModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C74C1C1BB0C0D80056D9D5 /* ViewModeCell.swift */; };
 		18F39CC31BA962D10099B714 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC21BA962D10099B714 /* HomeViewController.swift */; };
 		18F39CC51BA964450099B714 /* QuickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC41BA964450099B714 /* QuickViewController.swift */; };
 		18F39CC71BA966190099B714 /* QuickCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F39CC61BA966190099B714 /* QuickCell.swift */; };
@@ -75,6 +76,7 @@
 		18AB69A81BACF6DB0061029F /* TransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		18AB69AA1BAD48C70061029F /* NotificationSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSettingViewController.swift; sourceTree = "<group>"; };
 		18AB69AD1BAD4C6F0061029F /* ReminderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
+		18C74C1C1BB0C0D80056D9D5 /* ViewModeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModeCell.swift; sourceTree = "<group>"; };
 		18F39CC21BA962D10099B714 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		18F39CC41BA964450099B714 /* QuickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickViewController.swift; sourceTree = "<group>"; };
 		18F39CC61BA966190099B714 /* QuickCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickCell.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				184851F21BB011AA00C1EA63 /* MenuCell.swift */,
 				184851F41BB011B700C1EA63 /* BalanceCell.swift */,
 				184851F61BB011CE00C1EA63 /* SubMenuCell.swift */,
+				18C74C1C1BB0C0D80056D9D5 /* ViewModeCell.swift */,
 			);
 			name = "Home View";
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18AB69AB1BAD48C70061029F /* NotificationSettingViewController.swift in Sources */,
+				18C74C1D1BB0C0D80056D9D5 /* ViewModeCell.swift in Sources */,
 				9DB8A8631BA9EAC0000F03A1 /* CategoryCell.swift in Sources */,
 				9DB8A86E1BAA43B4000F03A1 /* SelectAccountOrCategoryViewController.swift in Sources */,
 				9DB8A86C1BAA064E000F03A1 /* RootTabBarController.swift in Sources */,
