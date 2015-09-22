@@ -17,8 +17,8 @@ class RootTabBarController: UITabBarController {
 
         // Load Settings storyboard's initial controller
         // Replace the Settings placeholder controller
-        var storyboard = UIStoryboard(name: "Settings", bundle: nil)
-        var settingsController = storyboard.instantiateInitialViewController() as! UIViewController
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        let settingsController = storyboard.instantiateInitialViewController() as UIViewController!
 
         if var tabControllers = self.viewControllers {
             assert(tabControllers[2] is SettingsViewController, "Expecting the 3rd tab is SettingsController")
@@ -34,7 +34,7 @@ class RootTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         if item.title == "Add" {
             tabBar.hidden = true
         }

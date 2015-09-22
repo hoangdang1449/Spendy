@@ -32,53 +32,59 @@ class Account: HTObject {
 
     static func loadAll() {
         let user = PFUser.currentUser()!
-        println("=====================\nUser: \(user)\n=====================")
+        print("=====================\nUser: \(user)\n=====================", appendNewline: true)
 
         let localQuery = PFQuery(className: "Account").fromLocalDatastore()
 
         // TODO: move this out
         if user.objectId == nil {
-            user.save()
+//            user.save()
+            do {
+                try user.save()
+                print("Success")
+            } catch {
+                print("An error occurred when saving user.")
+            }
         }
-
+//localQuery.findObjectsInBackgroundWithBlock
 
         localQuery.whereKey("userId", equalTo: user.objectId!)
         localQuery.findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
+            (objects, error) -> Void in
 
             if error != nil {
-                println("Error loading accounts from Local: \(error)")
+                print("Error loading accounts from Local: \(error)", appendNewline: true)
                 return
             }
 
-            _allAccounts = objects?.map({ Account(object: $0 as! PFObject) })
-            println("\n[local] accounts: \(objects)")
+            _allAccounts = objects?.map({ Account(object: $0 ) })
+            print("\n[local] accounts: \(objects)", appendNewline: true)
 
             if _allAccounts == nil || _allAccounts!.isEmpty {
                 // load from server
                 let remoteQuery = PFQuery(className: "Account")
                 remoteQuery.whereKey("userId", equalTo: user.objectId!)
-                remoteQuery.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+                remoteQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
                     if let error = error {
-                        println("Error loading accounts from Server: \(error)")
+                        print("Error loading accounts from Server: \(error)", appendNewline: true)
                         return
                     }
 
-                    println("\n[server] accounts: \(objects)")
-                    _allAccounts = objects?.map({ Account(object: $0 as! PFObject) })
+                    print("\n[server] accounts: \(objects)")
+                    _allAccounts = objects?.map({ Account(object: $0 ) })
 
                     if _allAccounts!.isEmpty {
-                        println("No account found for \(user). Creating Default Account")
+                        print("No account found for \(user). Creating Default Account", appendNewline: true)
 
-                        var defaultAccount = Account(name: "Default Account")
-                        var secondAccount  = Account(name: "Second Account")
+                        let defaultAccount = Account(name: "Default Account")
+                        let secondAccount  = Account(name: "Second Account")
 
                         defaultAccount.pinAndSaveEventuallyWithName("MyAccounts")
                         secondAccount.pinAndSaveEventuallyWithName("MyAccounts")
                         _allAccounts!.append(defaultAccount)
                         _allAccounts!.append(secondAccount)
 
-                        println("accounts: \(_allAccounts!)")
+                        print("accounts: \(_allAccounts!)", appendNewline: true)
                     } else {
                         Account.pinAllWithName(_allAccounts!, name: "MyAccounts")
                     }
@@ -103,9 +109,9 @@ class Account: HTObject {
     }
 }
 
-extension Account: Printable {
-    override var description: String {
-        let base = super.description
-        return "userId: \(userId), name: \(name), icon: \(icon), base: \(base)"
-    }
-}
+//extension Account: CustomStringConvertible {
+//    override var description: String {
+//        let base = super.description
+//        return "userId: \(userId), name: \(name), icon: \(icon), base: \(base)"
+//    }
+//}

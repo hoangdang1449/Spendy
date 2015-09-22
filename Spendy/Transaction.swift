@@ -69,7 +69,7 @@ class Transaction: HTObject {
         } else {
             // attempt to use default account
             if let account = Account.defaultAccount() {
-                println("account missing in transaction: setting defaultAccount for it")
+                print("account missing in transaction: setting defaultAccount for it", appendNewline: true)
                 setAccount(account)
                 return account
             } else {
@@ -84,7 +84,7 @@ class Transaction: HTObject {
         } else {
             // attempt to use default account
             if let category = Category.defaultCategory() {
-                println("category missing in transaction: setting defaultCategory for it")
+                print("category missing in transaction: setting defaultCategory for it", appendNewline: true)
                 setCategory(category)
                 return category
             } else {
@@ -113,7 +113,7 @@ class Transaction: HTObject {
 
     // Ex: September 21, 2015
     func dateOnly() -> String? {
-        return dateToString(dateStyle: NSDateFormatterStyle.LongStyle)
+        return dateToString(NSDateFormatterStyle.LongStyle)
     }
 
     // Ex: Thursday, 7 AM
@@ -130,12 +130,12 @@ class Transaction: HTObject {
     static func findAll(completion: (transactions: [PFObject]?, error: NSError?) -> ()) {
         let query = PFQuery(className: "Transaction")
         query.fromLocalDatastore()
-        query.findObjectsInBackgroundWithBlock { (results: [AnyObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
             if error != nil {
-                println("Error loading transactions")
+                print("Error loading transactions", appendNewline: true)
                 completion(transactions: nil, error: error)
             } else {
-                self.transactions = results as! [PFObject]?
+                self.transactions = results 
                 completion(transactions: self.transactions, error: error)
             }
         }
@@ -170,18 +170,18 @@ class Transaction: HTObject {
         for (key, el) in grouped {
             var g:[Transaction] = grouped[key]!
             // sort values in each bucket, newest first
-            g.sort({ $1.date! < $0.date! })
+            g.sortInPlace({ $1.date! < $0.date! })
             list.append(g)
         }
 
         // sort by month
-        list.sort({ $1[0].date! < $0[0].date! })
+        list.sortInPlace({ $1[0].date! < $0[0].date! })
 
         return list
     }
 
     class func loadAll() {
-        println("\n\nloading fake data for Transactions")
+        print("\n\nloading fake data for Transactions", appendNewline: true)
         let defaultCategory = Category.all()?.first
         let defaultAccount = Account.all()?.first
 
@@ -207,9 +207,9 @@ class Transaction: HTObject {
     }
 }
 
-extension Transaction: Printable {
-    override var description: String {
-        let base = super.description
-        return "categoryId: \(categoryId), fromAccountId: \(fromAccountId), toAccountId: \(toAccountId), base: \(base)"
-    }
-}
+//extension Transaction: CustomStringConvertible {
+//    override var description: String {
+//        let base = super.description
+//        return "categoryId: \(categoryId), fromAccountId: \(fromAccountId), toAccountId: \(toAccountId), base: \(base)"
+//    }
+//}

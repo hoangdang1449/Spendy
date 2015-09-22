@@ -80,7 +80,7 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func amountSegmentChanged(sender: UISegmentedControl) {
         
-        println("touch")
+        print("touch", appendNewline: true)
         
         var segment = sender as! CustomSegmentedControl
         oldSelectedSegmentIndex = segment.oldValue
@@ -119,12 +119,12 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func onAddButton(sender: UIButton!) {
-        println("on Add")
+        print("on Add", appendNewline: true)
         // TODO: transfer to default account's detail
     }
     
     func onCancelButton(sender: UIButton!) {
-        println("on Cancel")
+        print("on Cancel", appendNewline: true)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -159,7 +159,7 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         if let selectedIndexPath = selectedIndexPath {
             var cell = tableView.cellForRowAtIndexPath(selectedIndexPath) as! QuickCell
-            if !amountText.text.isEmpty {
+            if !amountText.text!.isEmpty {
                 cell.amoutSegment.setTitle(amountText.text, forSegmentAtIndex: 3)
                 amountText.text = ""
                 oldSelectedSegmentIndex = 3

@@ -116,14 +116,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         todayLabel.text = getTodayString("MMMM dd, yyyy")
         
-        var day = NSCalendar.currentCalendar().component(NSCalendarUnit.DayCalendarUnit, fromDate: NSDate())
+        var day = NSCalendar.currentCalendar().component(NSCalendarUnit.NSDayCalendarUnit, fromDate: NSDate())
         var ratio = CGFloat(day) / CGFloat(dayCountInMonth)
         ratio = ratio > 1 ? 1 : ratio
         currentBarWidthConstraint.constant = ratio * statusBarView.frame.width
     }
     
     func chooseMode(sender: UITapGestureRecognizer) {
-        println("tap title")
+        print("tap title", appendNewline: true)
         showPopup(viewModePopup)
     }
     
@@ -179,10 +179,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         DatePickerDialog().show(title: "From Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: defaultDate!, minDate: nil, datePickerMode: .Date) {
             (date) -> Void in
-            println(date)
+            print(date, appendNewline: true)
             
             var dateString = self.formatter.stringFromDate(date)
-            println("formated: \(dateString)")
+            print("formated: \(dateString)", appendNewline: true)
             sender.setTitle(dateString, forState: UIControlState.Normal)
             
             var currentToDate = self.formatter.dateFromString((self.toButton.titleLabel?.text)!)
@@ -200,10 +200,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         DatePickerDialog().show(title: "To Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: defaultDate!, minDate: minDate, datePickerMode: .Date) {
             (date) -> Void in
-            println(date)
+            print(date, appendNewline: true)
             
             var dateString = self.formatter.stringFromDate(date)
-            println("formated: \(dateString)")
+            print("formated: \(dateString)", appendNewline: true)
             sender.setTitle(dateString, forState: UIControlState.Normal)
         }
     }

@@ -12,8 +12,13 @@ import Parse
 class DataManager {
     class func setupDefaultData(removeLocalData: Bool = false) {
         if removeLocalData {
-            println("\n**Remove all local data**\n")
-            PFObject.unpinAllObjects()
+            print("\n**Remove all local data**\n", appendNewline: true)
+            do {
+                try PFObject.unpinAllObjects()
+                print("Success")
+            } catch {
+                print("An error occurred when removing all local data.")
+            }
 //            PFObject.unpinAllObjectsInBackgroundWithName("MyAccounts")
 //            PFObject.unpinAllObjectsInBackgroundWithName("MyCategories")
         }

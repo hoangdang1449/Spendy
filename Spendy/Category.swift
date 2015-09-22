@@ -34,30 +34,30 @@ class Category: HTObject {
         let localQuery = PFQuery(className: "Category")
 
         localQuery.fromLocalDatastore().findObjectsInBackgroundWithBlock {
-            (objects: [AnyObject]?, error: NSError?) -> Void in
+            (objects, error) -> Void in
 
             if let error = error {
-                println("Error loading categories from Local: \(error)")
+                print("Error loading categories from Local: \(error)", appendNewline: true)
                 return
             }
 
-            _allCategories = objects?.map({ Category(object: $0 as! PFObject) })
-            println("\n[local] categories: \(objects)")
+            _allCategories = objects?.map({ Category(object: $0 ) })
+            print("\n[local] categories: \(objects)", appendNewline: true)
 
             if _allCategories == nil || _allCategories!.isEmpty {
-                println("No categories found locally. Loading from server")
+                print("No categories found locally. Loading from server", appendNewline: true)
                 // load from remote
                 let remoteQuery = PFQuery(className: "Category")
-                remoteQuery.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+                remoteQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
                     if let error = error {
-                        println("Error loading categories from Server: \(error)")
+                        print("Error loading categories from Server: \(error)")
                     } else {
-                        println("[server] categories: \(objects)")
-                        _allCategories = objects?.map({ Category(object: $0 as! PFObject) })
+                        print("[server] categories: \(objects)")
+                        _allCategories = objects?.map({ Category(object: $0 ) })
 
                         // already in background
                         PFObject.pinAllInBackground(objects!, withName: "MyCategories", block: { (success, error: NSError?) -> Void in
-                            println("bool: \(success); error: \(error)")
+                            print("bool: \(success); error: \(error)")
                         })
                         // no need to save because we are not adding data
                     }
@@ -82,9 +82,9 @@ class Category: HTObject {
     }
 }
 
-extension Category: Printable {
-    override var description: String {
-        let base = super.description
-        return "name: \(name), icon: \(icon), base: \(base)"
-    }
-}
+//extension Category: CustomStringConvertible {
+//    override var description: String {
+//        let base = super.description
+//        return "name: \(name), icon: \(icon), base: \(base)"
+//    }
+//}

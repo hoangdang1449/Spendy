@@ -56,11 +56,11 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func onAddButton(sender: UIButton!) {
-        println("on Add")
+        print("on Add", appendNewline: true)
     }
     
     func onBackButton(sender: UIButton!) {
-        println("on Back")
+        print("on Back", appendNewline: true)
         navigationController?.popViewControllerAnimated(true)
     }
     
@@ -80,7 +80,7 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 30))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 30))
         headerView.backgroundColor = UIColor(netHex: 0xDCDCDC)
         
         return headerView
@@ -100,7 +100,7 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
                 cell.categoryLabel.text = selectedRemider
             }
             
-            var tapSelectCategory = UITapGestureRecognizer(target: self, action: Selector("tapSelectCategory:"))
+            let tapSelectCategory = UITapGestureRecognizer(target: self, action: Selector("tapSelectCategory:"))
             tapSelectCategory.delegate = self
             cell.addGestureRecognizer(tapSelectCategory)
             
@@ -115,15 +115,15 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
                 cell.delegate = self
                 cell.timeLabel.text = times[indexPath.row]
                 
-                var tapAddTime = UITapGestureRecognizer(target: self, action: Selector("tapEditTime:"))
+                let tapAddTime = UITapGestureRecognizer(target: self, action: Selector("tapEditTime:"))
                 cell.addGestureRecognizer(tapAddTime)
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier("AddTimeCell", forIndexPath: indexPath) as! UITableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("AddTimeCell", forIndexPath: indexPath)
                 
-                var tapAddTime = UITapGestureRecognizer(target: self, action: Selector("tapAddTime"))
+                let tapAddTime = UITapGestureRecognizer(target: self, action: Selector("tapAddTime"))
                 cell.addGestureRecognizer(tapAddTime)
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
@@ -136,12 +136,12 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
     
     func addGestures() {
         
-        var downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        let downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         downSwipe.direction = .Down
         downSwipe.delegate = self
         tableView.addGestureRecognizer(downSwipe)
         
-        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         leftSwipe.direction = .Left
         leftSwipe.delegate = self
         tableView.addGestureRecognizer(leftSwipe)
@@ -159,8 +159,8 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
             break
             
         case UISwipeGestureRecognizerDirection.Left:
-            var selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: tableView) as! TimeCell
-            var indexPath = tableView.indexPathForCell(selectedCell)
+            let selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: tableView) as! TimeCell
+            let indexPath = tableView.indexPathForCell(selectedCell)
             
             if let indexPath = indexPath {
                 times.removeAtIndex(indexPath.row)
@@ -177,12 +177,12 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
         
         DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", minDate: nil, datePickerMode: .Time) {
             (time) -> Void in
-            println(time)
+            print(time, appendNewline: true)
             
-            var formatter = NSDateFormatter()
+            let formatter = NSDateFormatter()
             formatter.dateFormat = "hh:mm a"
-            var timeString = formatter.stringFromDate(time)
-            println("formated: \(timeString)")
+            let timeString = formatter.stringFromDate(time)
+            print("formated: \(timeString)", appendNewline: true)
             self.times.append(timeString)
             
             self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -194,21 +194,19 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
         let selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: tableView) as! TimeCell
         let indexPath = tableView.indexPathForCell(selectedCell)
         
-        var timeString = selectedCell.timeLabel.text
-        var defaultHour: Int? = timeString![0...1].toInt()
-        var defaultMin: Int? = timeString![3...4].toInt()
+        let timeString = selectedCell.timeLabel.text
         
-        var formatter = NSDateFormatter()
+        let formatter = NSDateFormatter()
         formatter.dateFormat = "hh:mm a"
         
-        var defaultDate = formatter.dateFromString(timeString!)
+        let defaultDate = formatter.dateFromString(timeString!)
         
         DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: defaultDate!, minDate: nil, datePickerMode: .Time) {
             (time) -> Void in
-            println(time)
+            print(time, appendNewline: true)
             
-            var timeString = formatter.stringFromDate(time)
-            println("formated: \(timeString)")
+            let timeString = formatter.stringFromDate(time)
+            print("formated: \(timeString)", appendNewline: true)
             self.times[indexPath!.row] = timeString
             
             self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -217,8 +215,8 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tapSelectCategory(sender: UITapGestureRecognizer) {
         
-        var storyboard = UIStoryboard(name: "Main", bundle: nil)
-        var selectCategoryVC = storyboard.instantiateViewControllerWithIdentifier("SelectAccountOrCategoryVC") as! SelectAccountOrCategoryViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let selectCategoryVC = storyboard.instantiateViewControllerWithIdentifier("SelectAccountOrCategoryVC") as! SelectAccountOrCategoryViewController
         
         selectCategoryVC.itemClass = "Category"
         
@@ -231,7 +229,7 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
     func timeCell(timeCell: TimeCell, didChangeValue value: Bool) {
         
         let indexPath = tableView.indexPathForCell(timeCell)!
-        println("switch time")
+        print("switch time", appendNewline: true)
         // TODO: handle time switch
     }
     

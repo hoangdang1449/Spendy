@@ -33,12 +33,12 @@ class NotificationSettingViewController: UIViewController, UITableViewDataSource
         
         addBarButton()
         
-        var downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        let downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         downSwipe.direction = .Down
         downSwipe.delegate = self
         tableView.addGestureRecognizer(downSwipe)
         
-        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         leftSwipe.direction = .Left
         leftSwipe.delegate = self
         tableView.addGestureRecognizer(leftSwipe)
@@ -63,12 +63,12 @@ class NotificationSettingViewController: UIViewController, UITableViewDataSource
     }
     
     func onAddButton(sender: UIButton!) {
-        println("on Add")
+        print("on Add", appendNewline: true)
         // TODO: Save changes
     }
     
     func onBackButton(sender: UIButton!) {
-        println("on Back")
+        print("on Back", appendNewline: true)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -93,7 +93,7 @@ class NotificationSettingViewController: UIViewController, UITableViewDataSource
             Helper.sharedInstance.setSeparatorFullWidth(cell)
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("AddReminderCell", forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("AddReminderCell", forIndexPath: indexPath)
             
             Helper.sharedInstance.setSeparatorFullWidth(cell)
             return cell
@@ -109,13 +109,13 @@ class NotificationSettingViewController: UIViewController, UITableViewDataSource
     func handleSwipe(sender: UISwipeGestureRecognizer) {
         switch sender.direction {
         case UISwipeGestureRecognizerDirection.Down:
-            var vc = self.storyboard?.instantiateViewControllerWithIdentifier("AddReminderVC") as! AddReminderViewController
+            let vc = self.storyboard?.instantiateViewControllerWithIdentifier("AddReminderVC") as! AddReminderViewController
             navigationController?.pushViewController(vc, animated: true)
             break
             
         case UISwipeGestureRecognizerDirection.Left:
-            var selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: tableView) as! ReminderCell
-            var indexPath = tableView.indexPathForCell(selectedCell)
+            let selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: tableView) as! ReminderCell
+            let indexPath = tableView.indexPathForCell(selectedCell)
             
             if let indexPath = indexPath {
                 remiders.removeAtIndex(indexPath.row)
@@ -133,14 +133,14 @@ class NotificationSettingViewController: UIViewController, UITableViewDataSource
     func reminderCell(reminderCell: ReminderCell, didChangeValue value: Bool) {
         
         let indexPath = tableView.indexPathForCell(reminderCell)!
-        println("switch cell")
+        print("switch cell", appendNewline: true)
         //TODO: handle switch change
     }
     
     // MARK: Transfer between 2 views
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let vc = segue.destinationViewController as! UIViewController
+        let vc = segue.destinationViewController
         
         if vc is AddReminderViewController {
             let addViewController = vc as! AddReminderViewController
