@@ -26,6 +26,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     var photoCell: PhotoCell?
     
     var selectedTransaction: Transaction?
+    var isNewTemp: Bool = false // temporary
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +45,9 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 
         if selectedTransaction != nil {
             navigationItem.title = "Edit Transaction"
+            isNewTemp = false
         } else {
+            isNewTemp = true
             selectedTransaction = Transaction(kind: Transaction.expenseKind,
                 note: "I paid for something", amount: 0,
                 category: Category.defaultCategory(), account: Account.defaultAccount(),
@@ -73,9 +76,17 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func onAddButton(sender: UIButton!) {
-        // TODO: change to save
+        // update fields
+        selectedTransaction!.note = noteCell?.noteText.text
+
+        // TODO: parse amount and date
+//        selectedTransaction!.amount = NSDecimalNumber(string: amountCell?.amountText.text)
+//        selectedTransaction!.date = dateCell?.datePicker.date ?? NSDate()
+
+
         println("[onAddButton] transaction: \(selectedTransaction!)")
-        if selectedTransaction!.isNew() {
+//        if selectedTransaction!.isNew() { // currently not saving transaction yet
+        if isNewTemp {
             println("added transaction")
             Transaction.add(selectedTransaction!)
         }
