@@ -819,13 +819,8 @@
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Kd-A2-gRR">
                                         <rect key="frame" x="60" y="12" width="200" height="164"/>
                                         <subviews>
-<<<<<<< HEAD
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Choose custom date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62D-4K-Nhi">
-                                                <rect key="frame" x="0.0" y="0.0" width="192" height="38"/>
-=======
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62D-4K-Nhi">
                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="38"/>
->>>>>>> origin/home-view
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="38" id="GPY-R2-vBq"/>
                                                 </constraints>
@@ -834,27 +829,17 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdP-7Z-d3u">
-<<<<<<< HEAD
-                                                <rect key="frame" x="8" y="60" width="34" height="17"/>
-=======
                                                 <rect key="frame" x="16" y="60" width="33.5" height="17"/>
->>>>>>> origin/home-view
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-<<<<<<< HEAD
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8a-KS-8QH">
-                                                <rect key="frame" x="26" y="98" width="15" height="17"/>
-=======
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8a-KS-8QH">
                                                 <rect key="frame" x="34" y="98" width="15" height="17"/>
->>>>>>> origin/home-view
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-<<<<<<< HEAD
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DNn-wb-vfs">
                                                 <rect key="frame" x="49" y="54" width="135" height="30"/>
                                                 <constraints>
@@ -871,8 +856,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-=======
->>>>>>> origin/home-view
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3G-8v-R5C">
                                                 <rect key="frame" x="16" y="128" width="45" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -883,13 +866,8 @@
                                                     <action selector="onCancelDatePopup:" destination="lL4-y0-Cqa" eventType="touchUpInside" id="QYg-T3-aGg"/>
                                                 </connections>
                                             </button>
-<<<<<<< HEAD
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4b-cK-t9L">
-                                                <rect key="frame" x="150" y="130" width="34" height="29"/>
-=======
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4b-cK-t9L">
                                                 <rect key="frame" x="150" y="128" width="34" height="29"/>
->>>>>>> origin/home-view
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <state key="normal" title="Done">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
