@@ -63,12 +63,12 @@ class NotificationSettingViewController: UIViewController, UITableViewDataSource
     }
     
     func onAddButton(sender: UIButton!) {
-        print("on Add", appendNewline: true)
+        print("on Add", terminator: "\n")
         // TODO: Save changes
     }
     
     func onBackButton(sender: UIButton!) {
-        print("on Back", appendNewline: true)
+        print("on Back", terminator: "\n")
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -132,8 +132,8 @@ class NotificationSettingViewController: UIViewController, UITableViewDataSource
     
     func reminderCell(reminderCell: ReminderCell, didChangeValue value: Bool) {
         
-        let indexPath = tableView.indexPathForCell(reminderCell)!
-        print("switch cell", appendNewline: true)
+//        let indexPath = tableView.indexPathForCell(reminderCell)!
+        print("switch cell", terminator: "\n")
         //TODO: handle switch change
     }
     

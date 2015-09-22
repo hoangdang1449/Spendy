@@ -20,13 +20,13 @@ class Helper: NSObject {
     
     func customizeBarButton(viewController: UIViewController, button: UIButton, imageName: String, isLeft: Bool) {
         
-        var avatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
+        let avatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
         avatar.image = UIImage(named: imageName)
         
         button.setImage(avatar.image, forState: .Normal)
         button.frame = CGRectMake(0, 0, 22, 22)
         
-        var item: UIBarButtonItem = UIBarButtonItem()
+        let item: UIBarButtonItem = UIBarButtonItem()
         item.customView = button
         //        item.customView?.layer.cornerRadius = 11
         //        item.customView?.layer.masksToBounds = true
@@ -45,8 +45,8 @@ class Helper: NSObject {
     }
     
     func getCellAtGesture(gestureRecognizer: UIGestureRecognizer, tableView: UITableView) -> UITableViewCell? {
-        var location = gestureRecognizer.locationInView(tableView)
-        var indexPath = tableView.indexPathForRowAtPoint(location)
+        let location = gestureRecognizer.locationInView(tableView)
+        let indexPath = tableView.indexPathForRowAtPoint(location)
         if let indexPath = indexPath {
             return tableView.cellForRowAtIndexPath(indexPath)!
         } else {
@@ -82,8 +82,8 @@ extension String {
     
     subscript (r: Range<Int>) -> String {
         get {
-            let startIndex = advance(self.startIndex, r.startIndex)
-            let endIndex = advance(startIndex, r.endIndex - r.startIndex)
+            let startIndex = self.startIndex.advancedBy(r.startIndex)
+            let endIndex = startIndex.advancedBy(r.endIndex - r.startIndex)
             return self[Range(start: startIndex, end: endIndex)]
         }
     }

@@ -84,10 +84,10 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 //        selectedTransaction!.date = dateCell?.datePicker.date ?? NSDate()
 
 
-        print("[onAddButton] transaction: \(selectedTransaction!)", appendNewline: true)
+        print("[onAddButton] transaction: \(selectedTransaction!)", terminator: "\n")
 //        if selectedTransaction!.isNew() { // currently not saving transaction yet
         if isNewTemp {
-            print("added transaction", appendNewline: true)
+            print("added transaction", terminator: "\n")
             Transaction.add(selectedTransaction!)
         }
 
@@ -101,12 +101,12 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         } else if navigationController != nil {
             navigationController?.popViewControllerAnimated(true)
         } else {
-            print("Error closing view on onAddButton: \(self)", appendNewline: true)
+            print("Error closing view on onAddButton: \(self)", terminator: "\n")
         }
     }
 
     func onCancelButton(sender: UIButton!) {
-        print("onCancelButton", appendNewline: true)
+        print("onCancelButton", terminator: "\n")
         
         if presentingViewController != nil {
             // exit modal
@@ -120,7 +120,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             // exit push
             navigationController!.popViewControllerAnimated(true)
         } else {
-            print("Error closing view on onAddButton: \(self)", appendNewline: true)
+            print("Error closing view on onAddButton: \(self)", terminator: "\n")
         }
     }
 
@@ -225,7 +225,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
 
                 cell.itemClass = "Category"
                 cell.titleLabel.text = "Category"
-                print("selectedTransaction: \(selectedTransaction)", appendNewline: true)
+                print("selectedTransaction: \(selectedTransaction)", terminator: "\n")
 
                 // this got rendered too soon!
 
@@ -342,16 +342,16 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         
         let takePhotoAction = UIAlertAction(title: "Take a Photo", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Take a Photo", appendNewline: true)
+            print("Take a Photo", terminator: "\n")
         })
         let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Photo from Library", appendNewline: true)
+            print("Photo from Library", terminator: "\n")
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Cancelled", appendNewline: true)
+            print("Cancelled", terminator: "\n")
         })
         
         optionMenu.addAction(takePhotoAction)
@@ -410,7 +410,7 @@ extension AddTransactionViewController: SelectAccountOrCategoryDelegate {
             selectedTransaction?.setCategory(item as! Category)
             tableView.reloadData()
         } else {
-            print("Error: item is \(item)", appendNewline: true)
+            print("Error: item is \(item)", terminator: "\n")
         }
     }
 }

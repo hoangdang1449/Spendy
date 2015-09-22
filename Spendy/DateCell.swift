@@ -29,9 +29,9 @@ class DateCell: UITableViewCell {
     
     @IBAction func onDatePicker(sender: AnyObject) {
         
-        var dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "E, MMM dd, yyyy"
-        var strDate = dateFormatter.stringFromDate(datePicker.date)
+        let strDate = dateFormatter.stringFromDate(datePicker.date)
         dateLabel.text = strDate
     }
     

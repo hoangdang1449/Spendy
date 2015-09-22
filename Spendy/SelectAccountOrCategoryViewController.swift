@@ -81,7 +81,7 @@ extension SelectAccountOrCategoryViewController: UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var cell = tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
+//        var cell = tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
         navigationController?.popViewControllerAnimated(true)
         delegate?.selectAccountOrCategoryViewController(self, selectedItem: items![indexPath.row])
     }

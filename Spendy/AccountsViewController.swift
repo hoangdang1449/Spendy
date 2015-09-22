@@ -80,7 +80,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func onAddAccountButton(sender: UIButton!) {
-        print("on Add account", appendNewline: true)
+        print("on Add account", terminator: "\n")
     }
 
     // MARK: Table View
@@ -94,7 +94,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        print("cellForRow \(indexPath.row)", appendNewline: true)
+        print("cellForRow \(indexPath.row)", terminator: "\n")
         let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as! AccountCell
         
         cell.nameLabel.text = accounts![indexPath.row].name
@@ -134,13 +134,13 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
 //    }
 
     func handleSwipe(sender:UISwipeGestureRecognizer) {
-        print("handleSwipe:", appendNewline: true)
+        print("handleSwipe:", terminator: "\n")
         if sender.direction == .Left {
-            print("left", appendNewline: true)
+            print("left", terminator: "\n")
 
 //            var selectedCell = getSwipedCell(sender) as! AccountCell
             let selectedCell = sender.view as! AccountCell
-            var indexPath = tableView.indexPathForCell(selectedCell)
+//            var indexPath = tableView.indexPathForCell(selectedCell)
 
             if !isPreparedDelete {
                 if selectedCell.frame.origin.x == 0 {
@@ -182,7 +182,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
                         selectedCell.center = CGPoint(x: selectedCell.center.x - 70, y: selectedCell.center.y)
                         selectedCell.center = CGPoint(x: selectedCell.center.x - 70, y: selectedCell.center.y)
                         }, completion: { (bool) -> Void in
-                            print("animated: \(bool)", appendNewline: true)
+                            print("animated: \(bool)", terminator: "\n")
                     })
                     
                 } else {
@@ -192,7 +192,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
                 turnOffDelete(selectedDeleteCell!)
             }
         } else {
-            print("right", appendNewline: true)
+            print("right", terminator: "\n")
             if isPreparedDelete {
                 turnOffDelete(selectedDeleteCell!)
             }
@@ -208,7 +208,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tapDelete(sender: UITapGestureRecognizer) {
         
-        print("tap delete", appendNewline: true)
+        print("tap delete", terminator: "\n")
         let indexPath = tableView.indexPathForCell(selectedDeleteCell!)
         let alertView = SCLAlertView()
         alertView.addButton("Delete", action: { () -> Void in
@@ -221,7 +221,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func handlePanGesture(sender: UIPanGestureRecognizer) {
-        print("pan", appendNewline: true)
+        print("pan", terminator: "\n")
         let translation = sender.translationInView(tableView)
         let state = sender.state
         
@@ -238,10 +238,10 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         if selectedDragCell == nil {
             return
         }
-        var indexPath = tableView.indexPathForCell(selectedDragCell!)
-        
+//        var indexPath = tableView.indexPathForCell(selectedDragCell!)
+
         if state == UIGestureRecognizerState.Began && !isPreparedDelete {
-            print("began", appendNewline: true)
+            print("began", terminator: "\n")
             selectedDragCell?.backgroundColor = UIColor(netHex: 0xCAE1FF)
             moneyIcon = UIImageView(image: UIImage(named: "MoneyBag"))
             moneyIcon!.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
@@ -254,7 +254,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         if state == UIGestureRecognizerState.Changed && !isPreparedDelete {
-            print("change", appendNewline: true)
+            print("change", terminator: "\n")
             
             // if just turn off delete in .Began, do nothing
             if !justTurnOffDelete {
@@ -283,7 +283,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         if state == UIGestureRecognizerState.Ended {
-            print("end", appendNewline: true)
+            print("end", terminator: "\n")
             
             moneyIcon?.removeFromSuperview()
             selectedDragCell?.backgroundColor = UIColor.clearColor()
@@ -300,7 +300,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
                         let alert = SCLAlertView()
                         let txt = alert.addAmoutField("Enter the amount")
                         alert.addButton("Transfer") {
-                            print("Amount value: \(txt.text)", appendNewline: true)
+                            print("Amount value: \(txt.text)", terminator: "\n")
                         }
                         alert.showEdit("Transfer", subTitle: "Transfer from \(fromAcc) account to \(toAcc) account", closeButtonTitle: "Cancel", colorStyle: 0x55AEED, colorTextButton: 0xFFFFFF)
                     }
@@ -331,7 +331,7 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: Transfer between 2 views
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("prepareForSegue to AccountDetailView!", appendNewline: true)
+        print("prepareForSegue to AccountDetailView!", terminator: "\n")
 
         // Old code which was for presenting a navigation from a table view cell
         // This was very slow

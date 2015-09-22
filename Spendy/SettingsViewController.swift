@@ -44,9 +44,9 @@ class SettingsViewController: UIViewController {
         PFUser.logInWithUsernameInBackground(
             emailTextField.text!, password: defaultPassword, block: { (user: PFUser?, error: NSError?) -> Void in
                 if error != nil {
-                    print("Error logging in: \(error)", appendNewline: true)
+                    print("Error logging in: \(error)", terminator: "\n")
                 } else {
-                    print("Logged in successfully", appendNewline: true)
+                    print("Logged in successfully", terminator: "\n")
                     self.refreshViewsForUser()
                 }
         })
@@ -76,11 +76,11 @@ class SettingsViewController: UIViewController {
                     // User is new
                     user.signUpInBackgroundWithBlock({ (succeeded, error: NSError?) -> Void in
                         if error != nil {
-                            print("Error signing up: \(error). User: \(user)", appendNewline: true)
-                            print("Try logging in:", appendNewline: true)
+                            print("Error signing up: \(error). User: \(user)", terminator: "\n")
+                            print("Try logging in:", terminator: "\n")
                             self.login() // temporary
                         } else {
-                            print("Signed up successfully", appendNewline: true)
+                            print("Signed up successfully", terminator: "\n")
                             self.refreshViewsForUser()
                         }
                     })
@@ -102,14 +102,14 @@ class SettingsViewController: UIViewController {
     func userIsAnonymous() -> Bool {
         let user = PFUser.currentUser()!
         let anonymous = PFAnonymousUtils.isLinkedWithUser(user)
-        print("anonymous: \(anonymous)", appendNewline: true)
+        print("anonymous: \(anonymous)", terminator: "\n")
         return anonymous
     }
 
     func refreshViewsForUser() {
         // because we allow anonymous login, this should never be nil
         let user = PFUser.currentUser()!
-        print("current user: \(user)", appendNewline: true)
+        print("current user: \(user)", terminator: "\n")
 
         emailTextField.text = user.email
 
@@ -130,7 +130,7 @@ class SettingsViewController: UIViewController {
 
     @IBAction func onLogout(sender: AnyObject) {
         PFUser.logOut()
-        print("Logged out. User: \(PFUser.currentUser())", appendNewline: true)
+        print("Logged out. User: \(PFUser.currentUser())", terminator: "\n")
         refreshViewsForUser()
     }
 }
