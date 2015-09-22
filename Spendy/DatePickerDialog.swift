@@ -42,12 +42,12 @@ class DatePickerDialog: UIView {
     }
     
     /* Create the dialog view, and animate opening the dialog */
-    func show(#title: String, datePickerMode: UIDatePickerMode = .DateAndTime, defaultHour: Int?, defaultMin: Int?, callback: ((date: NSDate) -> Void)) {
-        show(title: title, doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: datePickerMode, defaultHour: defaultHour, defaultMin: defaultMin, callback: callback)
+    func show(#title: String, minDate: NSDate?, datePickerMode: UIDatePickerMode = .DateAndTime, callback: ((date: NSDate) -> Void)) {
+        show(title: title, doneButtonTitle: "Done", cancelButtonTitle: "Cancel", minDate: minDate, datePickerMode: datePickerMode, callback: callback)
         
     }
     
-    func show(#title: String, doneButtonTitle: String, cancelButtonTitle: String, defaultDate: NSDate = NSDate(), datePickerMode: UIDatePickerMode = .DateAndTime, defaultHour: Int?, defaultMin: Int?, callback: ((date: NSDate) -> Void)) {
+    func show(#title: String, doneButtonTitle: String, cancelButtonTitle: String, defaultDate: NSDate = NSDate(), minDate: NSDate?, datePickerMode: UIDatePickerMode = .DateAndTime, callback: ((date: NSDate) -> Void)) {
         self.title = title
         self.doneButtonTitle = doneButtonTitle
         self.cancelButtonTitle = cancelButtonTitle
@@ -55,7 +55,7 @@ class DatePickerDialog: UIView {
         self.callback = callback
         self.defaultDate = defaultDate
         
-        self.dialogView = createContainerView(defaultHour, defaultMin: defaultMin)
+        self.dialogView = createContainerView(minDate)
         
         self.dialogView!.layer.shouldRasterize = true
         self.dialogView!.layer.rasterizationScale = UIScreen.mainScreen().scale
@@ -138,7 +138,7 @@ class DatePickerDialog: UIView {
     }
     
     /* Creates the container view here: create the dialog, then add the custom content and buttons */
-    private func createContainerView(defaultHour: Int?, defaultMin: Int?) -> UIView {
+    private func createContainerView(minDate: NSDate?) -> UIView {
         let screenSize = countScreenSize()
         let dialogSize = CGSizeMake(
             300,
@@ -192,14 +192,9 @@ class DatePickerDialog: UIView {
         self.datePicker.date = self.defaultDate
         
         // Add
-        if defaultHour != nil && defaultMin != nil {
-            var calendar:NSCalendar = NSCalendar.currentCalendar()
-            let components = calendar.components(NSCalendarUnit.HourCalendarUnit | NSCalendarUnit.MinuteCalendarUnit, fromDate: NSDate())
-            components.hour = defaultHour!
-            components.minute = defaultMin!
-            datePicker.setDate(calendar.dateFromComponents(components)!, animated: true)
+        if let minDate = minDate {
+            self.datePicker.minimumDate = minDate
         }
-        
         
         dialogContainer.addSubview(self.datePicker)
         

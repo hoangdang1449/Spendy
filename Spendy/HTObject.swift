@@ -16,6 +16,27 @@ import Parse
 // Inherit from NSObject so that we can use #setValue and #valueForKey
 class HTObject: NSObject {
     var _object: PFObject?
+    var _parseClassName: String!
+
+    init(parseClassName: String) {
+        super.init()
+
+        _parseClassName = parseClassName
+        _object = PFObject(className: _parseClassName)
+    }
+
+    init(object: PFObject) {
+        super.init()
+        
+        _parseClassName = object.parseClassName
+        _object = object
+    }
+
+    func getChildClassName(instance: AnyClass) -> String {
+        let name = NSStringFromClass(instance)
+        let components = name.componentsSeparatedByString(".")
+        return components.last ?? "UnknownClass"
+    }
 
     subscript(key: String) -> AnyObject? {
         get {
@@ -36,12 +57,40 @@ class HTObject: NSObject {
     
     // Should be called after we make any changes
     func save() {
-        println("pining and saving: \(self) \(toString())")
+        println("pining + saving in background (no error checking):\n\(self)")
         _object!.pinInBackground()
         _object!.saveInBackground()
     }
-    
-    func toString() -> String! {
-        return "\(_object)"
+
+    func isNew() -> Bool {
+        return _object?.objectId == nil
+    }
+
+    var objectId: String? {
+        return _object?.objectId
+    }
+
+    func pinAndSaveEventuallyWithName(name: String) {
+        println("pinAndSaveEventually called on\n\(self)")
+        _object!.pinInBackgroundWithName(name) { (isSuccess, error: NSError?) -> Void in
+            if error != nil {
+                println("[pinInBackgroundWithName] ERROR: \(error!). For \(self._object)")
+            }
+        }
+        _object!.saveEventually()
+    }
+
+    class func pinAllWithName(htObjects: [HTObject], name: String) {
+        PFObject.pinAllInBackground(htObjects.map({$0._object!}), withName: name) { (isSuccess, error: NSError?) -> Void in
+            if error != nil {
+                println("[pinAllInBackground] ERROR: \(error!). For \(htObjects)")
+            }
+        }
+    }
+}
+
+extension HTObject: Printable {
+    override var description: String {
+        return _object != nil ? "object: \(_object!)" : "object is nil"
     }
 }

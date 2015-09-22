@@ -175,7 +175,7 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tapAddTime() {
         
-        DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .Time, defaultHour: nil, defaultMin: nil) {
+        DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", minDate: nil, datePickerMode: .Time) {
             (time) -> Void in
             println(time)
             
@@ -198,12 +198,15 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
         var defaultHour: Int? = timeString![0...1].toInt()
         var defaultMin: Int? = timeString![3...4].toInt()
         
-        DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", datePickerMode: .Time, defaultHour: defaultHour, defaultMin: defaultMin) {
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "hh:mm a"
+        
+        var defaultDate = formatter.dateFromString(timeString!)
+        
+        DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: defaultDate!, minDate: nil, datePickerMode: .Time) {
             (time) -> Void in
             println(time)
             
-            var formatter = NSDateFormatter()
-            formatter.dateFormat = "hh:mm a"
             var timeString = formatter.stringFromDate(time)
             println("formated: \(timeString)")
             self.times[indexPath!.row] = timeString
