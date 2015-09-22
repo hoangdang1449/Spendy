@@ -32,7 +32,7 @@ class Account: HTObject {
 
     static func loadAll() {
         let user = PFUser.currentUser()!
-        print("=====================\nUser: \(user)\n=====================", appendNewline: true)
+        print("=====================\nUser: \(user)\n=====================", terminator: "\n")
 
         let localQuery = PFQuery(className: "Account").fromLocalDatastore()
 
@@ -53,12 +53,12 @@ class Account: HTObject {
             (objects, error) -> Void in
 
             if error != nil {
-                print("Error loading accounts from Local: \(error)", appendNewline: true)
+                print("Error loading accounts from Local: \(error)", terminator: "\n")
                 return
             }
 
             _allAccounts = objects?.map({ Account(object: $0 ) })
-            print("\n[local] accounts: \(objects)", appendNewline: true)
+            print("\n[local] accounts: \(objects)", terminator: "\n")
 
             if _allAccounts == nil || _allAccounts!.isEmpty {
                 // load from server
@@ -66,7 +66,7 @@ class Account: HTObject {
                 remoteQuery.whereKey("userId", equalTo: user.objectId!)
                 remoteQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
                     if let error = error {
-                        print("Error loading accounts from Server: \(error)", appendNewline: true)
+                        print("Error loading accounts from Server: \(error)", terminator: "\n")
                         return
                     }
 
@@ -74,7 +74,7 @@ class Account: HTObject {
                     _allAccounts = objects?.map({ Account(object: $0 ) })
 
                     if _allAccounts!.isEmpty {
-                        print("No account found for \(user). Creating Default Account", appendNewline: true)
+                        print("No account found for \(user). Creating Default Account", terminator: "\n")
 
                         let defaultAccount = Account(name: "Default Account")
                         let secondAccount  = Account(name: "Second Account")
@@ -84,7 +84,7 @@ class Account: HTObject {
                         _allAccounts!.append(defaultAccount)
                         _allAccounts!.append(secondAccount)
 
-                        print("accounts: \(_allAccounts!)", appendNewline: true)
+                        print("accounts: \(_allAccounts!)", terminator: "\n")
                     } else {
                         Account.pinAllWithName(_allAccounts!, name: "MyAccounts")
                     }

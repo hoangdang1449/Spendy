@@ -69,7 +69,7 @@ class Transaction: HTObject {
         } else {
             // attempt to use default account
             if let account = Account.defaultAccount() {
-                print("account missing in transaction: setting defaultAccount for it", appendNewline: true)
+                print("account missing in transaction: setting defaultAccount for it", terminator: "\n")
                 setAccount(account)
                 return account
             } else {
@@ -84,7 +84,7 @@ class Transaction: HTObject {
         } else {
             // attempt to use default account
             if let category = Category.defaultCategory() {
-                print("category missing in transaction: setting defaultCategory for it", appendNewline: true)
+                print("category missing in transaction: setting defaultCategory for it", terminator: "\n")
                 setCategory(category)
                 return category
             } else {
@@ -132,7 +132,7 @@ class Transaction: HTObject {
         query.fromLocalDatastore()
         query.findObjectsInBackgroundWithBlock { (results, error) -> Void in
             if error != nil {
-                print("Error loading transactions", appendNewline: true)
+                print("Error loading transactions", terminator: "\n")
                 completion(transactions: nil, error: error)
             } else {
                 self.transactions = results 
@@ -167,7 +167,7 @@ class Transaction: HTObject {
     class func listGroupedByMonth(trans: [Transaction]) -> [[Transaction]] {
         let grouped = dictGroupedByMonth(trans)
         var list: [[Transaction]] = []
-        for (key, el) in grouped {
+        for (key, _) in grouped {
             var g:[Transaction] = grouped[key]!
             // sort values in each bucket, newest first
             g.sortInPlace({ $1.date! < $0.date! })
@@ -181,7 +181,7 @@ class Transaction: HTObject {
     }
 
     class func loadAll() {
-        print("\n\nloading fake data for Transactions", appendNewline: true)
+        print("\n\nloading fake data for Transactions", terminator: "\n")
         let defaultCategory = Category.all()?.first
         let defaultAccount = Account.all()?.first
 

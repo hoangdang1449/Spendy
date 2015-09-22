@@ -61,7 +61,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
 
     // reload data after we navigate back from pushed cell
     override func viewWillAppear(animated: Bool) {
-        print("viewWillAppear", appendNewline: true)
+        print("viewWillAppear", terminator: "\n")
         reloadTransactions()
         tableView.reloadData()
     }
@@ -85,7 +85,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func onAddButton(sender: UIButton!) {
-        print("on Add", appendNewline: true)
+        print("on Add", terminator: "\n")
         let dvc = self.storyboard?.instantiateViewControllerWithIdentifier("AddVC") as! AddTransactionViewController
         let nc = UINavigationController(rootViewController: dvc)
         self.presentViewController(nc, animated: true, completion: nil)
@@ -181,7 +181,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
                 
             case UISwipeGestureRecognizerDirection.Right:
                 // Duplicate transaction to today
-                var newTransaction = selectedCell.noteLabel.text
+//                var newTransaction = selectedCell.noteLabel.text
                 // TODO: duplicate transaction here
 //                sampleTransactions[0].insert(newTransaction!, atIndex: 0)
                 tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -227,7 +227,7 @@ class AccountDetailViewController: UIViewController, UITableViewDataSource, UITa
             indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
 
             addTransactionViewController.selectedTransaction = sampleTransactions[indexPath.section][indexPath.row]
-            print("pass selectedTransaction to AddTransactionView: \(addTransactionViewController.selectedTransaction))", appendNewline: true)
+            print("pass selectedTransaction to AddTransactionView: \(addTransactionViewController.selectedTransaction))", terminator: "\n")
         }
     }
 }

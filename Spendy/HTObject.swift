@@ -57,7 +57,7 @@ class HTObject: NSObject {
     
     // Should be called after we make any changes
     func save() {
-        print("pining + saving in background (no error checking):\n\(self)", appendNewline: true)
+        print("pining + saving in background (no error checking):\n\(self)", terminator: "\n")
         _object!.pinInBackground()
         _object!.saveInBackground()
     }
@@ -71,10 +71,10 @@ class HTObject: NSObject {
     }
 
     func pinAndSaveEventuallyWithName(name: String) {
-        print("pinAndSaveEventually called on\n\(self)", appendNewline: true)
+        print("pinAndSaveEventually called on\n\(self)", terminator: "\n")
         _object!.pinInBackgroundWithName(name) { (isSuccess, error: NSError?) -> Void in
             if error != nil {
-                print("[pinInBackgroundWithName] ERROR: \(error!). For \(self._object)", appendNewline: true)
+                print("[pinInBackgroundWithName] ERROR: \(error!). For \(self._object)", terminator: "\n")
             }
         }
         _object!.saveEventually()
@@ -83,7 +83,7 @@ class HTObject: NSObject {
     class func pinAllWithName(htObjects: [HTObject], name: String) {
         PFObject.pinAllInBackground(htObjects.map({$0._object!}), withName: name) { (isSuccess, error: NSError?) -> Void in
             if error != nil {
-                print("[pinAllInBackground] ERROR: \(error!). For \(htObjects)", appendNewline: true)
+                print("[pinAllInBackground] ERROR: \(error!). For \(htObjects)", terminator: "\n")
             }
         }
     }

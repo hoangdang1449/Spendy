@@ -12,7 +12,7 @@ import Parse
 class DataManager {
     class func setupDefaultData(removeLocalData: Bool = false) {
         if removeLocalData {
-            print("\n**Remove all local data**\n", appendNewline: true)
+            print("\n**Remove all local data**\n", terminator: "\n")
             do {
                 try PFObject.unpinAllObjects()
                 print("Success")

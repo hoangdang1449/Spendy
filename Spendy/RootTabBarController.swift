@@ -25,7 +25,7 @@ class RootTabBarController: UITabBarController {
             tabControllers[2] = settingsController
             self.setViewControllers(tabControllers, animated: true)
         } else {
-            print("Error hooking up Settings tab")
+            print("Error hooking up Settings tab", terminator: "")
         }
     }
 

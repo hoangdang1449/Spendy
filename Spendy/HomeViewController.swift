@@ -62,24 +62,24 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         settingStatusBar()
         
         navigationItem.title = getTodayString("MMMM")
-        var tapTitle = UITapGestureRecognizer(target: self, action: Selector("chooseMode:"))
+        let tapTitle = UITapGestureRecognizer(target: self, action: Selector("chooseMode:"))
         navigationController?.navigationBar.addGestureRecognizer(tapTitle)
         
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         
-        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         leftSwipe.direction = .Left
         leftSwipe.delegate = self
         tableView.addGestureRecognizer(leftSwipe)
         
-        var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         rightSwipe.direction = .Right
         rightSwipe.delegate = self
         tableView.addGestureRecognizer(rightSwipe)
         
-        var downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        let downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
         downSwipe.direction = .Down
         downSwipe.delegate = self
         tableView.addGestureRecognizer(downSwipe)
@@ -116,14 +116,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         todayLabel.text = getTodayString("MMMM dd, yyyy")
         
-        var day = NSCalendar.currentCalendar().component(NSCalendarUnit.NSDayCalendarUnit, fromDate: NSDate())
+        let day = NSCalendar.currentCalendar().component(NSCalendarUnit.NSDayCalendarUnit, fromDate: NSDate())
         var ratio = CGFloat(day) / CGFloat(dayCountInMonth)
         ratio = ratio > 1 ? 1 : ratio
         currentBarWidthConstraint.constant = ratio * statusBarView.frame.width
     }
     
     func chooseMode(sender: UITapGestureRecognizer) {
-        print("tap title", appendNewline: true)
+        print("tap title", terminator: "\n")
         showPopup(viewModePopup)
     }
     
@@ -131,7 +131,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var result = "Weekly"
         var (beginWeek, endWeek) = Helper.sharedInstance.getWeek(weekOfYear)
         if beginWeek != nil && endWeek != nil {
-            var formatter = NSDateFormatter()
+            let formatter = NSDateFormatter()
             formatter.dateFormat = "dd MMM"
             result = formatter.stringFromDate(beginWeek!) + " - " + formatter.stringFromDate(endWeek!)
         }
@@ -139,7 +139,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func getTodayString(dateFormat: String) -> String {
-        var formatter = NSDateFormatter()
+        let formatter = NSDateFormatter()
         formatter.dateFormat = dateFormat
         return formatter.stringFromDate(NSDate())
     }
@@ -179,13 +179,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         DatePickerDialog().show(title: "From Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: defaultDate!, minDate: nil, datePickerMode: .Date) {
             (date) -> Void in
-            print(date, appendNewline: true)
+            print(date, terminator: "\n")
             
-            var dateString = self.formatter.stringFromDate(date)
-            print("formated: \(dateString)", appendNewline: true)
+            let dateString = self.formatter.stringFromDate(date)
+            print("formated: \(dateString)", terminator: "\n")
             sender.setTitle(dateString, forState: UIControlState.Normal)
             
-            var currentToDate = self.formatter.dateFromString((self.toButton.titleLabel?.text)!)
+            let currentToDate = self.formatter.dateFromString((self.toButton.titleLabel?.text)!)
             if currentToDate < date {
                 self.toButton.setTitle(self.formatter.stringFromDate(date), forState: UIControlState.Normal)
             }
@@ -200,20 +200,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         DatePickerDialog().show(title: "To Date", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: defaultDate!, minDate: minDate, datePickerMode: .Date) {
             (date) -> Void in
-            print(date, appendNewline: true)
+            print(date, terminator: "\n")
             
-            var dateString = self.formatter.stringFromDate(date)
-            print("formated: \(dateString)", appendNewline: true)
+            let dateString = self.formatter.stringFromDate(date)
+            print("formated: \(dateString)", terminator: "\n")
             sender.setTitle(dateString, forState: UIControlState.Normal)
         }
     }
     
     @IBAction func onDoneDatePopup(sender: UIButton) {
         
-        var fromDate = formatter.dateFromString((fromButton.titleLabel!.text)!)
-        var toDate = formatter.dateFromString((toButton.titleLabel!.text)!)
+        let fromDate = formatter.dateFromString((fromButton.titleLabel!.text)!)
+        let toDate = formatter.dateFromString((toButton.titleLabel!.text)!)
         
-        var formater2 = NSDateFormatter()
+        let formater2 = NSDateFormatter()
         formater2.dateFormat = "MMM dd, yyyy"
         
         navigationItem.title = formater2.stringFromDate(fromDate!) + " - " + formater2.stringFromDate(toDate!)
@@ -338,7 +338,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         cell.iconView.image = UIImage(named: "Collapse")
                     }
                     
-                    var tapGesture = UITapGestureRecognizer(target: self, action: Selector("tapIncome:"))
+                    let tapGesture = UITapGestureRecognizer(target: self, action: Selector("tapIncome:"))
                     cell.addGestureRecognizer(tapGesture)
                     
                     return cell
@@ -364,7 +364,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         cell.iconView.image = UIImage(named: "Collapse")
                     }
                     
-                    var tapGesture = UITapGestureRecognizer(target: self, action: Selector("tapExpense:"))
+                    let tapGesture = UITapGestureRecognizer(target: self, action: Selector("tapExpense:"))
                     cell.addGestureRecognizer(tapGesture)
                     
                     return cell
@@ -426,8 +426,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func handleSwipe(sender: UISwipeGestureRecognizer) {
         
-        var today = NSDate()
-        
+//        var today = NSDate()
+
         switch sender.direction {
         case UISwipeGestureRecognizerDirection.Left:
             switch viewMode {
@@ -466,8 +466,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             tableView.reloadSections(NSIndexSet(indexesInRange: NSMakeRange(0, 3)), withRowAnimation: UITableViewRowAnimation.Right)
             break
         case UISwipeGestureRecognizerDirection.Down:
-            var dvc = self.storyboard?.instantiateViewControllerWithIdentifier("QuickVC") as! QuickViewController
-            var nc = UINavigationController(rootViewController: dvc)
+            let dvc = self.storyboard?.instantiateViewControllerWithIdentifier("QuickVC") as! QuickViewController
+            let nc = UINavigationController(rootViewController: dvc)
             self.presentViewController(nc, animated: true, completion: nil)
             break
         default:
@@ -494,9 +494,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tapMode(sender: UITapGestureRecognizer) {
-        var selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: viewModeTableView)
+        let selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: viewModeTableView)
         if let selectedCell = selectedCell {
-            var indexPath = viewModeTableView.indexPathForCell(selectedCell)
+            let indexPath = viewModeTableView.indexPathForCell(selectedCell)
             
             switch indexPath!.row {
             case 0:

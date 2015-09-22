@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.enableLocalDatastore()
 
         let config = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Config", ofType: "plist")!)
-        print("loaded config: \(config)", appendNewline: true)
+        print("loaded config: \(config)", terminator: "\n")
         // ****************************************************************************
         // Uncomment this line if you want to enable Crash Reporting
         // ParseCrashReporting.enable()
@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let clientKey = config["parse_client_key"] as? String
             Parse.setApplicationId(applicationId!, clientKey: clientKey!)
         } else {
-            print("Please set up Parse keys in Config.plist file", appendNewline: true)
+            print("Please set up Parse keys in Config.plist file", terminator: "\n")
         }
 
         //
@@ -102,18 +102,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         PFPush.subscribeToChannelInBackground("") { (succeeded: Bool, error: NSError?) in
             if succeeded {
-                print("ParseStarterProject successfully subscribed to push notifications on the broadcast channel.", appendNewline: true);
+                print("ParseStarterProject successfully subscribed to push notifications on the broadcast channel.", terminator: "\n");
             } else {
-                print("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.", error, appendNewline: true)
+                print("ParseStarterProject failed to subscribe to push notifications on the broadcast channel with error = %@.", error, terminator: "")
             }
         }
     }
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         if error.code == 3010 {
-            print("Push notifications are not supported in the iOS Simulator.", appendNewline: true)
+            print("Push notifications are not supported in the iOS Simulator.", terminator: "\n")
         } else {
-            print("application:didFailToRegisterForRemoteNotificationsWithError: %@", error, appendNewline: true)
+            print("application:didFailToRegisterForRemoteNotificationsWithError: %@", error, terminator: "")
         }
     }
 

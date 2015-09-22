@@ -56,11 +56,11 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func onAddButton(sender: UIButton!) {
-        print("on Add", appendNewline: true)
+        print("on Add", terminator: "\n")
     }
     
     func onBackButton(sender: UIButton!) {
-        print("on Back", appendNewline: true)
+        print("on Back", terminator: "\n")
         navigationController?.popViewControllerAnimated(true)
     }
     
@@ -177,12 +177,12 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
         
         DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", minDate: nil, datePickerMode: .Time) {
             (time) -> Void in
-            print(time, appendNewline: true)
+            print(time, terminator: "\n")
             
             let formatter = NSDateFormatter()
             formatter.dateFormat = "hh:mm a"
             let timeString = formatter.stringFromDate(time)
-            print("formated: \(timeString)", appendNewline: true)
+            print("formated: \(timeString)", terminator: "\n")
             self.times.append(timeString)
             
             self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -203,10 +203,10 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
         
         DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: defaultDate!, minDate: nil, datePickerMode: .Time) {
             (time) -> Void in
-            print(time, appendNewline: true)
+            print(time, terminator: "\n")
             
             let timeString = formatter.stringFromDate(time)
-            print("formated: \(timeString)", appendNewline: true)
+            print("formated: \(timeString)", terminator: "\n")
             self.times[indexPath!.row] = timeString
             
             self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -228,8 +228,8 @@ class AddReminderViewController: UIViewController, UITableViewDataSource, UITabl
     
     func timeCell(timeCell: TimeCell, didChangeValue value: Bool) {
         
-        let indexPath = tableView.indexPathForCell(timeCell)!
-        print("switch time", appendNewline: true)
+//        let indexPath = tableView.indexPathForCell(timeCell)!
+        print("switch time", terminator: "\n")
         // TODO: handle time switch
     }
     

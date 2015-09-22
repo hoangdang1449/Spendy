@@ -23,7 +23,7 @@ class TransactionCell: UITableViewCell {
             // display Meal here to debug
             // noteLabel.text = "\(transaction.note!) (\(transaction.category()!.name!))"
             // TODO: use system currency
-            if let amount = transaction.amount {
+            if transaction.amount != nil {
                 amountLabel.text = transaction.formattedAmount()
             }
             dateLabel.text = transaction.dateOnly()

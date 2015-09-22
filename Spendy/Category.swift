@@ -37,15 +37,15 @@ class Category: HTObject {
             (objects, error) -> Void in
 
             if let error = error {
-                print("Error loading categories from Local: \(error)", appendNewline: true)
+                print("Error loading categories from Local: \(error)", terminator: "\n")
                 return
             }
 
             _allCategories = objects?.map({ Category(object: $0 ) })
-            print("\n[local] categories: \(objects)", appendNewline: true)
+            print("\n[local] categories: \(objects)", terminator: "\n")
 
             if _allCategories == nil || _allCategories!.isEmpty {
-                print("No categories found locally. Loading from server", appendNewline: true)
+                print("No categories found locally. Loading from server", terminator: "\n")
                 // load from remote
                 let remoteQuery = PFQuery(className: "Category")
                 remoteQuery.findObjectsInBackgroundWithBlock { (objects, error) -> Void in

@@ -67,7 +67,7 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         cell.amoutSegment.addTarget(self, action: "amountSegmentChanged:", forControlEvents: UIControlEvents.ValueChanged)
 
-        var rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleRightSwipe:"))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleRightSwipe:"))
         rightSwipe.direction = .Right
         cell.addGestureRecognizer(rightSwipe)
         
@@ -80,14 +80,14 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func amountSegmentChanged(sender: UISegmentedControl) {
         
-        print("touch", appendNewline: true)
+        print("touch", terminator: "\n")
         
-        var segment = sender as! CustomSegmentedControl
+        let segment = sender as! CustomSegmentedControl
         oldSelectedSegmentIndex = segment.oldValue
         
         if sender.selectedSegmentIndex == 3 {
-            var selectedCell = sender.superview?.superview as! QuickCell
-            var indexPath = tableView.indexPathForCell(selectedCell)
+            let selectedCell = sender.superview?.superview as! QuickCell
+            let indexPath = tableView.indexPathForCell(selectedCell)
             selectedIndexPath = indexPath
             showPopup()
         }
@@ -95,8 +95,8 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func handleRightSwipe(sender:UISwipeGestureRecognizer) {
         
-        var selectedCell = sender.view as! QuickCell
-        var indexPath = tableView.indexPathForCell(selectedCell)
+        let selectedCell = sender.view as! QuickCell
+        let indexPath = tableView.indexPathForCell(selectedCell)
         commonTracsations.removeAtIndex(indexPath!.row)
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
         
@@ -119,12 +119,12 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func onAddButton(sender: UIButton!) {
-        print("on Add", appendNewline: true)
+        print("on Add", terminator: "\n")
         // TODO: transfer to default account's detail
     }
     
     func onCancelButton(sender: UIButton!) {
-        print("on Cancel", appendNewline: true)
+        print("on Cancel", terminator: "\n")
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -150,7 +150,7 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
         amountText.text = ""
         
         // TODO: set selected segment depending on object's value
-        var cell = tableView.cellForRowAtIndexPath(selectedIndexPath!) as! QuickCell
+        let cell = tableView.cellForRowAtIndexPath(selectedIndexPath!) as! QuickCell
         cell.amoutSegment.selectedSegmentIndex = oldSelectedSegmentIndex!
         closePopup()
     }
@@ -158,7 +158,7 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBAction func onDonePopup(sender: UIButton) {
         
         if let selectedIndexPath = selectedIndexPath {
-            var cell = tableView.cellForRowAtIndexPath(selectedIndexPath) as! QuickCell
+            let cell = tableView.cellForRowAtIndexPath(selectedIndexPath) as! QuickCell
             if !amountText.text!.isEmpty {
                 cell.amoutSegment.setTitle(amountText.text, forSegmentAtIndex: 3)
                 amountText.text = ""
