@@ -122,30 +122,6 @@ class AddReminderViewController: UIViewController, UIGestureRecognizerDelegate, 
         }
     }
     
-//    func tapEditTime(sender: UITapGestureRecognizer) {
-//        
-//        let selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: tableView) as! TimeCell
-//        let indexPath = tableView.indexPathForCell(selectedCell)
-//        
-//        let timeString = selectedCell.timeLabel.text
-//        
-//        let formatter = NSDateFormatter()
-//        formatter.dateFormat = "hh:mm a"
-//        
-//        let defaultDate = formatter.dateFromString(timeString!)
-//        
-//        DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", defaultDate: defaultDate!, minDate: nil, datePickerMode: .Time) {
-//            (time) -> Void in
-//            print(time, terminator: "\n")
-//            
-//            let timeString = formatter.stringFromDate(time)
-//            print("formated: \(timeString)", terminator: "\n")
-//            self.times[indexPath!.row] = timeString
-//            
-//            self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
-//        }
-//    }
-    
     func tapSelectCategory(sender: UITapGestureRecognizer) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -221,16 +197,10 @@ extension AddReminderViewController: UITableViewDataSource, UITableViewDelegate 
                 cell.delegate = self
                 cell.timeLabel.text = times[indexPath.row]
                 
-//                let tapAddTime = UITapGestureRecognizer(target: self, action: Selector("tapEditTime:"))
-//                cell.addGestureRecognizer(tapAddTime)
-                
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier("AddTimeCell", forIndexPath: indexPath)
-                
-//                let tapAddTime = UITapGestureRecognizer(target: self, action: Selector("tapAddTime"))
-//                cell.addGestureRecognizer(tapAddTime)
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
                 return cell

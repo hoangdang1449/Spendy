@@ -9,7 +9,7 @@
 import UIKit
 import SCLAlertView
 
-class AccountsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
+class AccountsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,7 +18,6 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     var accounts: [Account]?
     
     var isPreparedDelete = false
-    var panGesture: UIPanGestureRecognizer?
     var moneyIcon: UIImageView?
     var initialIconCenter: CGPoint?
     var selectedDragCell: AccountCell?
@@ -65,57 +64,6 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func onAddAccountButton(sender: UIButton!) {
         print("on Add account", terminator: "\n")
-    }
-    
-    // MARK: Table View
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 55
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accounts?.count ?? 0
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        print("cellForRow \(indexPath.row)", terminator: "\n")
-        let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as! AccountCell
-        
-        cell.nameLabel.text = accounts![indexPath.row].name
-        
-        if panGesture == nil {
-            panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
-            panGesture!.delegate = self
-            cell.addGestureRecognizer(panGesture!)
-        }
-        
-        Helper.sharedInstance.setSeparatorFullWidth(cell)
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        print("action", terminator: "\n")
-        isPreparedDelete = true
-        let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
-            print("delete", terminator: "\n")
-            let alertView = SCLAlertView()
-            alertView.addButton("Delete", action: { () -> Void in
-                self.accounts?.removeAtIndex(indexPath.row)
-                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
-                // TODO: Delete this account and its transactions
-            })
-            
-            alertView.showWarning("Warning", subTitle: "Deleting Saving will cause to also delete its transactions.", closeButtonTitle: "Cancel", colorStyle: 0x55AEED, colorTextButton: 0xFFFFFF)
-            
-        }
-        delete.backgroundColor = UIColor.redColor()
-        
-        return [delete]
-    }
-    
-    func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
-        print("didEndEditingRowAtIndexPath", terminator: "\n")
-        isPreparedDelete = false
     }
     
     // MARK: Handle gestures
@@ -249,4 +197,69 @@ class AccountsViewController: UIViewController, UITableViewDataSource, UITableVi
         accountDetailVC.selectedAccount = accounts![indexPath.row]
     }
     
+}
+
+// MARK: Table View
+
+extension AccountsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 55
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return accounts?.count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        print("cellForRow \(indexPath.row)", terminator: "\n")
+        let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as! AccountCell
+        
+        cell.nameLabel.text = accounts![indexPath.row].name
+        
+        if !hasPanGesture(cell) {
+            let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
+            panGesture.delegate = self
+            cell.addGestureRecognizer(panGesture)
+        }
+        
+        Helper.sharedInstance.setSeparatorFullWidth(cell)
+        return cell
+    }
+    
+    func hasPanGesture(cell: UITableViewCell) -> Bool {
+        if let gestures = cell.gestureRecognizers {
+            for gesture in gestures {
+                if gesture is UIPanGestureRecognizer {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        print("action", terminator: "\n")
+        isPreparedDelete = true
+        let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
+            print("delete", terminator: "\n")
+            let alertView = SCLAlertView()
+            alertView.addButton("Delete", action: { () -> Void in
+                self.accounts?.removeAtIndex(indexPath.row)
+                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+                // TODO: Delete this account and its transactions
+            })
+            
+            alertView.showWarning("Warning", subTitle: "Deleting Saving will cause to also delete its transactions.", closeButtonTitle: "Cancel", colorStyle: 0x55AEED, colorTextButton: 0xFFFFFF)
+            
+        }
+        delete.backgroundColor = UIColor.redColor()
+        
+        return [delete]
+    }
+    
+    func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
+        print("didEndEditingRowAtIndexPath", terminator: "\n")
+        isPreparedDelete = false
+    }
 }
