@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddTransactionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AddTransactionViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -27,6 +27,8 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     
     var selectedTransaction: Transaction?
     var isNewTemp: Bool = false // temporary
+    
+    var imagePicker: UIImagePickerController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,9 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         }
 
         tableView.reloadData()
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -131,7 +136,47 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         }
     }
 
-    // MARK: Table View
+    
+    // MARK: Transfer between 2 views
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        updateFieldsToTransaction()
+        
+        // Dismiss all keyboard and datepicker
+        noteCell?.noteText.resignFirstResponder()
+        amountCell?.amountText.resignFirstResponder()
+        dateCell?.datePicker.alpha = 0
+        
+        let toController = segue.destinationViewController 
+        if toController is SelectAccountOrCategoryViewController {
+            let vc = toController as! SelectAccountOrCategoryViewController
+
+            let cell = sender as! SelectAccountOrCategoryCell
+            vc.itemClass = cell.itemClass
+            vc.delegate = self
+
+            // TODO: delegate
+        }
+    }
+}
+
+extension AddTransactionViewController: SelectAccountOrCategoryDelegate {
+    func selectAccountOrCategoryViewController(selectAccountOrCategoryController: SelectAccountOrCategoryViewController, selectedItem item: AnyObject) {
+        if item is Account {
+            selectedTransaction?.setAccount(item as! Account)
+            tableView.reloadData()
+        } else if item is Category {
+            selectedTransaction?.setCategory(item as! Category)
+            tableView.reloadData()
+        } else {
+            print("Error: item is \(item)", terminator: "\n")
+        }
+    }
+}
+
+// MARK: Table View
+
+extension AddTransactionViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if isCollaped {
@@ -190,7 +235,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoteCell", forIndexPath: indexPath) as! NoteCell
-
+                
                 cell.noteText.text = selectedTransaction?.note
                 
                 let tapCell = UITapGestureRecognizer(target: self, action: "tapNoteCell:")
@@ -204,9 +249,9 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
                 
             case 1:
                 let cell = tableView.dequeueReusableCellWithIdentifier("AmountCell", forIndexPath: indexPath) as! AmountCell
-
+                
                 cell.amountText.text = selectedTransaction?.formattedAmount()
-
+                
                 let tapCell = UITapGestureRecognizer(target: self, action: "tapAmoutCell:")
                 cell.addGestureRecognizer(tapCell)
                 
@@ -229,18 +274,18 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("SelectAccountOrCategoryCell", forIndexPath: indexPath) as! SelectAccountOrCategoryCell
-
+                
                 cell.itemClass = "Category"
                 cell.titleLabel.text = "Category"
                 print("selectedTransaction: \(selectedTransaction)", terminator: "\n")
-
+                
                 // this got rendered too soon!
-
+                
                 let category = selectedTransaction?.category()
                 cell.typeLabel.text = category!.name // TODO: replace with default category
                 
                 Helper.sharedInstance.setSeparatorFullWidth(cell)
-
+                
                 if categoryCell == nil {
                     categoryCell = cell
                 }
@@ -251,7 +296,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
                 
                 cell.itemClass = "Account"
                 cell.titleLabel.text = "Account"
-
+                
                 let account = selectedTransaction?.account()
                 cell.typeLabel.text = account?.name
                 
@@ -340,7 +385,14 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tapPhotoCell(sender: UITapGestureRecognizer) {
-        showActionSheet()
+        let photoCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as? PhotoCell
+        if let photoCell = photoCell {
+            if photoCell.photoView.image == nil {
+                showActionSheet()
+            } else {
+                // TODO: Show photo view
+            }
+        }
     }
     
     func showActionSheet() {
@@ -350,10 +402,28 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         let takePhotoAction = UIAlertAction(title: "Take a Photo", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Take a Photo", terminator: "\n")
+            
+//            picker.allowsEditing = false
+//            picker.sourceType = UIImagePickerControllerSourceType.Camera
+//            picker.cameraCaptureMode = .Photo
+//            picker.modalPresentationStyle = .FullScreen
+//            presentViewController(picker, animated: true, completion: nil)
+            
+            self.imagePicker.allowsEditing = false
+            self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+            self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
+            self.imagePicker.modalPresentationStyle = .FullScreen
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            
         })
+        
         let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Photo from Library", terminator: "\n")
+            
+            self.imagePicker.allowsEditing = true
+            self.imagePicker.sourceType = .PhotoLibrary
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
@@ -367,7 +437,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         
         self.presentViewController(optionMenu, animated: true, completion: nil)
     }
-
+    
     func typeSegmentChanged(sender: UISegmentedControl) {
         
         if sender.selectedSegmentIndex == 2 {
@@ -385,40 +455,35 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
             accountCell!.typeLabel.text = "Cash"
         }
     }
-    
-    // MARK: Transfer between 2 views
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        updateFieldsToTransaction()
-        
-        // Dismiss all keyboard and datepicker
-        noteCell?.noteText.resignFirstResponder()
-        amountCell?.amountText.resignFirstResponder()
-        dateCell?.datePicker.alpha = 0
-        
-        let toController = segue.destinationViewController 
-        if toController is SelectAccountOrCategoryViewController {
-            let vc = toController as! SelectAccountOrCategoryViewController
 
-            let cell = sender as! SelectAccountOrCategoryCell
-            vc.itemClass = cell.itemClass
-            vc.delegate = self
-
-            // TODO: delegate
-        }
-    }
 }
 
-extension AddTransactionViewController: SelectAccountOrCategoryDelegate {
-    func selectAccountOrCategoryViewController(selectAccountOrCategoryController: SelectAccountOrCategoryViewController, selectedItem item: AnyObject) {
-        if item is Account {
-            selectedTransaction?.setAccount(item as! Account)
-            tableView.reloadData()
-        } else if item is Category {
-            selectedTransaction?.setCategory(item as! Category)
-            tableView.reloadData()
-        } else {
-            print("Error: item is \(item)", terminator: "\n")
+extension AddTransactionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            // Get photo cell
+            let photoCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as? PhotoCell
+            if let photoCell = photoCell {
+                print("photo cell", terminator: "\n")
+                print(pickedImage, terminator: "\n")
+                photoCell.photoView.contentMode = .ScaleToFill
+                photoCell.photoView.image = pickedImage
+                dismissViewControllerAnimated(true, completion: nil)
+            }
         }
     }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func openPhotoLibrary() {
+        self.imagePicker.allowsEditing = false
+        self.imagePicker.sourceType = .PhotoLibrary
+        self.presentViewController(self.imagePicker, animated: true, completion: nil)
+    }
+    
 }
