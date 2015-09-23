@@ -1,0 +1,1 @@
+FSIMAGEVIEWER_OTHER_LDFLAGS = -framework "CFNetwork" -framework "CoreGraphics" -framework "Foundation" -framework "QuartzCore" -framework "Security" -framework "UIKit"

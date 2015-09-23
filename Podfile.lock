@@ -21,22 +21,38 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Bolts/Tasks (1.2.2)
+  - EGOCache (2.1.3)
+  - FSImageViewer (3.4):
+    - AFNetworking (~> 2.5)
+    - EGOCache (~> 2.1)
+    - UAProgressView (~> 0.1)
   - Parse (1.8.3):
     - Bolts/Tasks (>= 1.2.2)
+  - PhotoTweaks (1.0.2)
   - SCLAlertView (0.4.1)
   - SevenSwitch (2.0.0)
+  - UAProgressView (0.1.2)
+  - VIPhotoView (0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
+  - FSImageViewer (~> 3.4)
   - Parse
+  - PhotoTweaks (~> 1.0.2)
   - SCLAlertView
   - SevenSwitch
+  - VIPhotoView (~> 0.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
+  EGOCache: f0295dbe041156acabd39021354ad1045ee49e72
+  FSImageViewer: 0dea92069cce74a800b75cb8777c923f2be59124
   Parse: 4b251ac63b76d12b334a32579cc3b174446f0c39
+  PhotoTweaks: e91ce097f9df435049e7c35d419f9a7749e252bc
   SCLAlertView: 9e60641edd9efcfc6d58227558eb7b03678dbcf3
   SevenSwitch: 4ae92ffcad0ef93b38553b39a25e753c94eb7847
+  UAProgressView: 4ef6d60b4e060884cb0315e7628256f998744247
+  VIPhotoView: bdc0cf8ddadda754b451869bd3a919e8eb5c11ab
 
 COCOAPODS: 0.38.2
