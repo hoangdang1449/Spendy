@@ -74,10 +74,17 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
         Helper.sharedInstance.customizeBarButton(self, button: cancelButton!, imageName: "Cancel", isLeft: true)
         cancelButton!.addTarget(self, action: "onCancelButton:", forControlEvents: UIControlEvents.TouchUpInside)
     }
-    
+
+    func updateFieldsToTransaction() {
+        if let transaction = selectedTransaction {
+            transaction["note"] = noteCell?.noteText.text
+            transaction["kind"] = Transaction.kinds[amountCell!.typeSegment.selectedSegmentIndex]
+        }
+    }
+
     func onAddButton(sender: UIButton!) {
         // update fields
-        selectedTransaction!.note = noteCell?.noteText.text
+        updateFieldsToTransaction()
 
         // TODO: parse amount and date
 //        selectedTransaction!.amount = NSDecimalNumber(string: amountCell?.amountText.text)
@@ -382,6 +389,7 @@ class AddTransactionViewController: UIViewController, UITableViewDataSource, UIT
     // MARK: Transfer between 2 views
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        updateFieldsToTransaction()
         
         // Dismiss all keyboard and datepicker
         noteCell?.noteText.resignFirstResponder()
