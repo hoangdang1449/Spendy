@@ -23,7 +23,7 @@
 {
     if (self = [super init]) {
         _image = image;
-        _autoSaveToLibray = YES;
+        _autoSaveToLibray = NO;
     }
     return self;
 }

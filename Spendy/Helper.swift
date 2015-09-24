@@ -9,15 +9,9 @@
 import UIKit
 
 class Helper: NSObject {
-   
-    class var sharedInstance: Helper {
-        struct Static {
-            static let instance = Helper()
-        }
-        
-        return Static.instance
-    }
     
+    static let sharedInstance = Helper()
+   
     func customizeBarButton(viewController: UIViewController, button: UIButton, imageName: String, isLeft: Bool) {
         
         let avatar = UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
@@ -75,6 +69,42 @@ class Helper: NSObject {
         }
         
         return (beginningOfWeek!, endOfWeek!)
+    }
+    
+    func showActionSheet(viewController: UIViewController, imagePicker: UIImagePickerController) {
+        
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let takePhotoAction = UIAlertAction(title: "Take a Photo", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Take a Photo", terminator: "\n")
+            
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+            imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
+            imagePicker.modalPresentationStyle = .FullScreen
+            viewController.presentViewController(imagePicker, animated: true, completion: nil)
+        })
+        
+        let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Photo from Library", terminator: "\n")
+            
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .PhotoLibrary
+            viewController.presentViewController(imagePicker, animated: true, completion: nil)
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancelled", terminator: "\n")
+        })
+        
+        optionMenu.addAction(takePhotoAction)
+        optionMenu.addAction(photoLibraryAction)
+        optionMenu.addAction(cancelAction)
+        
+        viewController.presentViewController(optionMenu, animated: true, completion: nil)
     }
 }
 

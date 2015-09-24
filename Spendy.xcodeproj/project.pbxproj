@@ -13,6 +13,7 @@
 		184851F71BB011CE00C1EA63 /* SubMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184851F61BB011CE00C1EA63 /* SubMenuCell.swift */; };
 		18499E1D1BAB237D0066E6E5 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18499E1C1BAB237D0066E6E5 /* AccountCell.swift */; };
 		18499E1F1BAB23FB0066E6E5 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18499E1E1BAB23FB0066E6E5 /* AccountsViewController.swift */; };
+		186640311BB39F52007B73C3 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186640301BB39F52007B73C3 /* PhotoViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		1866C4D51BAC221C000200D2 /* AccountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866C4D41BAC221C000200D2 /* AccountDetailViewController.swift */; };
 		1884A4DC1BAD62EB00D24257 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884A4DB1BAD62EB00D24257 /* AddReminderViewController.swift */; };
 		1884A4DF1BAD6E9A00D24257 /* CategoryReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884A4DE1BAD6E9A00D24257 /* CategoryReminderCell.swift */; };
@@ -69,6 +70,7 @@
 		184851F61BB011CE00C1EA63 /* SubMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubMenuCell.swift; sourceTree = "<group>"; };
 		18499E1C1BAB237D0066E6E5 /* AccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		18499E1E1BAB23FB0066E6E5 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
+		186640301BB39F52007B73C3 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		1866C4D41BAC221C000200D2 /* AccountDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailViewController.swift; sourceTree = "<group>"; };
 		1884A4DB1BAD62EB00D24257 /* AddReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
 		1884A4DE1BAD6E9A00D24257 /* CategoryReminderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryReminderCell.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				18F39CC21BA962D10099B714 /* HomeViewController.swift */,
 				18F39CC41BA964450099B714 /* QuickViewController.swift */,
 				18F39CCC1BA9C8330099B714 /* AddTransactionViewController.swift */,
+				186640301BB39F52007B73C3 /* PhotoViewController.swift */,
 				9DB8A86D1BAA43B4000F03A1 /* SelectAccountOrCategoryViewController.swift */,
 				9DB8A8691BA9FF64000F03A1 /* SettingsViewController.swift */,
 				9DB8A86B1BAA064E000F03A1 /* RootTabBarController.swift */,
@@ -388,10 +391,11 @@
 				TargetAttributes = {
 					9D78C5161BA5A47F00B00BC2 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = N2U43B8KW7;
+						DevelopmentTeam = QCBK6P7M2R;
 					};
 					9D78C52B1BA5A48000B00BC2 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = QCBK6P7M2R;
 						TestTargetID = 9D78C5161BA5A47F00B00BC2;
 					};
 				};
@@ -500,6 +504,7 @@
 				18AA6A4D1BAA7575003210FD /* PhotoCell.swift in Sources */,
 				184851F31BB011AA00C1EA63 /* MenuCell.swift in Sources */,
 				9D3EA5FC1BABFB1300EF4B47 /* Account.swift in Sources */,
+				186640311BB39F52007B73C3 /* PhotoViewController.swift in Sources */,
 				1866C4D51BAC221C000200D2 /* AccountDetailViewController.swift in Sources */,
 				1806E9061BADE11C008047A6 /* DatePickerDialog.swift in Sources */,
 				18F39CD91BA9D2F80099B714 /* DateCell.swift in Sources */,
@@ -687,6 +692,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -695,6 +702,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cheetah.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spendy.app/Spendy";
 			};
 			name = Debug;
@@ -703,10 +711,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SpendyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "cheetah.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spendy.app/Spendy";
 			};
 			name = Release;
