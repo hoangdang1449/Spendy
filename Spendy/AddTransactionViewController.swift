@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PhotoTweaks
 
 class AddTransactionViewController: UIViewController {
     
@@ -84,6 +85,10 @@ class AddTransactionViewController: UIViewController {
         if let transaction = selectedTransaction {
             transaction["note"] = noteCell?.noteText.text
             transaction["kind"] = Transaction.kinds[amountCell!.typeSegment.selectedSegmentIndex]
+
+            // TODO: parse amount and date
+            // transaction["amount"] = NSDecimalNumber(string: amountCell?.amountText.text)
+            // transaction["date"] = dateCell?.datePicker.date ?? NSDate()
         }
     }
 
@@ -91,12 +96,9 @@ class AddTransactionViewController: UIViewController {
         // update fields
         updateFieldsToTransaction()
 
-        // TODO: parse amount and date
-//        selectedTransaction!.amount = NSDecimalNumber(string: amountCell?.amountText.text)
-//        selectedTransaction!.date = dateCell?.datePicker.date ?? NSDate()
-
 
         print("[onAddButton] transaction: \(selectedTransaction!)", terminator: "\n")
+
 //        if selectedTransaction!.isNew() { // currently not saving transaction yet
         if isNewTemp {
             print("added transaction", terminator: "\n")
@@ -104,17 +106,30 @@ class AddTransactionViewController: UIViewController {
         }
 
         if presentingViewController != nil {
+            // for adding
             dismissViewControllerAnimated(true, completion: nil)
-
-            // unhide the tabBar because we hid it for the Add tab
-            self.tabBarController?.tabBar.hidden = false
-            let rootVC = parentViewController?.parentViewController as? RootTabBarController
-            rootVC?.selectedIndex = 0
-        } else if navigationController != nil {
-            navigationController?.popViewControllerAnimated(true)
-        } else {
-            print("Error closing view on onAddButton: \(self)", terminator: "\n")
+            return
         }
+
+        guard let nc = navigationController else {
+            print("Error closing view on onAddButton: \(self)")
+            return
+        }
+
+
+        if nc.viewControllers[0] is AddTransactionViewController {
+            closeTabAndSwitchToHome()
+        } else {
+            nc.popViewControllerAnimated(true)
+        }
+    }
+
+    func closeTabAndSwitchToHome() {
+        // unhide the tabBar because we hid it for the Add tab
+        self.tabBarController?.tabBar.hidden = false
+        let rootVC = parentViewController?.parentViewController as? RootTabBarController
+        // go to Accouns tab
+        rootVC?.selectedIndex = 1
     }
 
     func onCancelButton(sender: UIButton!) {
@@ -123,23 +138,24 @@ class AddTransactionViewController: UIViewController {
         if presentingViewController != nil {
             // exit modal
             dismissViewControllerAnimated(true, completion: nil)
-
-            // unhide the tabBar because we hid it for the Add tab
-            self.tabBarController?.tabBar.hidden = false
-            let rootVC = parentViewController?.parentViewController as? RootTabBarController
-            rootVC?.selectedIndex = 0
         } else if navigationController != nil {
             // exit push
             navigationController!.popViewControllerAnimated(true)
         } else {
             print("Error closing view on onAddButton: \(self)", terminator: "\n")
         }
-    }
 
+        closeTabAndSwitchToHome()
+    }
     
-    // MARK: Transfer between 2 views
+}
+
+// MARK: Transfer between 2 views
+
+extension AddTransactionViewController: SelectAccountOrCategoryDelegate, PhotoViewControllerDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         updateFieldsToTransaction()
         
         // Dismiss all keyboard and datepicker
@@ -147,20 +163,32 @@ class AddTransactionViewController: UIViewController {
         amountCell?.amountText.resignFirstResponder()
         dateCell?.datePicker.alpha = 0
         
-        let toController = segue.destinationViewController 
+        let toController = segue.destinationViewController
+        
         if toController is SelectAccountOrCategoryViewController {
             let vc = toController as! SelectAccountOrCategoryViewController
-
+            
             let cell = sender as! SelectAccountOrCategoryCell
             vc.itemClass = cell.itemClass
             vc.delegate = self
-
+            
             // TODO: delegate
+        } else if toController is PhotoViewController {
+            
+            let photoCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as? PhotoCell
+            if let photoCell = photoCell {
+                if photoCell.photoView.image == nil {
+                    Helper.sharedInstance.showActionSheet(self, imagePicker: imagePicker)
+                } else {
+                    let photoVC = toController as! PhotoViewController
+                    photoVC.selectedImage = photoCell.photoView.image
+                    photoVC.delegate = self
+                }
+            }
+            
         }
     }
-}
-
-extension AddTransactionViewController: SelectAccountOrCategoryDelegate {
+    
     func selectAccountOrCategoryViewController(selectAccountOrCategoryController: SelectAccountOrCategoryViewController, selectedItem item: AnyObject) {
         if item is Account {
             selectedTransaction?.setAccount(item as! Account)
@@ -172,7 +200,15 @@ extension AddTransactionViewController: SelectAccountOrCategoryDelegate {
             print("Error: item is \(item)", terminator: "\n")
         }
     }
+    
+    func photoViewController(photoViewController: PhotoViewController, didUpdateImage image: UIImage) {
+        let photoCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as? PhotoCell
+        if let photoCell = photoCell {
+            photoCell.photoView.image = image
+        }
+    }
 }
+
 
 // MARK: Table View
 
@@ -342,8 +378,8 @@ extension AddTransactionViewController: UITableViewDataSource, UITableViewDelega
             
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCell
-            let tapCell = UITapGestureRecognizer(target: self, action: "tapPhotoCell:")
-            cell.addGestureRecognizer(tapCell)
+//            let tapCell = UITapGestureRecognizer(target: self, action: "tapPhotoCell:")
+//            cell.addGestureRecognizer(tapCell)
             Helper.sharedInstance.setSeparatorFullWidth(cell)
             if photoCell == nil {
                 photoCell = cell
@@ -356,6 +392,8 @@ extension AddTransactionViewController: UITableViewDataSource, UITableViewDelega
         
         return dummyCell
     }
+    
+    // MARK: Handle gestures
     
     func tapNoteCell(sender: UITapGestureRecognizer) {
         noteCell!.noteText.becomeFirstResponder()
@@ -384,60 +422,6 @@ extension AddTransactionViewController: UITableViewDataSource, UITableViewDelega
         }
     }
     
-    func tapPhotoCell(sender: UITapGestureRecognizer) {
-        let photoCell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as? PhotoCell
-        if let photoCell = photoCell {
-            if photoCell.photoView.image == nil {
-                showActionSheet()
-            } else {
-                // TODO: Show photo view
-            }
-        }
-    }
-    
-    func showActionSheet() {
-        
-        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        
-        let takePhotoAction = UIAlertAction(title: "Take a Photo", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("Take a Photo", terminator: "\n")
-            
-//            picker.allowsEditing = false
-//            picker.sourceType = UIImagePickerControllerSourceType.Camera
-//            picker.cameraCaptureMode = .Photo
-//            picker.modalPresentationStyle = .FullScreen
-//            presentViewController(picker, animated: true, completion: nil)
-            
-            self.imagePicker.allowsEditing = false
-            self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-            self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Photo
-            self.imagePicker.modalPresentationStyle = .FullScreen
-            self.presentViewController(self.imagePicker, animated: true, completion: nil)
-            
-        })
-        
-        let photoLibraryAction = UIAlertAction(title: "Photo from Library", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("Photo from Library", terminator: "\n")
-            
-            self.imagePicker.allowsEditing = true
-            self.imagePicker.sourceType = .PhotoLibrary
-            self.presentViewController(self.imagePicker, animated: true, completion: nil)
-        })
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("Cancelled", terminator: "\n")
-        })
-        
-        optionMenu.addAction(takePhotoAction)
-        optionMenu.addAction(photoLibraryAction)
-        optionMenu.addAction(cancelAction)
-        
-        self.presentViewController(optionMenu, animated: true, completion: nil)
-    }
-    
     func typeSegmentChanged(sender: UISegmentedControl) {
         
         if sender.selectedSegmentIndex == 2 {
@@ -455,8 +439,9 @@ extension AddTransactionViewController: UITableViewDataSource, UITableViewDelega
             accountCell!.typeLabel.text = "Cash"
         }
     }
-
 }
+
+// MARK: UIImagePickerController
 
 extension AddTransactionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -464,26 +449,33 @@ extension AddTransactionViewController: UIImagePickerControllerDelegate, UINavig
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
-            // Get photo cell
-            let photoCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as? PhotoCell
-            if let photoCell = photoCell {
-                print("photo cell", terminator: "\n")
-                print(pickedImage, terminator: "\n")
-                photoCell.photoView.contentMode = .ScaleToFill
-                photoCell.photoView.image = pickedImage
-                dismissViewControllerAnimated(true, completion: nil)
-            }
+            let photoTweaksViewController = PhotoTweaksViewController(image: pickedImage)
+            photoTweaksViewController.delegate = self
+            imagePicker.pushViewController(photoTweaksViewController, animated: true)
         }
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+}
+
+// MARK: Photo Tweaks
+
+extension AddTransactionViewController: PhotoTweaksViewControllerDelegate {
     
-    func openPhotoLibrary() {
-        self.imagePicker.allowsEditing = false
-        self.imagePicker.sourceType = .PhotoLibrary
-        self.presentViewController(self.imagePicker, animated: true, completion: nil)
+    func photoTweaksController(controller: PhotoTweaksViewController!, didFinishWithCroppedImage croppedImage: UIImage!) {
+        // Get photo cell
+        let photoCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as? PhotoCell
+        if let photoCell = photoCell {
+            photoCell.photoView.contentMode = .ScaleToFill
+            photoCell.photoView.image = croppedImage
+        }
+        
+        controller.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func photoTweaksControllerDidCancel(controller: PhotoTweaksViewController!) {
+        controller.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
 }

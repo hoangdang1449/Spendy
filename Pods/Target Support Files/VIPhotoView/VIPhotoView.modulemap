@@ -1,0 +1,6 @@
+framework module VIPhotoView {
+  umbrella header "VIPhotoView-umbrella.h"
+
+  export *
+  module * { export * }
+}

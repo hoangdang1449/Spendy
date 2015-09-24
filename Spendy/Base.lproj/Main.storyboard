@@ -338,7 +338,7 @@
                                             <outlet property="datePicker" destination="agh-SU-Mdr" id="KFT-yD-LG4"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ViewMoreCell" id="A8p-jL-ymL">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ViewMoreCell" id="A8p-jL-ymL">
                                         <rect key="frame" x="0.0" y="424" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A8p-jL-ymL" id="mIS-fS-lYa">
@@ -358,7 +358,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" id="4uc-LR-euG" customClass="PhotoCell" customModule="Spendy" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PhotoCell" id="4uc-LR-euG" customClass="PhotoCell" customModule="Spendy" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="468" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4uc-LR-euG" id="Zfq-Tx-Chv">
@@ -388,6 +388,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="photoView" destination="6KU-LZ-PvZ" id="8fT-ko-ZRk"/>
+                                            <segue destination="XQQ-wC-XUQ" kind="push" identifier="ViewPhoto" id="goz-hO-28p"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -409,6 +410,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHz-4l-BHF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="737" y="1435"/>
+        </scene>
+        <!--Photo-->
+        <scene sceneID="Mu9-Ar-3X1">
+            <objects>
+                <viewController id="XQQ-wC-XUQ" customClass="PhotoViewController" customModule="Spendy" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gqb-DQ-ELA"/>
+                        <viewControllerLayoutGuide type="bottom" id="sY3-3D-kYg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="esj-a0-afE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8DK-xq-h0d">
+                                <rect key="frame" x="20" y="481" width="53" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Change"/>
+                                <connections>
+                                    <action selector="onChangeButton:" destination="XQQ-wC-XUQ" eventType="touchUpInside" id="Vjj-1C-wMI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5uz-jx-gh7">
+                                <rect key="frame" x="270" y="481" width="30" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="onEditButton:" destination="XQQ-wC-XUQ" eventType="touchUpInside" id="aM9-Wh-pg6"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5uz-jx-gh7" secondAttribute="trailing" constant="20" id="Uzh-M5-qZ1"/>
+                            <constraint firstItem="sY3-3D-kYg" firstAttribute="top" secondItem="8DK-xq-h0d" secondAttribute="bottom" constant="8" id="bSd-UB-LcH"/>
+                            <constraint firstItem="8DK-xq-h0d" firstAttribute="leading" secondItem="esj-a0-afE" secondAttribute="leading" constant="20" id="vY8-8R-I0v"/>
+                            <constraint firstItem="sY3-3D-kYg" firstAttribute="top" secondItem="5uz-jx-gh7" secondAttribute="bottom" constant="8" id="yLP-5d-IYb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Photo" id="VSu-hw-oiY"/>
+                    <connections>
+                        <outlet property="changeButton" destination="8DK-xq-h0d" id="psT-Ie-IJh"/>
+                        <outlet property="editButton" destination="5uz-jx-gh7" id="L6V-dr-gta"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ONl-7X-Sch" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="737" y="2118"/>
         </scene>
         <!--Select Category-->
         <scene sceneID="AQd-SU-UpW">
