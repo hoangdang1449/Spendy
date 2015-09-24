@@ -85,6 +85,10 @@ class AddTransactionViewController: UIViewController {
         if let transaction = selectedTransaction {
             transaction["note"] = noteCell?.noteText.text
             transaction["kind"] = Transaction.kinds[amountCell!.typeSegment.selectedSegmentIndex]
+
+            // TODO: parse amount and date
+            // transaction["amount"] = NSDecimalNumber(string: amountCell?.amountText.text)
+            // transaction["date"] = dateCell?.datePicker.date ?? NSDate()
         }
     }
 
@@ -92,12 +96,9 @@ class AddTransactionViewController: UIViewController {
         // update fields
         updateFieldsToTransaction()
 
-        // TODO: parse amount and date
-//        selectedTransaction!.amount = NSDecimalNumber(string: amountCell?.amountText.text)
-//        selectedTransaction!.date = dateCell?.datePicker.date ?? NSDate()
-
 
         print("[onAddButton] transaction: \(selectedTransaction!)", terminator: "\n")
+
 //        if selectedTransaction!.isNew() { // currently not saving transaction yet
         if isNewTemp {
             print("added transaction", terminator: "\n")
@@ -105,17 +106,30 @@ class AddTransactionViewController: UIViewController {
         }
 
         if presentingViewController != nil {
+            // for adding
             dismissViewControllerAnimated(true, completion: nil)
-
-            // unhide the tabBar because we hid it for the Add tab
-            self.tabBarController?.tabBar.hidden = false
-            let rootVC = parentViewController?.parentViewController as? RootTabBarController
-            rootVC?.selectedIndex = 0
-        } else if navigationController != nil {
-            navigationController?.popViewControllerAnimated(true)
-        } else {
-            print("Error closing view on onAddButton: \(self)", terminator: "\n")
+            return
         }
+
+        guard let nc = navigationController else {
+            print("Error closing view on onAddButton: \(self)")
+            return
+        }
+
+
+        if nc.viewControllers[0] is AddTransactionViewController {
+            closeTabAndSwitchToHome()
+        } else {
+            nc.popViewControllerAnimated(true)
+        }
+    }
+
+    func closeTabAndSwitchToHome() {
+        // unhide the tabBar because we hid it for the Add tab
+        self.tabBarController?.tabBar.hidden = false
+        let rootVC = parentViewController?.parentViewController as? RootTabBarController
+        // go to Accouns tab
+        rootVC?.selectedIndex = 1
     }
 
     func onCancelButton(sender: UIButton!) {
@@ -124,17 +138,14 @@ class AddTransactionViewController: UIViewController {
         if presentingViewController != nil {
             // exit modal
             dismissViewControllerAnimated(true, completion: nil)
-
-            // unhide the tabBar because we hid it for the Add tab
-            self.tabBarController?.tabBar.hidden = false
-            let rootVC = parentViewController?.parentViewController as? RootTabBarController
-            rootVC?.selectedIndex = 0
         } else if navigationController != nil {
             // exit push
             navigationController!.popViewControllerAnimated(true)
         } else {
             print("Error closing view on onAddButton: \(self)", terminator: "\n")
         }
+
+        closeTabAndSwitchToHome()
     }
     
 }
