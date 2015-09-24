@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddReminderViewController: UIViewController, UIGestureRecognizerDelegate, TimeCellDelegate {
+class AddReminderViewController: UIViewController, TimeCellDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -62,75 +62,6 @@ class AddReminderViewController: UIViewController, UIGestureRecognizerDelegate, 
     func onBackButton(sender: UIButton!) {
         print("on Back", terminator: "\n")
         navigationController?.popViewControllerAnimated(true)
-    }
-    
-    
-    // MARK: Handle gestures
-    
-    func addGestures() {
-        
-        let downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
-        downSwipe.direction = .Down
-        downSwipe.delegate = self
-        tableView.addGestureRecognizer(downSwipe)
-        
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
-        leftSwipe.direction = .Left
-        leftSwipe.delegate = self
-        tableView.addGestureRecognizer(leftSwipe)
-    }
-    
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func handleSwipe(sender: UISwipeGestureRecognizer) {
-        
-        switch sender.direction {
-        case UISwipeGestureRecognizerDirection.Down:
-            addTime()
-            break
-            
-        case UISwipeGestureRecognizerDirection.Left:
-            let selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: tableView) as! TimeCell
-            let indexPath = tableView.indexPathForCell(selectedCell)
-            
-            if let indexPath = indexPath {
-                times.removeAtIndex(indexPath.row)
-                tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
-            }
-            break
-            
-        default:
-            break
-        }
-    }
-    
-    func addTime() {
-        
-        DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", minDate: nil, datePickerMode: .Time) {
-            (time) -> Void in
-            print(time, terminator: "\n")
-            
-            let formatter = NSDateFormatter()
-            formatter.dateFormat = "hh:mm a"
-            let timeString = formatter.stringFromDate(time)
-            print("formated: \(timeString)", terminator: "\n")
-            self.times.append(timeString)
-            
-            self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
-        }
-    }
-    
-    func tapSelectCategory(sender: UITapGestureRecognizer) {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let selectCategoryVC = storyboard.instantiateViewControllerWithIdentifier("SelectAccountOrCategoryVC") as! SelectAccountOrCategoryViewController
-        
-        selectCategoryVC.itemClass = "Category"
-        
-        navigationController?.pushViewController(selectCategoryVC, animated: true)
-        
     }
     
     // MARK: Implement delegate
@@ -236,4 +167,79 @@ extension AddReminderViewController: UITableViewDataSource, UITableViewDelegate 
         }
     }
 
+}
+
+// MARK: Handle gestures
+
+extension AddReminderViewController: UIGestureRecognizerDelegate {
+    
+    func addGestures() {
+        
+        let downSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        downSwipe.direction = .Down
+        downSwipe.delegate = self
+        tableView.addGestureRecognizer(downSwipe)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        leftSwipe.direction = .Left
+        leftSwipe.delegate = self
+        tableView.addGestureRecognizer(leftSwipe)
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    func handleSwipe(sender: UISwipeGestureRecognizer) {
+        
+        switch sender.direction {
+        case UISwipeGestureRecognizerDirection.Down:
+            addTime()
+            break
+            
+        case UISwipeGestureRecognizerDirection.Left:
+            let selectedCell = Helper.sharedInstance.getCellAtGesture(sender, tableView: tableView)
+            
+            if selectedCell is TimeCell {
+                let timeCell = selectedCell as! TimeCell
+                let indexPath = tableView.indexPathForCell(timeCell)
+                
+                if let indexPath = indexPath {
+                    times.removeAtIndex(indexPath.row)
+                    tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
+                }
+            }
+            break
+            
+        default:
+            break
+        }
+    }
+    
+    func addTime() {
+        
+        DatePickerDialog().show(title: "Choose Time", doneButtonTitle: "Done", cancelButtonTitle: "Cancel", minDate: nil, datePickerMode: .Time) {
+            (time) -> Void in
+            print(time, terminator: "\n")
+            
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "hh:mm a"
+            let timeString = formatter.stringFromDate(time)
+            print("formated: \(timeString)", terminator: "\n")
+            self.times.append(timeString)
+            
+            self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+    }
+    
+    func tapSelectCategory(sender: UITapGestureRecognizer) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let selectCategoryVC = storyboard.instantiateViewControllerWithIdentifier("SelectAccountOrCategoryVC") as! SelectAccountOrCategoryViewController
+        
+        selectCategoryVC.itemClass = "Category"
+        
+        navigationController?.pushViewController(selectCategoryVC, animated: true)
+        
+    }
 }

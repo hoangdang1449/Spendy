@@ -236,7 +236,7 @@ extension AddTransactionViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return ((indexPath.section == 1 && indexPath.row == 2 && isShowDatePicker) ? 182 : tableView.rowHeight)
+        return ((indexPath.section == 1 && indexPath.row == 2 && isShowDatePicker) ? 182 : 40)
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

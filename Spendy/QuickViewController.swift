@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QuickViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class QuickViewController: UIViewController {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -40,6 +40,12 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         tableView.tableFooterView = UIView()
         
+        // Swipe up to close Quick mode
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        swipeUp.direction = .Up
+        swipeUp.delegate = self
+        tableView.addGestureRecognizer(swipeUp)
+        
         addBarButton()
 
         
@@ -52,58 +58,6 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
-    
-    // MARK: Table view
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return commonTracsations.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("QuickCell", forIndexPath: indexPath) as! QuickCell
-        
-        cell.categoryLabel.text = commonTracsations[indexPath.row]
-        
-        cell.amoutSegment.addTarget(self, action: "amountSegmentChanged:", forControlEvents: UIControlEvents.ValueChanged)
-
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleRightSwipe:"))
-        rightSwipe.direction = .Right
-        cell.addGestureRecognizer(rightSwipe)
-        
-        
-        
-        Helper.sharedInstance.setSeparatorFullWidth(cell)
-        
-        return cell
-    }
-    
-    func amountSegmentChanged(sender: UISegmentedControl) {
-        
-        print("touch", terminator: "\n")
-        
-        let segment = sender as! CustomSegmentedControl
-        oldSelectedSegmentIndex = segment.oldValue
-        
-        if sender.selectedSegmentIndex == 3 {
-            let selectedCell = sender.superview?.superview as! QuickCell
-            let indexPath = tableView.indexPathForCell(selectedCell)
-            selectedIndexPath = indexPath
-            showPopup()
-        }
-    }
-    
-    func handleRightSwipe(sender:UISwipeGestureRecognizer) {
-        
-        let selectedCell = sender.view as! QuickCell
-        let indexPath = tableView.indexPathForCell(selectedCell)
-        commonTracsations.removeAtIndex(indexPath!.row)
-        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
-        
-        if commonTracsations.count == 0 {
-            // TODO: same as onCancelButton
-        }
-    }
     
     // MARK: Button
     
@@ -124,7 +78,6 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func onCancelButton(sender: UIButton!) {
-        print("on Cancel", terminator: "\n")
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -212,18 +165,77 @@ class QuickViewController: UIViewController, UITableViewDataSource, UITableViewD
 
 }
 
-extension UIColor {
+// MARK: Table view
+
+extension QuickViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
     
-    convenience init(red: Int, green: Int, blue: Int) {
-        assert(red >= 0 && red <= 255, "Invalid red component")
-        assert(green >= 0 && green <= 255, "Invalid green component")
-        assert(blue >= 0 && blue <= 255, "Invalid blue component")
-        
-        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return commonTracsations.count
     }
     
-    convenience init(netHex:Int) {
-        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("QuickCell", forIndexPath: indexPath) as! QuickCell
+        
+        cell.categoryLabel.text = commonTracsations[indexPath.row]
+        
+        cell.amoutSegment.addTarget(self, action: "amountSegmentChanged:", forControlEvents: UIControlEvents.ValueChanged)
+        
+        // Swipe left to delete this row
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+        leftSwipe.direction = .Left
+        cell.addGestureRecognizer(leftSwipe)
+        
+        
+        Helper.sharedInstance.setSeparatorFullWidth(cell)
+        
+        return cell
+    }
+    
+    func amountSegmentChanged(sender: UISegmentedControl) {
+        
+        print("touch", terminator: "\n")
+        
+        let segment = sender as! CustomSegmentedControl
+        oldSelectedSegmentIndex = segment.oldValue
+        
+        if sender.selectedSegmentIndex == 3 {
+            let selectedCell = sender.superview?.superview as! QuickCell
+            let indexPath = tableView.indexPathForCell(selectedCell)
+            selectedIndexPath = indexPath
+            showPopup()
+        }
+    }
+    
+    // MARK: Handle gestures
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    func handleSwipe(sender:UISwipeGestureRecognizer) {
+        
+        switch sender.direction {
+        case UISwipeGestureRecognizerDirection.Left:
+            let selectedCell = sender.view as! QuickCell
+            let indexPath = tableView.indexPathForCell(selectedCell)
+            commonTracsations.removeAtIndex(indexPath!.row)
+            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+            
+            if commonTracsations.count == 0 {
+                dismissViewControllerAnimated(true, completion: nil)
+            }
+            break
+            
+        case UISwipeGestureRecognizerDirection.Up:
+            dismissViewControllerAnimated(true, completion: nil)
+            break
+            
+        default:
+            break
+        }
+        
+        
     }
 }
 

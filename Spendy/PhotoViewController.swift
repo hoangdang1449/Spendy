@@ -35,7 +35,9 @@ class PhotoViewController: UIViewController {
         
         addBarButton()
         
-        tabBarController!.tabBar.hidden = true
+        if tabBarController != nil {
+            tabBarController!.tabBar.hidden = true
+        }
         
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self

@@ -18,7 +18,10 @@ class QuickCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        let font = UIFont.systemFontOfSize(17)
+        let attributes = NSDictionary(object: font, forKey: NSFontAttributeName)
+        amoutSegment.setTitleTextAttributes(attributes as [NSObject : AnyObject], forState: UIControlState.Normal)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
