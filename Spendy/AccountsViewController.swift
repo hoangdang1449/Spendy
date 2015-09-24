@@ -254,12 +254,16 @@ extension AccountsViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
         delete.backgroundColor = UIColor.redColor()
-        
+
         return [delete]
     }
     
     func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
         print("didEndEditingRowAtIndexPath", terminator: "\n")
         isPreparedDelete = false
+    }
+
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        // empty
     }
 }
