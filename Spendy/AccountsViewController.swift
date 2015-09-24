@@ -9,7 +9,7 @@
 import UIKit
 import SCLAlertView
 
-class AccountsViewController: UIViewController, UIGestureRecognizerDelegate {
+class AccountsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -22,7 +22,6 @@ class AccountsViewController: UIViewController, UIGestureRecognizerDelegate {
     var initialIconCenter: CGPoint?
     var selectedDragCell: AccountCell?
     var previousCell: AccountCell?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +65,105 @@ class AccountsViewController: UIViewController, UIGestureRecognizerDelegate {
         print("on Add account", terminator: "\n")
     }
     
-    // MARK: Handle gestures
+    // MARK: Transfer between 2 views
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("prepareForSegue to AccountDetailView!", terminator: "\n")
+        
+        // Old code which was for presenting a navigation from a table view cell
+        // This was very slow
+        //        let navigationController = segue.destinationViewController as! UINavigationController
+        //
+        //        if navigationController.topViewController is AccountDetailViewController {
+        //            let accDetailViewController = navigationController.topViewController as! AccountDetailViewController
+        //
+        //            var indexPath: AnyObject!
+        //            indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+        //
+        //            accDetailViewController.selectedAccount = accounts![indexPath.row]
+        //        }
+        
+        // It is more natural to just push from tableview cell directly to the detail view
+        // It is still possible to add navigation control to the view
+        let accountDetailVC = segue.destinationViewController as! AccountDetailViewController
+        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
+        accountDetailVC.selectedAccount = accounts![indexPath.row]
+    }
+    
+}
+
+// MARK: Table View
+
+extension AccountsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return accounts?.count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        print("cellForRow \(indexPath.row)", terminator: "\n")
+        let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as! AccountCell
+        
+        cell.nameLabel.text = accounts![indexPath.row].name
+        
+        if !hasPanGesture(cell) {
+            let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
+            panGesture.delegate = self
+            cell.addGestureRecognizer(panGesture)
+        }
+        
+        Helper.sharedInstance.setSeparatorFullWidth(cell)
+        return cell
+    }
+    
+    func hasPanGesture(cell: UITableViewCell) -> Bool {
+        if let gestures = cell.gestureRecognizers {
+            for gesture in gestures {
+                if gesture is UIPanGestureRecognizer {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        print("action", terminator: "\n")
+        isPreparedDelete = true
+        let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
+            print("delete", terminator: "\n")
+            let alertView = SCLAlertView()
+            alertView.addButton("Delete", action: { () -> Void in
+                self.accounts?.removeAtIndex(indexPath.row)
+                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+                // TODO: Delete this account and its transactions
+            })
+            
+            alertView.showWarning("Warning", subTitle: "Deleting Saving will cause to also delete its transactions.", closeButtonTitle: "Cancel", colorStyle: 0x55AEED, colorTextButton: 0xFFFFFF)
+            
+        }
+        delete.backgroundColor = UIColor.redColor()
+
+        return [delete]
+    }
+    
+    func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
+        print("didEndEditingRowAtIndexPath", terminator: "\n")
+        isPreparedDelete = false
+    }
+
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        // empty
+    }
+}
+
+// MARK: Handle gestures
+
+extension AccountsViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -170,100 +267,5 @@ class AccountsViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
         return nil
-    }
-    
-    // MARK: Transfer between 2 views
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("prepareForSegue to AccountDetailView!", terminator: "\n")
-        
-        // Old code which was for presenting a navigation from a table view cell
-        // This was very slow
-        //        let navigationController = segue.destinationViewController as! UINavigationController
-        //
-        //        if navigationController.topViewController is AccountDetailViewController {
-        //            let accDetailViewController = navigationController.topViewController as! AccountDetailViewController
-        //
-        //            var indexPath: AnyObject!
-        //            indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
-        //
-        //            accDetailViewController.selectedAccount = accounts![indexPath.row]
-        //        }
-        
-        // It is more natural to just push from tableview cell directly to the detail view
-        // It is still possible to add navigation control to the view
-        let accountDetailVC = segue.destinationViewController as! AccountDetailViewController
-        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
-        accountDetailVC.selectedAccount = accounts![indexPath.row]
-    }
-    
-}
-
-// MARK: Table View
-
-extension AccountsViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 55
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accounts?.count ?? 0
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        print("cellForRow \(indexPath.row)", terminator: "\n")
-        let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as! AccountCell
-        
-        cell.nameLabel.text = accounts![indexPath.row].name
-        
-        if !hasPanGesture(cell) {
-            let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
-            panGesture.delegate = self
-            cell.addGestureRecognizer(panGesture)
-        }
-        
-        Helper.sharedInstance.setSeparatorFullWidth(cell)
-        return cell
-    }
-    
-    func hasPanGesture(cell: UITableViewCell) -> Bool {
-        if let gestures = cell.gestureRecognizers {
-            for gesture in gestures {
-                if gesture is UIPanGestureRecognizer {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-    
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        print("action", terminator: "\n")
-        isPreparedDelete = true
-        let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
-            print("delete", terminator: "\n")
-            let alertView = SCLAlertView()
-            alertView.addButton("Delete", action: { () -> Void in
-                self.accounts?.removeAtIndex(indexPath.row)
-                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
-                // TODO: Delete this account and its transactions
-            })
-            
-            alertView.showWarning("Warning", subTitle: "Deleting Saving will cause to also delete its transactions.", closeButtonTitle: "Cancel", colorStyle: 0x55AEED, colorTextButton: 0xFFFFFF)
-            
-        }
-        delete.backgroundColor = UIColor.redColor()
-
-        return [delete]
-    }
-    
-    func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
-        print("didEndEditingRowAtIndexPath", terminator: "\n")
-        isPreparedDelete = false
-    }
-
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        // empty
     }
 }

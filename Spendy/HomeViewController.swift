@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
+class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,8 +19,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var currentBarWidthConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var todayLabel: UILabel!
-    
-    
     
     
     @IBOutlet weak var popupSuperView: UIView!
@@ -172,6 +170,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    // MARK: Button
     
     @IBAction func onFromButton(sender: UIButton) {
         
@@ -254,8 +253,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
         });
     }
-    
-    // MARK: Table view
+
+}
+
+// MARK: Table view
+
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if tableView == self.viewModeTableView {
@@ -387,8 +390,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             return dummyCell
         }
-        
-        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -417,8 +418,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             closePopup(viewModePopup)
         }
     }
-    
-    // MARK: Handle gesture
+}
+
+// MARK: Handle gesture
+
+extension HomeViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -426,8 +430,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func handleSwipe(sender: UISwipeGestureRecognizer) {
         
-//        var today = NSDate()
-
+        //        var today = NSDate()
+        
         switch sender.direction {
         case UISwipeGestureRecognizerDirection.Left:
             switch viewMode {
@@ -521,5 +525,4 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             closePopup(viewModePopup)
         }
     }
-
 }
