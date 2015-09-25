@@ -115,7 +115,7 @@
                             <constraint firstAttribute="trailing" secondItem="Btm-iG-idw" secondAttribute="trailing" constant="16" id="wOi-3u-HUn"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" image="Setting" id="enM-57-kgP">
+                    <tabBarItem key="tabBarItem" title="Settings" image="SettingInactive" id="enM-57-kgP">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <connections>
@@ -404,7 +404,7 @@
     <resources>
         <image name="Category-Meal" width="50" height="50"/>
         <image name="PlusCircle" width="64" height="64"/>
-        <image name="Setting" width="32" height="32"/>
+        <image name="SettingInactive" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="EhA-5R-ydh"/>

@@ -75,11 +75,11 @@ class AccountDetailViewController: UIViewController {
     func addBarButton() {
         
         addButton = UIButton()
-        Helper.sharedInstance.customizeBarButton(self, button: addButton!, imageName: "Add", isLeft: false)
+        Helper.sharedInstance.customizeBarButton(self, button: addButton!, imageName: "Bar-Add", isLeft: false)
         addButton!.addTarget(self, action: "onAddButton:", forControlEvents: UIControlEvents.TouchUpInside)
         
         cancelButton = UIButton()
-        Helper.sharedInstance.customizeBarButton(self, button: cancelButton!, imageName: "Cancel", isLeft: true)
+        Helper.sharedInstance.customizeBarButton(self, button: cancelButton!, imageName: "Bar-Cancel", isLeft: true)
         cancelButton!.addTarget(self, action: "onCancelButton:", forControlEvents: UIControlEvents.TouchUpInside)
     }
     

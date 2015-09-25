@@ -57,7 +57,7 @@ class AccountsViewController: UIViewController {
     func addBarButton() {
         
         addAccountButton = UIButton()
-        Helper.sharedInstance.customizeBarButton(self, button: addAccountButton!, imageName: "AddAccount", isLeft: false)
+        Helper.sharedInstance.customizeBarButton(self, button: addAccountButton!, imageName: "Bar-AddAccount", isLeft: false)
         addAccountButton!.addTarget(self, action: "onAddAccountButton:", forControlEvents: UIControlEvents.TouchUpInside)
     }
     

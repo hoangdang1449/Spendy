@@ -92,8 +92,15 @@ class HomeViewController: UIViewController {
         
         
         configPopup()
+
         
         
+        
+//        for item in (tabBarController?.tabBar.items)! {
+//            if let image = item.image {
+//                item.image = image.imageWithRenderingMode(.AlwaysOriginal)
+//            }
+//        }
         
         
     }
@@ -153,7 +160,7 @@ class HomeViewController: UIViewController {
         viewModePopup.layer.cornerRadius = 5
         viewModePopup.layer.masksToBounds = true
         
-        viewModeTitleLabel.backgroundColor = UIColor(netHex: 0x4682B4)
+        viewModeTitleLabel.backgroundColor = UIColor(netHex: 0x28AD62)
         viewModeTitleLabel.textColor = UIColor.whiteColor()
         
         
@@ -161,7 +168,7 @@ class HomeViewController: UIViewController {
         datePopup.layer.cornerRadius = 5
         datePopup.layer.masksToBounds = true
         
-        dateTitleLabel.backgroundColor = UIColor(netHex: 0x4682B4)
+        dateTitleLabel.backgroundColor = UIColor(netHex: 0x28AD62)
         dateTitleLabel.textColor = UIColor.whiteColor()
         
         let today = NSDate()

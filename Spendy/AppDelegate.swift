@@ -87,6 +87,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         DataManager.setupDefaultData(false)
+        
+        
+        // Config apprearance
+        UINavigationBar.appearance().barTintColor = UIColor(netHex: 0x28AD60)
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
+//        UITabBar.appearance().barTintColor = UIColor(netHex: 0x00853A)
+//        UITabBar.appearance().tintColor = UIColor(netHex: 0x00853A)
+        UITabBar.appearance().tintColor = UIColor(netHex: 0x28AD60)
+        
+//        UITabBarItem.appearance().image. = UIImageRenderingMode.AlwaysOriginal
+        
+//        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState:.Selected)
+//        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor(netHex: 0xDCBEF1)], forState:.Normal)
+        
 
         return true
     }

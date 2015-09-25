@@ -71,11 +71,11 @@ class PhotoViewController: UIViewController {
     func addBarButton() {
         
         saveButton = UIButton()
-        Helper.sharedInstance.customizeBarButton(self, button: saveButton!, imageName: "Tick", isLeft: false)
+        Helper.sharedInstance.customizeBarButton(self, button: saveButton!, imageName: "Bar-Tick", isLeft: false)
         saveButton!.addTarget(self, action: "onSaveButton:", forControlEvents: UIControlEvents.TouchUpInside)
         
         cancelButton = UIButton()
-        Helper.sharedInstance.customizeBarButton(self, button: cancelButton!, imageName: "Back", isLeft: true)
+        Helper.sharedInstance.customizeBarButton(self, button: cancelButton!, imageName: "Bar-Back", isLeft: true)
         cancelButton!.addTarget(self, action: "onCancelButton:", forControlEvents: UIControlEvents.TouchUpInside)
     }
 

@@ -106,6 +106,7 @@ class Helper: NSObject {
         
         viewController.presentViewController(optionMenu, animated: true, completion: nil)
     }
+    
 }
 
 extension String {
